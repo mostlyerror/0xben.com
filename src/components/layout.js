@@ -33,11 +33,11 @@ const Layout = ({ children }) => {
           margin: `0 auto`,
           maxWidth: 960,
           padding: '1.5em',
-          paddingTop: '30vh',
+          paddingTop: '20vh',
         }}
       >
         <main>{children}</main>
-        <footer style={{ position: 'absolute', bottom: 0, marginBottom: '1em'}}>
+        <footer style={{ position: 'relative', bottom: 0, marginBottom: '1em'}}>
           {`© ${new Date().getFullYear()}, Made with ❤️ by Benjamin Poon.`}
         </footer>
       </div>

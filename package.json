@@ -1,9 +1,9 @@
 {
-  "name": "gatsby-starter-default",
+  "name": "benjamin-poon-portfolio",
   "private": true,
-  "description": "A simple starter to get up and developing quickly with Gatsby",
+  "description": "Personal/Portfolio website of Benjamin Poon",
   "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "author": "Benjamin Poon <benjamintpoon@gmail.com>",
   "dependencies": {
     "gatsby": "^2.20.12",
     "gatsby-image": "^2.3.1",

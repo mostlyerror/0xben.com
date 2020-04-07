@@ -29,7 +29,7 @@ const IndexPage = () => (
     <h1>I'm working on this page right now</h1>
     <div style={{ marginTop: "2em" }}>
       <img src="https://i.giphy.com/media/6dZSMuwIZTIju/source.gif"/>
-      <h3 style={{ marginTop: "2em" }}>Come back real soon, k?</h3>
+      <h3>Come back reeeeal soon, k?</h3>
       <ul
         style={{
           margin: 0,

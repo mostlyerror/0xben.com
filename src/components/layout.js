@@ -24,20 +24,25 @@ const Layout = ({ children }) => {
   `)
 
   return (
-    <div style={{
-
-    }}>
+    <div style={{}}>
       <Header siteTitle={data.site.siteMetadata.title} />
       <div
         style={{
           margin: `0 auto`,
           maxWidth: 960,
-          padding: '1.5em',
-          paddingTop: '20vh',
+          padding: "1.5em",
         }}
       >
         <main>{children}</main>
-        <footer style={{ position: 'relative', bottom: 0, marginBottom: '1em'}}>
+        <footer
+          style={{
+            width: '100%',
+            display: "flex",
+            justifyContent: 'center',
+            marginBottom: ".5em",
+            marginTop: '10vh',
+          }}
+        >
           {`© ${new Date().getFullYear()}, Made with ❤️ by Benjamin Poon.`}
         </footer>
       </div>

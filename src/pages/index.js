@@ -5,19 +5,6 @@ import SEO from "../components/seo"
 import { FaTwitter, FaGithubAlt } from "react-icons/fa"
 import "./index.css"
 
-const Video = ({ videoSrcURL, videoTitle, ...props }) => (
-  <div className="videoWrapper">
-    <iframe
-      src={videoSrcURL}
-      title={videoTitle}
-      allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-      webkitallowfullscreen="true"
-      mozallowfullscreen="true"
-      allowFullScreen
-    />
-  </div>
-)
-
 const SocialButton = ({ url, text, iconComponent, children }) => (
   <li
     style={{
@@ -41,10 +28,7 @@ const IndexPage = () => (
     <h1 style={{ marginTop: "15vh" }}>Hello beautiful people 👋</h1>
     <h1>I'm working on this page right now</h1>
     <div style={{ marginTop: "2em" }}>
-      <Video
-        videoSrcURL="https://media.giphy.com/media/f978c5EFp3Vu0/giphy.mp4"
-        videoTitle="Kermit Typing"
-      />
+      <img src="https://i.giphy.com/media/6dZSMuwIZTIju/source.gif"/>
       <h3 style={{ marginTop: "2em" }}>Come back real soon, k?</h3>
       <ul
         style={{

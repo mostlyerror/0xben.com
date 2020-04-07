@@ -25,7 +25,7 @@ const SocialButton = ({ url, text, iconComponent, children }) => (
 const IndexPage = () => (
   <Layout>
     <SEO title="Benjamin Poon's Portfolio" />
-    <h1 style={{ marginTop: "15vh" }}>Hello beautiful people 👋</h1>
+    <h1 style={{ marginTop: "15vh" }}>Hello Beautiful People 👋</h1>
     <h1>I'm working on this page right now</h1>
     <div style={{ marginTop: "2em" }}>
       <img src="https://i.giphy.com/media/6dZSMuwIZTIju/source.gif"/>

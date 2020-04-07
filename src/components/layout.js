@@ -24,13 +24,12 @@ const Layout = ({ children }) => {
   `)
 
   return (
-    <div style={{}}>
+    <div style={{ padding: '2em', }}>
       <Header siteTitle={data.site.siteMetadata.title} />
       <div
         style={{
           margin: `0 auto`,
           maxWidth: 960,
-          padding: "1.5em",
         }}
       >
         <main>{children}</main>
@@ -43,7 +42,7 @@ const Layout = ({ children }) => {
             marginTop: '10vh',
           }}
         >
-          {`© ${new Date().getFullYear()}, Made with ❤️ by Benjamin Poon.`}
+          {`© ${new Date().getFullYear()} made with ❤️ by Benjamin Poon.`}
         </footer>
       </div>
     </div>

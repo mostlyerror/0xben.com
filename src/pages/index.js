@@ -7,7 +7,12 @@ import { FaTwitter, FaGithubAlt } from "react-icons/fa"
 const Video = ({ videoSrcURL, videoTitle, ...props }) => (
   <div className="video">
     <iframe
-      style={{ width: "100%" }}
+      style={{ 
+        width: "100%",
+        height: '100%',
+        minWidth: '100%',
+        minHeight: '50vw',
+      }}
       src={videoSrcURL}
       title={videoTitle}
       allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
@@ -15,6 +20,7 @@ const Video = ({ videoSrcURL, videoTitle, ...props }) => (
       webkitallowfullscreen="true"
       mozallowfullscreen="true"
       allowFullScreen
+      width="100%"
     />
   </div>
 )

@@ -7,17 +7,20 @@ import "./index.css"
 
 const SocialButton = ({ url, text, iconComponent, children }) => (
   <li
+    className="SocialButton"
     style={{
       padding: ".5em",
+      marginRight: "0.5em",
       borderWidth: 1,
       borderColor: "black",
       borderStyle: "solid",
       borderRadius: 5,
-      marginRight: "0.5em",
     }}
   >
     <a style={{ textDecoration: "none" }} href={url}>
-      {text} {iconComponent}
+      <div className="innerWrapper">
+        {children}
+      </div>
     </a>
   </li>
 )
@@ -38,16 +41,14 @@ const IndexPage = () => (
           display: "flex",
         }}
       >
-        <SocialButton
-          url="https://twitter.com/mostly_error"
-          text="DMS. Slide."
-          iconComponent={<FaTwitter />}
-        />
-        <SocialButton
-          url="https://github.com/mostlyerror"
-          text="GittyUp"
-          iconComponent={<FaGithubAlt />}
-        />
+        <SocialButton url="https://twitter.com/mostly_error">
+          {"Twitter"}
+          <FaTwitter />
+        </SocialButton>
+        <SocialButton url="https://github.com/mostlyerror">
+          {"Github"}
+          <FaGithubAlt />
+        </SocialButton>
       </ul>
     </div>
   </Layout>

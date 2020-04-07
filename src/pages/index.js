@@ -3,24 +3,17 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 
 import { FaTwitter, FaGithubAlt } from "react-icons/fa"
+import './index.css'
 
 const Video = ({ videoSrcURL, videoTitle, ...props }) => (
-  <div className="video">
+  <div className="videoWrapper">
     <iframe
-      style={{ 
-        width: "100%",
-        height: '100%',
-        minWidth: '100%',
-        minHeight: '50vw',
-      }}
       src={videoSrcURL}
       title={videoTitle}
       allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-      frameBorder="0"
       webkitallowfullscreen="true"
       mozallowfullscreen="true"
       allowFullScreen
-      width="100%"
     />
   </div>
 )
@@ -45,22 +38,22 @@ const SocialButton = ({ url, text, iconComponent, children }) => (
 const IndexPage = () => (
   <Layout>
     <SEO title="Benjamin Poon's Portfolio" />
-    <h1 style={{marginTop: '15vh'}}>Hi beautiful people 👋</h1>
-    <h1>I'm working on this right now</h1>
-    <div style={{ marginTop: "3em" }}>
-      <div
+    <h1 style={{ marginTop: "15vh" }}>Hi beautiful people 👋</h1>
+    <h1>I'm working on this page right now</h1>
+    <div style={{ marginTop: "2em" }}>
+      <Video
+        videoSrcURL="https://media.giphy.com/media/f978c5EFp3Vu0/giphy.mp4"
+        videoTitle="Kermit Typing"
+      />
+      <h3 style={{marginTop: '2em'}}>Come back real soon, k?</h3>
+      <ul
         style={{
-          width: "100%",
-          position: "relative",
+          margin: 0,
+          padding: 0,
+          listStyleType: "none",
+          display: "flex",
         }}
       >
-        <Video
-          videoSrcURL="https://giphy.com/gifs/f978c5EFp3Vu0/html5"
-          videoTitle="Kermit Typing"
-        />
-      </div>
-      <h3>Come back real soon, k?</h3>
-      <ul style={{ margin: 0, padding: 0, listStyleType: "none", display: "flex" }}>
         <SocialButton
           url="https://twitter.com/mostly_error"
           text="DMS. Slide."

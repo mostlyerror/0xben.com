@@ -69,7 +69,7 @@ function SEO({ description, lang, meta, title }) {
         },
       ].concat(meta)}
     >
-      <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@700&display=swap" rel="stylesheet"/>
+      <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@300;700&display=swap" rel="stylesheet"/>
     </Helmet>
   )
 }

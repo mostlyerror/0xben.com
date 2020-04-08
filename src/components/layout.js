@@ -7,30 +7,24 @@
 
 import React from "react"
 import PropTypes from "prop-types"
-import { useStaticQuery, graphql } from "gatsby"
-
-import Header from "./Header"
-// import Footer from "./Footer"
+// import { useStaticQuery, graphql } from "gatsby"
+// require('typeface-gothic-a1')
 import "./layout.css"
 
 const Layout = ({ children }) => {
-  const data = useStaticQuery(graphql`
-    query SiteTitleQuery {
-      site {
-        siteMetadata {
-          title
-        }
-      }
-    }
-  `)
+  // const data = useStaticQuery(graphql`
+  //   query SiteTitleQuery {
+  //     site {
+  //       siteMetadata {
+  //         title
+  //       }
+  //     }
+  //   }
+  // `)
 
   return (
-    <div style={{ padding: '2em', }}>
-      <Header siteTitle={data.site.siteMetadata.title} />
-      <div style={{ margin: `0 auto`, maxWidth: 960, }}>
-        <main>{children}</main>
-      </div>
-      {/* <Footer /> */}
+    <div>
+      <div style={{ padding: "2em" }}>{children}</div>
     </div>
   )
 }

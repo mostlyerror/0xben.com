@@ -9,6 +9,7 @@ import React from "react"
 import PropTypes from "prop-types"
 // import { useStaticQuery, graphql } from "gatsby"
 // require('typeface-gothic-a1')
+import "normalize.css"
 import "./layout.css"
 
 const Layout = ({ children }) => {
@@ -24,7 +25,7 @@ const Layout = ({ children }) => {
 
   return (
     <div>
-      <div style={{ padding: "2em" }}>{children}</div>
+      <div style={{ padding: "3.2em" }}>{children}</div>
     </div>
   )
 }

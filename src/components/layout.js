@@ -24,8 +24,8 @@ const Layout = ({ children }) => {
   // `)
 
   return (
-    <div>
-      <div style={{ padding: "3.2em" }}>{children}</div>
+    <div className="app-container">
+      {children}
     </div>
   )
 }

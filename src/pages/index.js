@@ -5,6 +5,7 @@ import { graphql } from "gatsby"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import Header from '../components/Header'
+import Projects from '../components/Projects'
 
 import "./index.css"
 
@@ -12,6 +13,7 @@ const IndexPage = () => (
   <Layout>
     <SEO title="Benjamin Poon's Portfolio" />
     <Header />
+    <Projects />
   </Layout>
 )
 

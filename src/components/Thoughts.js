@@ -6,10 +6,9 @@ const Thoughts = () => (
     <h2>Thoughts</h2>
     <ul>
       <li>
-      </li>
-      <li>
-      </li>
-      <li>
+        Build failing on netlify?
+        `git config core.ignorecase false`
+
       </li>
     </ul>
   </section>

@@ -3,7 +3,7 @@ import './Skills.css'
 
 const Skills = () => (
   <section id="skills" className="Projects">
-    <h2>Skills & Interests</h2>
+    <h2 className="section-title">Skills & Interests</h2>
     <ul>
       <li>
       </li>

@@ -24,13 +24,13 @@ const Project = ({ title, appLink, orgName, orgLink, description, tech }) => (
 
 const Projects = () => (
   <section id="projects" className="Projects">
-    <h2>Projects</h2>
+    <h2 className="section-title">Projects</h2>
     <ul>
       <li>
         <Project 
           title="Post Acute Care App"
           orgName="The Right Place"
-          orgLink="therightplace.com"
+          orgLink="https://therightplace.com"
           description="PAC is a tool used by hundreds of skilled nursing
           facilities to evaluate patients, coordinate and encourage
           collaboration of care teams, and manage bed availability."
@@ -41,7 +41,7 @@ const Projects = () => (
         <Project 
           title="Roverpass.com"
           orgName="RoverPass"
-          orgLink="roverpass.com"
+          orgLink="https://roverpass.com"
           description="2-sided marketplace connecting RV campers with campgrounds & parks."
           tech={["Rails", "Angular2", "Postgres", "Linode", "Ansible"]} 
         />

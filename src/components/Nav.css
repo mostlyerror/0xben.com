@@ -8,6 +8,9 @@
 @media (min-width: 992px) {
     .Nav {
         display: block;
+        margin-top: -16px;
+        margin-bottom: -16px;
+        margin-top: 72px;
     }
 }
 

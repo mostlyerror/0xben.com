@@ -3,7 +3,7 @@ import './Thoughts.css'
 
 const Thoughts = () => (
   <section id="thoughts" className="Projects">
-    <h2>Thoughts</h2>
+    <h2 className="section-title">Thoughts</h2>
     <ul>
       <li>
         Build failing on netlify?

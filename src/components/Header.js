@@ -1,14 +1,8 @@
 import React from "react"
-import { FaTwitter, FaGithubAlt } from "react-icons/fa"
 import Nav from './Nav'
+import Social from './Social'
 
 import './Header.css'
-
-const Social = () => {
-  return (
-    <div></div>
-  )
-}
 
 function Header() {
   return (
@@ -25,46 +19,9 @@ function Header() {
           I'm open to any interesting project (and I find a whole lotta things
           interesting).
         </p>
+        <Nav />
       </div>
-
-      <Nav />
-
       <Social />
-
-      <ul
-        style={{
-          minWidth: 300,
-          maxWidth: 350,
-          padding: 0,
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          marginTop: 32,
-          width: "100%",
-        }}
-      >
-        <li style={{ display: "flex", alignItems: "center" }}>
-          <img
-            src="./ben_head_orange.png"
-            width={48}
-            height={48}
-            style={{ filter: "grayscale(100%)", borderRadius: "50%" }}
-            alt="photo of Ben"
-          />
-        </li>
-        <li style={{ display: "flex", alignItems: "center" }}>
-          <FaTwitter color="white" size="25" />
-          <span style={{ marginLeft: 14, color: "white", fontSize: 16 }}>
-            Twitter
-          </span>
-        </li>
-        <li style={{ display: "flex", alignItems: "center" }}>
-          <FaGithubAlt color="white" size="25" />
-          <span style={{ marginLeft: 14, color: "white", fontSize: 16 }}>
-            Github
-          </span>
-        </li>
-      </ul>
     </section>
   )
 }

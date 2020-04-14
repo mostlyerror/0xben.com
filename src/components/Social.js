@@ -13,7 +13,7 @@ function Social() {
         />
       </li>
       <li>
-        <a href="#">
+        <a href="https://twitter.com/mostly_error" target="_blank" rel="noopener">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -59,7 +59,7 @@ function Social() {
         </a>
       </li>
       <li>
-        <a>
+        <a href="https://github.com/mostlyerror" target="_blank" rel="noopener">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"

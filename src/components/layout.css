@@ -56,9 +56,6 @@ ul {
     }
 }
 
-.right-container {
-}
-
 @media (min-width: 992px) { 
     .right-container {
         padding: 32px;
@@ -74,10 +71,21 @@ ul {
 }
 
 @media (min-width: 1280px) { 
+    .app-container {
+        padding: 0;
+    }
+
+    .left-container {
+        position: fixed;
+        padding-left: 88px;
+        padding-bottom: 88px;
+        height: 100vh;
+        max-width: 496px;
+    }
     .right-container {
-        max-width: 736px;
+        max-width: 648px;
         padding-right: 88px;
-        padding-top: 88px;
+        padding-top: 70px;
         padding-bottom: 88px;
     }
 }

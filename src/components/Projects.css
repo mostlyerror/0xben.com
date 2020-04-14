@@ -1,7 +1,3 @@
-.Projects {
-    margin-top: 3.2em;
-}
-
 @media (min-width: 992px) {
     .Projects {
         padding-top: 88px;
@@ -10,9 +6,7 @@
 }
 
 .Projects ul {
-    margin-top: 3em;
     list-style-type: none;
-    padding: 0;
 }
 
 .Projects li {
@@ -24,13 +18,8 @@
     background-color: #202022;
 }
 
-.Project-app-link {
-
-}
-
 .Project-title {
     color: #fff;
-    margin-top: .8em;
     font-size: 2.4em;
     font-weight: 600;
 }

@@ -28,10 +28,10 @@ const Projects = () => (
     <ul>
       <li>
         <Project 
-          title="Post Acute Care App"
           orgName="The Right Place"
           orgLink="https://therightplace.com"
-          description="PAC is a tool used by hundreds of skilled nursing
+          title="Post Acute Care"
+          description="Used by hundreds of skilled nursing
           facilities to evaluate patients, coordinate and encourage
           collaboration of care teams, and manage bed availability."
           tech={["Rails", "React", "Redux", "Postgres", "AWS", "Docker", "Terraform"]}
@@ -39,19 +39,19 @@ const Projects = () => (
       </li>
       <li>
         <Project 
-          title="Roverpass.com"
           orgName="RoverPass"
           orgLink="https://roverpass.com"
-          description="2-sided marketplace connecting RV campers with campgrounds & parks."
+          title="Roverpass.com"
+          description="Web marketplace connecting RV campers with campgrounds & parks."
           tech={["Rails", "Angular2", "Postgres", "Linode", "Ansible"]} 
         />
       </li>
       <li>
         <Project 
-          title="HRW Mobile App"
           orgName="Houston Restaurant Weeks"
           orgLink="https://apps.apple.com/us/app/houston-restaurant-weeks/id1472340275"
-          description=""
+          title="Restaurant Discovery"
+          description="lorem ipsum blah blah"
           tech={["React Native", "Firebase"]} 
         />
       </li>

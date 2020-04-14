@@ -24,7 +24,7 @@ const Project = ({ title, appLink, orgName, orgLink, description, tech }) => (
 
 const Projects = () => (
   <section id="projects" className="Projects">
-    <h2>Some Projects</h2>
+    <h2>Projects</h2>
     <ul>
       <li>
         <Project 

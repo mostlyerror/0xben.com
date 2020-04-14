@@ -1,32 +1,23 @@
 import React from "react"
-import { graphql } from "gatsby"
-// import Img from "gatsby-image"
-
-import Layout from "../components/layout"
-import SEO from "../components/seo"
+import Layout from "../components/Layout"
+import SEO from "../components/Seo"
 import Header from '../components/Header'
 import Projects from '../components/Projects'
+import Skills from '../components/Skills'
 
 import "./index.css"
 
 const IndexPage = () => (
   <Layout>
     <SEO title="Benjamin Poon's Portfolio" />
-    <Header />
-    <Projects />
+    <div className="left-container">
+      <Header />
+    </div>
+    <div className="right-container">
+      <Projects />
+      <Skills />
+    </div>
   </Layout>
 )
-
-export const query = graphql`
-  query {
-    file(relativePath: { eq: "static/ben_head_orange.png" }) {
-      childImageSharp {
-        fixed(width: 125, height: 125) {
-          ...GatsbyImageSharpFixed
-        }
-      }
-    }
-  }
-`
 
 export default IndexPage

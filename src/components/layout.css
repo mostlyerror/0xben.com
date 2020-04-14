@@ -1,25 +1,14 @@
+html {
+    line-height: 1.5;
+}
+
 body {
     background-color: #151515;
     font-family: Gothic A1,-apple-system,BlinkMacSystemFont,Helvetica Neue,Arial,sans-serif;
     font-size: 10px;
-    color: #bbb;
+    color: #949495;
     padding: 0;
     margin: 0;
-}
-
-.app-container {
-    max-width: 1440px;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 3.2em;
-    display: flex;
-    flex-direction: column;
-}
-
-@media (min-width: 992px) {
-    .app-container {
-        flex-direction: row;
-    }
 }
 
 h1, h2 {
@@ -43,4 +32,73 @@ p {
     line-height: 2;
     font-weight: 300;
     font-size: 1.4em;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+}
+
+
+.app-container {
+    position: relative;
+    max-width: 1440px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 3.2em;
+    display: flex;
+    flex-direction: column;
+}
+
+@media (min-width: 992px) {
+    .app-container {
+        flex-direction: row;
+    }
+}
+
+.left-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+}
+
+@media (min-width: 992px) { 
+    .left-container {
+        position: fixed;
+        padding-right: 0;
+        height: 100vh;
+        max-width: 408px;
+    }
+}
+
+@media (min-width: 1280px) { 
+    .left-container {
+        max-width: 496px;
+        padding-left: 88px;
+        padding-top: 88px;
+        padding-bottom: 88px;
+    }
+}
+
+.right-container {
+    padding: 32px;
+}
+
+@media (min-width: 992px) { 
+    .right-container {
+        position: absolute;
+        right: 0;
+        padding-left: 0;
+        max-width: 536px;
+    }
+}
+
+@media (min-width: 1280px) { 
+    .right-container {
+        max-width: 736px;
+        padding-right: 88px;
+        padding-top: 88px;
+        padding-bottom: 88px;
+    }
 }

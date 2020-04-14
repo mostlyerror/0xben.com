@@ -7,26 +7,30 @@ const TechList = ({ tech }) => (
     </ul>
 )
 
-const Project = ({ title, orgName, link, description, tech }) => (
+const Project = ({ title, appLink, orgName, orgLink, description, tech }) => (
   <article className="Project">
-    <h3 className="Project-title">{title}</h3>
-    <p className="Project-org">
-      <a className="Project-org-link" href={link}>{orgName}</a>
-    </p>
+    <a className="Project-app-link" href={appLink}>
+      <h3 className="Project-title">{title}</h3>
+    </a>
+    <a className="Project-org-link" href={orgLink}>
+      <p className="Project-org-name">
+        {orgName}
+      </p>
+    </a>
     <p className="Project-description">{description}</p>
     <TechList tech={tech} />
   </article>
 )
 
 const Projects = () => (
-  <section className="Projects">
-    <h2>Projects</h2>
+  <section id="projects" className="Projects">
+    <h2>Some Projects</h2>
     <ul>
       <li>
         <Project 
           title="Post Acute Care App"
           orgName="The Right Place"
-          link="therightplace.com"
+          orgLink="therightplace.com"
           description="PAC is a tool used by hundreds of skilled nursing
           facilities to evaluate patients, coordinate and encourage
           collaboration of care teams, and manage bed availability."
@@ -37,7 +41,7 @@ const Projects = () => (
         <Project 
           title="Roverpass.com"
           orgName="RoverPass"
-          link="roverpass.com"
+          orgLink="roverpass.com"
           description="2-sided marketplace connecting RV campers with campgrounds & parks."
           tech={["Rails", "Angular2", "Postgres", "Linode", "Ansible"]} 
         />
@@ -45,10 +49,10 @@ const Projects = () => (
       <li>
         <Project 
           title="HRW Mobile App"
-          org="Houston Restaurant Weeks"
-          link=""
+          orgName="Houston Restaurant Weeks"
+          orgLink="https://apps.apple.com/us/app/houston-restaurant-weeks/id1472340275"
           description=""
-          tech={["asdf", "asdf"]} 
+          tech={["React Native", "Firebase"]} 
         />
       </li>
     </ul>

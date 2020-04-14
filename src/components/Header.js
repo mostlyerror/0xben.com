@@ -1,15 +1,18 @@
 import React from "react"
 import { FaTwitter, FaGithubAlt } from "react-icons/fa"
+import Nav from './Nav'
+
+import './Header.css'
+
+const Social = () => {
+  return (
+    <div></div>
+  )
+}
 
 function Header() {
   return (
-    <header
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-between",
-      }}
-    >
+    <section className="Header">
       <div style={{ display: "flex", flexDirection: "column" }}>
         <h1>Hello, I'm Ben Poon. 👋</h1>
         <p style={{ marginTop: "3.2em" }}>
@@ -23,6 +26,11 @@ function Header() {
           interesting).
         </p>
       </div>
+
+      <Nav />
+
+      <Social />
+
       <ul
         style={{
           minWidth: 300,
@@ -57,7 +65,7 @@ function Header() {
           </span>
         </li>
       </ul>
-    </header>
+    </section>
   )
 }
 

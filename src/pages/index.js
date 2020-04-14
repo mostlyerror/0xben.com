@@ -4,6 +4,7 @@ import SEO from "../components/Seo"
 import Header from '../components/Header'
 import Projects from '../components/Projects'
 import Skills from '../components/Skills'
+import Thoughts from '../components/Thoughts'
 
 import "./index.css"
 
@@ -16,6 +17,7 @@ const IndexPage = () => (
     <div className="right-container">
       <Projects />
       <Skills />
+      <Thoughts />
     </div>
   </Layout>
 )

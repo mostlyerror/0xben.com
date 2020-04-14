@@ -1,0 +1,12 @@
+.Header {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+@media (min-width: 1280px) { 
+    .Header h1 {
+        font-size: 64px;
+        line-height: 1;
+    }
+}

@@ -6,7 +6,7 @@ import './Header.css'
 
 function Header() {
   return (
-    <section className="Header">
+    <header>
       <div>
         <h1>Hello, I'm Ben Poon. 👋</h1>
         <p style={{ marginTop: "3.2em" }}>
@@ -18,12 +18,12 @@ function Header() {
         </p>
         <p style={{ marginTop: "1em" }}>
           I'm open to any interesting project (and I find a whole lotta
-          things <a href="skills">interesting</a>).
+          things <a href="#skills">interesting</a>).
         </p>
         <Nav />
       </div>
       <Social />
-    </section>
+    </header>
   )
 }
 

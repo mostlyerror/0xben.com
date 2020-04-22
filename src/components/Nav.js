@@ -14,17 +14,24 @@ function Nav() {
           </a>
         </li>
         <li>
-          <a href="#skills">
+          <a href="#thoughts">
             <span>02</span>
+            <span></span>
+            <span>Thoughts</span>
+          </a>
+        </li>
+        <li>
+          <a href="#skills">
+            <span>03</span>
             <span></span>
             <span>Skills & Interests</span>
           </a>
         </li>
         <li>
-          <a href="#thoughts">
-            <span>03</span>
+          <a href="#contact">
+            <span>04</span>
             <span></span>
-            <span>Thoughts</span>
+            <span>Holla</span>
           </a>
         </li>
       </ul>

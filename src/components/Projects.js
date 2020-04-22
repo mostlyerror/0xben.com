@@ -2,31 +2,31 @@ import React from 'react'
 import './Projects.css'
 
 const TechList = ({ tech }) => (
-    <ul className="TechList">
+    <ul className="tech-list">
       {tech.map(tech => <li>{tech}</li>)}
     </ul>
 )
 
 const Project = ({ title, appLink, orgName, orgLink, description, tech }) => (
-  <article className="Project">
-    <a className="Project-app-link" href={appLink}>
-      <h3 className="Project-title">{title}</h3>
+  <article>
+    <a className="app-link" href={appLink}>
+      <h3 className="title">{title}</h3>
     </a>
-    <a className="Project-org-link" href={orgLink}>
-      <p className="Project-org-name">
+    <a className="org-link" href={orgLink}>
+      <p className="org-name">
         {orgName}
       </p>
     </a>
-    <p className="Project-description">{description}</p>
+    <p className="description">{description}</p>
     <TechList tech={tech} />
   </article>
 )
 
 const Projects = () => (
-  <section id="projects" className="Projects">
+  <section id="projects" className="projects">
     <h2 className="section-title">Projects</h2>
     <ul>
-      <li>
+      <li className="item">
         <Project 
           orgName="The Right Place"
           orgLink="https://therightplace.com"
@@ -37,7 +37,7 @@ const Projects = () => (
           tech={["Rails", "React", "Redux", "Postgres", "AWS", "Docker", "Terraform"]}
         />
       </li>
-      <li>
+      <li className="item">
         <Project 
           orgName="RoverPass"
           orgLink="https://roverpass.com"
@@ -46,7 +46,7 @@ const Projects = () => (
           tech={["Rails", "Angular2", "Postgres", "Linode", "Ansible"]} 
         />
       </li>
-      <li>
+      <li className="item">
         <Project 
           orgName="Houston Restaurant Weeks"
           orgLink="https://apps.apple.com/us/app/houston-restaurant-weeks/id1472340275"

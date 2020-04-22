@@ -56,6 +56,10 @@ ul {
     }
 }
 
+.right-container {
+    padding-top: 48px;
+}
+
 @media (min-width: 992px) { 
     .right-container {
         padding: 32px;
@@ -88,4 +92,18 @@ ul {
         padding-top: 70px;
         padding-bottom: 88px;
     }
+}
+
+section {
+    margin-bottom: 88px;
+}
+
+section ul {
+    list-style-type: none;
+}
+
+section li.item {
+    margin-top: 1.5em;
+    padding: 4.5em;
+    background-color: #202022;
 }

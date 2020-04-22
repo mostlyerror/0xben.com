@@ -1,39 +1,19 @@
-@media (min-width: 992px) {
-    .Projects {
-        padding-top: 88px;
-        margin-top: -96px;
-    }
-}
-
-.Projects ul {
-    list-style-type: none;
-}
-
-.Projects li {
-    margin-top: 1.5em;
-}
-
-.Project {
-    padding: 4.5em;
-    background-color: #202022;
-}
-
-.Project-title {
+#projects .title {
     color: #fff;
     font-size: 2.4em;
     font-weight: 600;
 }
-.Project .description {
+#projects .description {
     margin-top: .8em;
     font-size: 1.4em;
 }
 
-.TechList {
+#projects .tech-list {
     display: flex;
     flex-wrap: wrap;
 }
 
-.TechList li {
+#projects .tech-list li {
     margin-right: 1em;
     padding: .5em .5em .3em .5em;
     color: white;

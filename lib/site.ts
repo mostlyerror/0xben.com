@@ -127,3 +127,20 @@ export const shipped: {
   { date: "Oct 2025", what: "Opened Good Robot Co for business", href: "https://goodrobotco.com" },
 ];
 
+// ── Posting cadence — the same momentum loop, pointed at distribution. ──
+// This tracks RECENCY, not follower counts (low followers demoralize; a
+// stale "last posted" nudges the thing you control). Fill in handles/urls,
+// and set `lastPosted` each time you post (newest wins). Leaving it off
+// shows "not started yet" — which is the whole point until you begin.
+export const accounts: {
+  platform: string;
+  handle?: string;
+  url?: string;
+  lastPosted?: string; // e.g. "May 29, 2026"
+}[] = [
+  { platform: "X", handle: "@mostly_error", url: "https://x.com/mostly_error" },
+  { platform: "Instagram" },
+  { platform: "TikTok" },
+  { platform: "LinkedIn" },
+];
+

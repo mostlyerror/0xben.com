@@ -56,6 +56,27 @@ at once. Not required to start — the `ship` script is the 80/20.
 momentum, not awareness yet); `/ship` mobile form (only if the script still
 doesn't get used).
 
+## Posting cadence (built 2026-05-29)
+
+Key reframe: **track posting RECENCY (a behavior metric), never follower
+counts (a vanity metric)**. Low followers demoralize; a stale "last posted"
+nudges the thing Ben controls. Because he isn't posting yet, the wall of "not
+started yet" is the *motivator* to begin — same loop as the ship counter.
+
+- ✅ "Posting" section on the page: per-account recency with green→red
+  escalation + "N active this week", driven by an `accounts` array in
+  `lib/site.ts` (set `lastPosted` each time you post).
+
+Follow-ups:
+- `npm run post -- <platform> [url]` to stamp "posted today" (mirror `ship`).
+- Per-project social **pills** (link chips on project cards) — no counts, no
+  empty-number risk; render only when an account exists.
+- Live recency where feasible (YouTube/Reddit easy; X/IG/FB/LinkedIn need paid
+  API or business OAuth). When a following grows, recency pills can graduate
+  into count-widgets, and this pairs with "auto-post ships to X."
+- (Embeds rejected: heavy, off-brand for a minimal site, X deprecated most
+  embed widgets.)
+
 ## Capability note — can the ledger auto-populate?
 
 A sweep on 2026-05-29 showed what's machine-visible:

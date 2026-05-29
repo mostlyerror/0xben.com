@@ -8,6 +8,17 @@ import { GrowthChart } from "@/components/GrowthChart";
 export default async function Home() {
   const gh = await getGitHubStats(site.github);
 
+  // Prominent stat cards — your real, current numbers. GitHub is handled
+  // separately as a de-emphasized footnote (see below).
+  const cards = [
+    ...socials
+      .filter((s) => s.followers != null)
+      .map((s) => ({ label: `${s.label} followers`, value: s.followers!.toLocaleString() })),
+    ...manualStats
+      .filter((s) => s.value != null)
+      .map((s) => ({ label: s.label, value: s.value! })),
+  ];
+
   return (
     <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col gap-14 px-6 py-16 sm:py-24">
       {/* Hero */}
@@ -56,31 +67,29 @@ export default async function Home() {
           The numbers
         </h2>
 
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-          {gh && (
-            <>
-              <StatCard label="GitHub stars" value={gh.stars.toLocaleString()} />
-              <StatCard label="Followers" value={gh.followers.toLocaleString()} />
-              <StatCard label="Public repos" value={gh.publicRepos.toLocaleString()} />
-            </>
-          )}
-          {socials
-            .filter((s) => s.followers != null)
-            .map((s) => (
-              <StatCard
-                key={s.label}
-                label={`${s.label} followers`}
-                value={s.followers!.toLocaleString()}
-              />
+        {cards.length > 0 && (
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+            {cards.map((c) => (
+              <StatCard key={c.label} label={c.label} value={c.value} />
             ))}
-          {manualStats
-            .filter((s) => s.value != null)
-            .map((s) => (
-              <StatCard key={s.label} label={s.label} value={s.value!} />
-            ))}
-        </div>
+          </div>
+        )}
 
         <GrowthChart />
+
+        {gh && (
+          <p className="text-xs text-black/40 dark:text-white/40">
+            <a
+              href={`https://github.com/${site.github}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transition-colors hover:text-black/60 dark:hover:text-white/60"
+            >
+              On GitHub: {gh.publicRepos} repos · {gh.followers} followers ·{" "}
+              {gh.stars} stars ↗
+            </a>
+          </p>
+        )}
       </section>
 
       {/* Projects */}

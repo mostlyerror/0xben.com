@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { site, socials, projects, manualStats } from "@/lib/site";
 import { getGitHubStats } from "@/lib/github";
 import { GrowthChart } from "@/components/GrowthChart";
@@ -11,6 +12,14 @@ export default async function Home() {
     <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col gap-14 px-6 py-16 sm:py-24">
       {/* Hero */}
       <section className="flex flex-col gap-4">
+        <Image
+          src={site.avatar}
+          alt={site.name}
+          width={112}
+          height={112}
+          priority
+          className="size-24 rounded-full object-cover ring-1 ring-black/10 sm:size-28 dark:ring-white/15"
+        />
         <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
           {site.headline}
         </h1>

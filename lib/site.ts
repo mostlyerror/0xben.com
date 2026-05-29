@@ -8,6 +8,8 @@ export const site = {
   domain: "0xben.com",
   url: "https://0xben.com",
   name: "Ben",
+  // Circular headshot at the top of the hero. Lives in /public.
+  avatar: "/ben.jpg",
   // The big sentence at the top. Keep it short and human.
   headline: "Hi, I'm Ben 👋",
   tagline: "Software solopreneur. I run Good Robot Co and ship small products on the side.",

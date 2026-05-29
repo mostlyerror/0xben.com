@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { site, socials, projects, manualStats, inlineLinks, shipped } from "@/lib/site";
 import { getGitHubStats } from "@/lib/github";
-import { GrowthChart } from "@/components/GrowthChart";
 
 // Server component: GitHub stats are fetched here (cached 1h) so the
 // page arrives fully rendered with no client-side loading flash.
@@ -75,60 +74,84 @@ export default async function Home() {
           {shipped.map((s, i) => (
             <li
               key={i}
-              className="flex gap-4 border-t border-black/[0.06] py-3 first:border-t-0 dark:border-white/[0.08]"
+              className="border-t border-black/[0.06] first:border-t-0 dark:border-white/[0.08]"
             >
-              <span className="w-20 shrink-0 text-sm tabular-nums text-black/40 dark:text-white/40">
-                {s.date}
-              </span>
-              <span className="flex-1 text-sm text-black/80 dark:text-white/80">
-                {s.href ? (
-                  <a
-                    href={s.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="underline-offset-2 hover:underline"
-                  >
-                    {s.what} ↗
-                  </a>
-                ) : (
-                  s.what
-                )}
-              </span>
+              {s.details && s.details.length > 0 ? (
+                <details className="group">
+                  <summary className="flex cursor-pointer list-none items-baseline gap-4 py-3 [&::-webkit-details-marker]:hidden">
+                    <span className="w-20 shrink-0 text-sm tabular-nums text-black/40 dark:text-white/40">
+                      {s.date}
+                    </span>
+                    <span className="flex-1 text-sm text-black/80 dark:text-white/80">
+                      {s.what}
+                      <span className="ml-1.5 inline-block text-black/30 transition-transform group-open:rotate-90 dark:text-white/30">
+                        ›
+                      </span>
+                    </span>
+                  </summary>
+                  <div className="flex gap-4 pb-3">
+                    <span className="w-20 shrink-0" />
+                    <div className="flex-1">
+                      {s.href && (
+                        <a
+                          href={s.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-sm text-black/60 underline-offset-2 hover:underline dark:text-white/60"
+                        >
+                          {s.href.replace(/^https?:\/\//, "")} ↗
+                        </a>
+                      )}
+                      <ul className="mt-2 flex flex-col gap-1.5 text-sm text-black/60 dark:text-white/60">
+                        {s.details.map((d, j) => (
+                          <li key={j} className="flex gap-2">
+                            <span className="text-black/30 dark:text-white/30">–</span>
+                            <span>{d}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </details>
+              ) : (
+                <div className="flex gap-4 py-3">
+                  <span className="w-20 shrink-0 text-sm tabular-nums text-black/40 dark:text-white/40">
+                    {s.date}
+                  </span>
+                  <span className="flex-1 text-sm text-black/80 dark:text-white/80">
+                    {s.href ? (
+                      <a
+                        href={s.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="underline-offset-2 hover:underline"
+                      >
+                        {s.what} ↗
+                      </a>
+                    ) : (
+                      s.what
+                    )}
+                  </span>
+                </div>
+              )}
             </li>
           ))}
         </ol>
       </section>
 
-      {/* Stats */}
-      <section className="flex flex-col gap-6">
-        <h2 className="text-sm font-semibold uppercase tracking-wider text-black/40 dark:text-white/40">
-          The numbers
-        </h2>
-
-        {cards.length > 0 && (
+      {/* Stats — only shown when there are real numbers to show */}
+      {cards.length > 0 && (
+        <section className="flex flex-col gap-6">
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-black/40 dark:text-white/40">
+            The numbers
+          </h2>
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
             {cards.map((c) => (
               <StatCard key={c.label} label={c.label} value={c.value} />
             ))}
           </div>
-        )}
-
-        <GrowthChart />
-
-        {gh && (
-          <p className="text-xs text-black/40 dark:text-white/40">
-            <a
-              href={`https://github.com/${site.github}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="transition-colors hover:text-black/60 dark:hover:text-white/60"
-            >
-              On GitHub: {gh.publicRepos} repos · {gh.followers} followers ·{" "}
-              {gh.stars} stars ↗
-            </a>
-          </p>
-        )}
-      </section>
+        </section>
+      )}
 
       {/* Projects */}
       <section className="flex flex-col gap-6">
@@ -162,8 +185,20 @@ export default async function Home() {
         </div>
       </section>
 
-      <footer className="mt-auto pt-8 text-sm text-black/40 dark:text-white/40">
-        © {new Date().getFullYear()} {site.name} · {site.domain}
+      <footer className="mt-auto flex flex-col gap-2 pt-8 text-sm text-black/40 dark:text-white/40">
+        {gh && (
+          <a
+            href={`https://github.com/${site.github}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-fit transition-colors hover:text-black/60 dark:hover:text-white/60"
+          >
+            {gh.publicRepos} repos on GitHub ↗
+          </a>
+        )}
+        <span>
+          © {new Date().getFullYear()} {site.name} · {site.domain}
+        </span>
       </footer>
     </main>
   );

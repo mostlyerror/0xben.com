@@ -100,7 +100,24 @@ export const manualStats: { label: string; value: string | null }[] = [
 // to the real world (a feature, a launch, a fix, a post), add ONE line
 // at the TOP. Newest first. The point isn't perfection — it's momentum.
 // Keep it honest and keep it growing.
-export const shipped: { date: string; what: string; href?: string }[] = [
+export const shipped: {
+  date: string;
+  what: string;
+  href?: string;
+  // Optional: makes the entry expandable to reveal the breakdown.
+  details?: string[];
+}[] = [
+  {
+    date: "May 2026",
+    what: "Launched 0xben.com",
+    href: "https://0xben.com",
+    details: [
+      "Designed and built the whole site — empty folder to production in one session",
+      "Registered the domain on Porkbun and shipped on Vercel (apex + www, SSL)",
+      "Hero, bio, live project list, and this very Shipped ledger",
+      "Explored 8 design directions before committing to this minimal one",
+    ],
+  },
   // TODO: these are seeded placeholders — fix the dates and add real ones.
   { date: "May 2026", what: "Launched noyu — weekly reconnect questions", href: "https://noyu.love" },
   { date: "Apr 2026", what: "Launched ClusterDesk — insider-buy stock signals", href: "https://clusterdesk.io" },
@@ -109,16 +126,3 @@ export const shipped: { date: string; what: string; href?: string }[] = [
   { date: "Oct 2025", what: "Opened Good Robot Co for business", href: "https://goodrobotco.com" },
 ];
 
-// ── Growth chart data (Marc Lou's revenue chart, but for any metric) ──
-// Edit `label` to whatever you're tracking. Points are plotted in order.
-export const growth = {
-  label: "Total signups",
-  unit: "", // e.g. "$" — prefixed to the latest value
-  points: [
-    { x: "Jan", y: 0 },
-    { x: "Feb", y: 0 },
-    { x: "Mar", y: 0 },
-    { x: "Apr", y: 0 },
-    { x: "May", y: 0 },
-  ],
-};

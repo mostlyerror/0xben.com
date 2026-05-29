@@ -10,15 +10,15 @@ export const site = {
   name: "Ben",
   // The big sentence at the top. Keep it short and human.
   headline: "Hi, I'm Ben 👋",
-  tagline: "Software solopreneur. I build small products on the internet.",
+  tagline: "Software solopreneur. I run Good Robot Co and ship small products on the side.",
   // A short paragraph or two. Plain strings = separate paragraphs.
   bio: [
-    "I'm an independent software builder. I like shipping small, useful products and learning in public.",
-    "This page is where I keep my projects and the numbers behind them. No team, no funding — just me, code, and a few users who make it worth it.",
+    "I'm a software solopreneur. I run Good Robot Co, where I build automation systems for local service businesses — responding to leads in minutes, following up on autopilot, getting more reviews.",
+    "On the side I ship small products and learn in public. This page is where I keep them, and the numbers behind them. No team, no funding — just me and code.",
   ],
   // Your GitHub handle. Stats are fetched live from the public API.
   // Set to null to hide the live GitHub card entirely.
-  github: "benjaminpoon",
+  github: "mostlyerror",
 } as const;
 
 // ── Social links (shown as buttons + drives the "following" stat) ──
@@ -28,9 +28,9 @@ export const socials: {
   href: string;
   followers: number | null;
 }[] = [
-  { label: "X / Twitter", href: "https://twitter.com/", followers: null },
-  { label: "GitHub", href: "https://github.com/benjaminpoon", followers: null },
-  { label: "LinkedIn", href: "https://linkedin.com/in/", followers: null },
+  { label: "X / Twitter", href: "https://x.com/mostly_error", followers: null },
+  { label: "GitHub", href: "https://github.com/mostlyerror", followers: null },
+  { label: "Good Robot Co", href: "https://goodrobotco.com", followers: null },
   { label: "Email", href: "mailto:benjamintpoon@gmail.com", followers: null },
 ];
 
@@ -45,20 +45,36 @@ export const projects: {
   emoji: string;
 }[] = [
   {
-    name: "Project One",
-    description: "A short, punchy description of what it does and who it's for.",
-    href: "https://example.com",
+    name: "Raincheck",
+    description: "Hourly weather forecasts, right inside Google Calendar. Privacy-first Chrome extension, free forever.",
+    href: "https://letsraincheck.com",
     metricLabel: "users",
-    metricValue: "0",
-    emoji: "🚀",
+    metricValue: "—",
+    emoji: "🌦️",
   },
   {
-    name: "Project Two",
-    description: "Replace these with your real projects — or delete the ones you don't need.",
-    href: "https://example.com",
-    metricLabel: "MRR",
-    metricValue: "$0",
-    emoji: "🧪",
+    name: "PickleRadar",
+    description: "Every upcoming Houston-area pickleball tournament, one search away. Browse by venue and skill level.",
+    href: "https://pickleradar.app",
+    metricLabel: "tournaments",
+    metricValue: "—",
+    emoji: "🏓",
+  },
+  {
+    name: "ClusterDesk",
+    description: "Weekly alerts when multiple insiders buy the same micro-cap within days — straight from SEC Form 4 filings.",
+    href: "https://clusterdesk.io",
+    metricLabel: "subscribers",
+    metricValue: "—",
+    emoji: "📈",
+  },
+  {
+    name: "noyu",
+    description: "A weekly question, forwarded to someone you've been meaning to reach out to. One question. Forward it. See what happens.",
+    href: "https://noyu.love",
+    metricLabel: "/mo",
+    metricValue: "$2.99",
+    emoji: "💌",
   },
 ];
 

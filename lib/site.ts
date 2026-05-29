@@ -95,6 +95,20 @@ export const manualStats: { label: string; value: string | null }[] = [
   { label: "Total revenue", value: null },
 ];
 
+// ── Shipped log — the ledger that actually matters ──
+// This is the anti-procrastination wall: every time you ship something
+// to the real world (a feature, a launch, a fix, a post), add ONE line
+// at the TOP. Newest first. The point isn't perfection — it's momentum.
+// Keep it honest and keep it growing.
+export const shipped: { date: string; what: string; href?: string }[] = [
+  // TODO: these are seeded placeholders — fix the dates and add real ones.
+  { date: "May 2026", what: "Launched noyu — weekly reconnect questions", href: "https://noyu.love" },
+  { date: "Apr 2026", what: "Launched ClusterDesk — insider-buy stock signals", href: "https://clusterdesk.io" },
+  { date: "Feb 2026", what: "Shipped Raincheck to the Chrome Web Store", href: "https://letsraincheck.com" },
+  { date: "Dec 2025", what: "Launched PickleRadar for Houston pickleball", href: "https://pickleradar.app" },
+  { date: "Oct 2025", what: "Opened Good Robot Co for business", href: "https://goodrobotco.com" },
+];
+
 // ── Growth chart data (Marc Lou's revenue chart, but for any metric) ──
 // Edit `label` to whatever you're tracking. Points are plotted in order.
 export const growth = {

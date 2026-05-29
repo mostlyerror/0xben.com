@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { site, socials, projects, manualStats, inlineLinks } from "@/lib/site";
+import { site, socials, projects, manualStats, inlineLinks, shipped } from "@/lib/site";
 import { getGitHubStats } from "@/lib/github";
 import { GrowthChart } from "@/components/GrowthChart";
 
@@ -59,6 +59,44 @@ export default async function Home() {
             <Linkified text={p} />
           </p>
         ))}
+      </section>
+
+      {/* Shipped — the proof-of-shipping ledger */}
+      <section className="flex flex-col gap-5">
+        <div className="flex items-baseline justify-between">
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-black/40 dark:text-white/40">
+            Shipped
+          </h2>
+          <span className="text-sm tabular-nums text-black/40 dark:text-white/40">
+            {shipped.length} and counting
+          </span>
+        </div>
+        <ol className="flex flex-col">
+          {shipped.map((s, i) => (
+            <li
+              key={i}
+              className="flex gap-4 border-t border-black/[0.06] py-3 first:border-t-0 dark:border-white/[0.08]"
+            >
+              <span className="w-20 shrink-0 text-sm tabular-nums text-black/40 dark:text-white/40">
+                {s.date}
+              </span>
+              <span className="flex-1 text-sm text-black/80 dark:text-white/80">
+                {s.href ? (
+                  <a
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline-offset-2 hover:underline"
+                  >
+                    {s.what} ↗
+                  </a>
+                ) : (
+                  s.what
+                )}
+              </span>
+            </li>
+          ))}
+        </ol>
       </section>
 
       {/* Stats */}

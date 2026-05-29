@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { site, socials, projects, manualStats } from "@/lib/site";
+import { site, socials, projects, manualStats, inlineLinks } from "@/lib/site";
 import { getGitHubStats } from "@/lib/github";
 import { GrowthChart } from "@/components/GrowthChart";
 
@@ -44,7 +44,9 @@ export default async function Home() {
       {/* Bio */}
       <section className="flex flex-col gap-4 leading-relaxed text-black/80 dark:text-white/80">
         {site.bio.map((p, i) => (
-          <p key={i}>{p}</p>
+          <p key={i}>
+            <Linkified text={p} />
+          </p>
         ))}
       </section>
 
@@ -117,6 +119,36 @@ export default async function Home() {
         © {new Date().getFullYear()} {site.name} · {site.domain}
       </footer>
     </main>
+  );
+}
+
+// Splits a string on any phrase in `inlineLinks` and renders those
+// phrases as links, leaving the rest as plain text.
+function Linkified({ text }: { text: string }) {
+  const phrases = Object.keys(inlineLinks);
+  if (phrases.length === 0) return <>{text}</>;
+
+  const escaped = phrases.map((p) => p.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
+  const parts = text.split(new RegExp(`(${escaped.join("|")})`, "g"));
+
+  return (
+    <>
+      {parts.map((part, i) =>
+        inlineLinks[part] ? (
+          <a
+            key={i}
+            href={inlineLinks[part]}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-medium text-indigo-600 underline underline-offset-2 hover:text-indigo-500 dark:text-indigo-400"
+          >
+            {part}
+          </a>
+        ) : (
+          part
+        ),
+      )}
+    </>
   );
 }
 

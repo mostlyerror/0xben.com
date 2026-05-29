@@ -23,6 +23,12 @@ export const site = {
   github: "mostlyerror",
 } as const;
 
+// Any of these phrases appearing in your bio get turned into links
+// automatically. Add more as { "phrase": "https://..." }.
+export const inlineLinks: Record<string, string> = {
+  "Good Robot Co": "https://goodrobotco.com",
+};
+
 // ── Social links (shown as buttons + drives the "following" stat) ──
 // followers: a number shows a stat card; null hides the count.
 export const socials: {

@@ -107,8 +107,9 @@ export const shipped: {
   // Optional: makes the entry expandable to reveal the breakdown.
   details?: string[];
 }[] = [
+  // ship:insert — `npm run ship` inserts new entries directly below this line
   {
-    date: "May 2026",
+    date: "May 29, 2026",
     what: "Launched 0xben.com",
     href: "https://0xben.com",
     details: [

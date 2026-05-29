@@ -18,6 +18,29 @@ export default async function Home() {
       .map((s) => ({ label: s.label, value: s.value! })),
   ];
 
+  // Freshness nudge: how long since the newest ship. The longer the
+  // silence, the redder it gets — make not-shipping uncomfortable.
+  const lastShipDate = new Date(shipped[0]?.date ?? "");
+  const daysSinceShip = Number.isNaN(lastShipDate.getTime())
+    ? null
+    : Math.max(0, Math.floor((Date.now() - lastShipDate.getTime()) / 86_400_000));
+  const lastShipLabel =
+    daysSinceShip == null
+      ? null
+      : daysSinceShip === 0
+        ? "shipped today"
+        : daysSinceShip === 1
+          ? "1 day ago"
+          : `${daysSinceShip} days ago`;
+  const lastShipColor =
+    daysSinceShip == null
+      ? ""
+      : daysSinceShip <= 3
+        ? "text-emerald-600 dark:text-emerald-400"
+        : daysSinceShip <= 10
+          ? "text-amber-600 dark:text-amber-400"
+          : "text-red-600 dark:text-red-400";
+
   return (
     <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col gap-14 px-6 py-16 sm:py-24">
       {/* Hero */}
@@ -67,7 +90,13 @@ export default async function Home() {
             Shipped
           </h2>
           <span className="text-sm tabular-nums text-black/40 dark:text-white/40">
-            {shipped.length} and counting
+            {lastShipLabel && (
+              <>
+                <span className={lastShipColor}>{lastShipLabel}</span>
+                {" · "}
+              </>
+            )}
+            {shipped.length} total
           </span>
         </div>
         <ol className="flex flex-col">
@@ -79,7 +108,7 @@ export default async function Home() {
               {s.details && s.details.length > 0 ? (
                 <details className="group">
                   <summary className="flex cursor-pointer list-none items-baseline gap-4 py-3 [&::-webkit-details-marker]:hidden">
-                    <span className="w-20 shrink-0 text-sm tabular-nums text-black/40 dark:text-white/40">
+                    <span className="w-24 shrink-0 text-sm tabular-nums text-black/40 dark:text-white/40">
                       {s.date}
                     </span>
                     <span className="flex-1 text-sm text-black/80 dark:text-white/80">
@@ -90,7 +119,7 @@ export default async function Home() {
                     </span>
                   </summary>
                   <div className="flex gap-4 pb-3">
-                    <span className="w-20 shrink-0" />
+                    <span className="w-24 shrink-0" />
                     <div className="flex-1">
                       {s.href && (
                         <a
@@ -115,7 +144,7 @@ export default async function Home() {
                 </details>
               ) : (
                 <div className="flex gap-4 py-3">
-                  <span className="w-20 shrink-0 text-sm tabular-nums text-black/40 dark:text-white/40">
+                  <span className="w-24 shrink-0 text-sm tabular-nums text-black/40 dark:text-white/40">
                     {s.date}
                   </span>
                   <span className="flex-1 text-sm text-black/80 dark:text-white/80">

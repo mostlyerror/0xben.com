@@ -52,6 +52,7 @@ export const projects: {
   metricValue: string;
   emoji: string;
 }[] = [
+  // project:insert — `npm run project` inserts new entries directly below this line
   {
     name: "Raincheck",
     description: "Hourly weather forecasts, right inside Google Calendar. Privacy-first Chrome extension, free forever.",
@@ -104,6 +105,8 @@ export const shipped: {
   date: string;
   what: string;
   href?: string;
+  // Optional kind label shown as a small chip: "post" | "wrote" | "build" | "launch" …
+  tag?: string;
   // Optional: makes the entry expandable to reveal the breakdown.
   details?: string[];
 }[] = [
@@ -112,6 +115,7 @@ export const shipped: {
     date: "May 29, 2026",
     what: "Launched 0xben.com",
     href: "https://0xben.com",
+    tag: "launch",
     details: [
       "Designed and built the whole site — empty folder to production in one session",
       "Registered the domain on Porkbun and shipped on Vercel (apex + www, SSL)",
@@ -125,22 +129,5 @@ export const shipped: {
   { date: "Feb 2026", what: "Shipped Raincheck to the Chrome Web Store", href: "https://letsraincheck.com" },
   { date: "Dec 2025", what: "Launched PickleRadar for Houston pickleball", href: "https://pickleradar.app" },
   { date: "Oct 2025", what: "Opened Good Robot Co for business", href: "https://goodrobotco.com" },
-];
-
-// ── Posting cadence — the same momentum loop, pointed at distribution. ──
-// This tracks RECENCY, not follower counts (low followers demoralize; a
-// stale "last posted" nudges the thing you control). Fill in handles/urls,
-// and set `lastPosted` each time you post (newest wins). Leaving it off
-// shows "not started yet" — which is the whole point until you begin.
-export const accounts: {
-  platform: string;
-  handle?: string;
-  url?: string;
-  lastPosted?: string; // e.g. "May 29, 2026"
-}[] = [
-  { platform: "X", handle: "@mostly_error", url: "https://x.com/mostly_error" },
-  { platform: "Instagram" },
-  { platform: "TikTok" },
-  { platform: "LinkedIn" },
 ];
 

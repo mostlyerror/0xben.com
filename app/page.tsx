@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { site, socials, projects, manualStats, inlineLinks, shipped, accounts } from "@/lib/site";
+import { site, socials, projects, manualStats, inlineLinks, shipped } from "@/lib/site";
 import { getGitHubStats } from "@/lib/github";
 
 // Server component: GitHub stats are fetched here (cached 1h) so the
@@ -40,11 +40,6 @@ export default async function Home() {
         : daysSinceShip <= 10
           ? "text-amber-600 dark:text-amber-400"
           : "text-red-600 dark:text-red-400";
-
-  const activeThisWeek = accounts.filter((a) => {
-    const d = a.lastPosted ? daysAgo(a.lastPosted) : null;
-    return d != null && d <= 7;
-  }).length;
 
   return (
     <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col gap-14 px-6 py-16 sm:py-24">
@@ -117,6 +112,7 @@ export default async function Home() {
                       {s.date}
                     </span>
                     <span className="flex-1 text-sm text-black/80 dark:text-white/80">
+                      {s.tag && <Tag label={s.tag} />}
                       {s.what}
                       <span className="ml-1.5 inline-block text-black/30 transition-transform group-open:rotate-90 dark:text-white/30">
                         ›
@@ -153,6 +149,7 @@ export default async function Home() {
                     {s.date}
                   </span>
                   <span className="flex-1 text-sm text-black/80 dark:text-white/80">
+                    {s.tag && <Tag label={s.tag} />}
                     {s.href ? (
                       <a
                         href={s.href}
@@ -171,55 +168,6 @@ export default async function Home() {
             </li>
           ))}
         </ol>
-      </section>
-
-      {/* Posting — distribution cadence: the same nudge, pointed at posting */}
-      <section className="flex flex-col gap-5">
-        <div className="flex items-baseline justify-between">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-black/40 dark:text-white/40">
-            Posting
-          </h2>
-          <span className="text-sm tabular-nums text-black/40 dark:text-white/40">
-            {activeThisWeek} active this week
-          </span>
-        </div>
-        <ul className="flex flex-col">
-          {accounts.map((a) => {
-            const days = a.lastPosted ? daysAgo(a.lastPosted) : null;
-            return (
-              <li
-                key={a.platform}
-                className="flex items-center justify-between gap-4 border-t border-black/[0.06] py-3 first:border-t-0 dark:border-white/[0.08]"
-              >
-                <span className="text-sm text-black/80 dark:text-white/80">
-                  {a.url ? (
-                    <a
-                      href={a.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="underline-offset-2 hover:underline"
-                    >
-                      {a.platform}
-                      {a.handle ? ` · ${a.handle}` : ""} ↗
-                    </a>
-                  ) : (
-                    <>
-                      {a.platform}
-                      {a.handle ? ` · ${a.handle}` : ""}
-                    </>
-                  )}
-                </span>
-                <span
-                  className={`shrink-0 text-sm tabular-nums ${
-                    days == null ? "text-black/30 dark:text-white/30" : freshnessColor(days)
-                  }`}
-                >
-                  {days == null ? "not started yet" : `last posted ${agoLabel(days)}`}
-                </span>
-              </li>
-            );
-          })}
-        </ul>
       </section>
 
       {/* Stats — only shown when there are real numbers to show */}
@@ -287,24 +235,6 @@ export default async function Home() {
   );
 }
 
-// Shared recency helpers for the Shipped / Posting cadence nudges.
-function daysAgo(dateStr: string): number | null {
-  const t = new Date(dateStr).getTime();
-  return Number.isNaN(t) ? null : Math.max(0, Math.floor((Date.now() - t) / 86_400_000));
-}
-
-function agoLabel(days: number): string {
-  return days === 0 ? "today" : days === 1 ? "1 day ago" : `${days} days ago`;
-}
-
-function freshnessColor(days: number): string {
-  return days <= 3
-    ? "text-emerald-600 dark:text-emerald-400"
-    : days <= 10
-      ? "text-amber-600 dark:text-amber-400"
-      : "text-red-600 dark:text-red-400";
-}
-
 // Splits a string on any phrase in `inlineLinks` and renders those
 // phrases as links, leaving the rest as plain text.
 function Linkified({ text }: { text: string }) {
@@ -332,6 +262,15 @@ function Linkified({ text }: { text: string }) {
         ),
       )}
     </>
+  );
+}
+
+// Small chip marking the kind of ship (post / wrote / build / launch …).
+function Tag({ label }: { label: string }) {
+  return (
+    <span className="mr-2 rounded bg-black/[0.06] px-1.5 py-0.5 align-middle text-[10px] font-medium uppercase tracking-wide text-black/50 dark:bg-white/10 dark:text-white/50">
+      {label}
+    </span>
   );
 }
 

@@ -17,9 +17,11 @@ import { dirname, join } from "node:path";
 const args = process.argv.slice(2);
 const flags = new Set(args.filter((a) => a.startsWith("--")));
 const [what, href] = args.filter((a) => !a.startsWith("--"));
+const tagArg = args.find((a) => a.startsWith("--tag="));
+const tag = tagArg ? tagArg.slice("--tag=".length) : undefined;
 
 if (!what) {
-  console.error('Usage: npm run ship -- "What you shipped" [https://link] [--no-deploy] [--dry]');
+  console.error('Usage: npm run ship -- "What you shipped" [https://link] [--tag=post] [--no-deploy] [--dry]');
   process.exit(1);
 }
 
@@ -41,6 +43,7 @@ const date = new Date().toLocaleDateString("en-US", {
 const entry =
   `  { date: ${JSON.stringify(date)}, what: ${JSON.stringify(what)}` +
   (href ? `, href: ${JSON.stringify(href)}` : "") +
+  (tag ? `, tag: ${JSON.stringify(tag)}` : "") +
   ` },`;
 
 console.log("\n📦  New ship:\n" + entry + "\n");

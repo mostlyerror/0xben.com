@@ -121,11 +121,11 @@ export default async function Home() {
 
         <ShipHeatmap entries={shipped} nowMs={now.getTime()} />
 
-        <ol className="flex flex-col">
+        <ol className="max-h-[26rem] overflow-y-auto pr-2 sm:columns-2 sm:gap-x-8">
           {shipped.map((s, i) => (
             <li
               key={i}
-              className="border-t border-black/[0.06] first:border-t-0 dark:border-white/[0.08]"
+              className="break-inside-avoid border-t border-black/[0.06] first:border-t-0 dark:border-white/[0.08]"
             >
               {s.details && s.details.length > 0 ? (
                 <details className="group">

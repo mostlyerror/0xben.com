@@ -71,6 +71,13 @@ try {
   console.error("⚠️  Commit skipped/failed — the file is updated; commit it manually.");
 }
 
+try {
+  run("git push");
+  console.log("✅  Pushed to GitHub");
+} catch {
+  console.error("⚠️  Push skipped (offline or no upstream).");
+}
+
 if (flags.has("--no-deploy")) {
   console.log("Skipped deploy (--no-deploy). Run `vercel deploy --prod` when ready.");
   process.exit(0);

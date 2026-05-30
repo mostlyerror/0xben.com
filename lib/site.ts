@@ -29,6 +29,16 @@ export const inlineLinks: Record<string, string> = {
   "Good Robot Co": "https://goodrobotco.com",
 };
 
+// Rotating "currently —" line in the hero. Pure personality — edit freely,
+// keep them short. Set to [] to hide the line.
+export const status: string[] = [
+  "shipping noyu",
+  "fueled by cold brew",
+  "deep in a PickleRadar refactor",
+  "building in public",
+  "probably renaming a variable",
+];
+
 // ── Social links (shown as buttons + drives the "following" stat) ──
 // followers: a number shows a stat card; null hides the count.
 export const socials: {

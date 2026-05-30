@@ -1,6 +1,8 @@
 import Image from "next/image";
-import { site, socials, projects, manualStats, inlineLinks, shipped } from "@/lib/site";
+import { site, socials, projects, manualStats, inlineLinks, shipped, status } from "@/lib/site";
 import { getGitHubStats } from "@/lib/github";
+import { ShipHeatmap } from "@/components/ShipHeatmap";
+import { StatusLine } from "@/components/StatusLine";
 
 // Server component: GitHub stats are fetched here (cached 1h) so the
 // page arrives fully rendered with no client-side loading flash.
@@ -69,6 +71,7 @@ export default async function Home() {
         <p className="text-lg text-black/60 dark:text-white/60">
           {site.tagline}
         </p>
+        <StatusLine items={status} />
         <div className="mt-2 flex flex-wrap gap-2">
           {socials.map((s) => (
             <a
@@ -113,7 +116,7 @@ export default async function Home() {
           </p>
         </div>
 
-        <ShipHeatmap entries={shipped} />
+        <ShipHeatmap entries={shipped} nowMs={now.getTime()} />
 
         <ol className="flex flex-col">
           {shipped.map((s, i) => (
@@ -293,81 +296,6 @@ function computeWeekStreak(dates: Date[]): number {
     streak++;
   }
   return streak;
-}
-
-// GitHub-style contribution calendar of ships over the last 26 weeks.
-// Launch days (a ship tagged "launch") render a 🚀 instead of a square.
-function ShipHeatmap({ entries }: { entries: { date: string; tag?: string }[] }) {
-  const WEEKS = 26;
-  const DAY = 86_400_000;
-  const dayKey = (d: Date) => `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
-
-  const counts = new Map<string, number>();
-  const launches = new Set<string>();
-  for (const e of entries) {
-    const d = new Date(e.date);
-    if (Number.isNaN(d.getTime())) continue;
-    const k = dayKey(d);
-    counts.set(k, (counts.get(k) ?? 0) + 1);
-    if (e.tag === "launch") launches.add(k);
-  }
-
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  const thisSunday = new Date(today.getTime() - today.getDay() * DAY);
-  const start = new Date(thisSunday.getTime() - (WEEKS - 1) * 7 * DAY);
-
-  const level = (n: number) =>
-    n === 0
-      ? "bg-black/[0.06] dark:bg-white/[0.07]"
-      : n === 1
-        ? "bg-emerald-300 dark:bg-emerald-800"
-        : n === 2
-          ? "bg-emerald-400 dark:bg-emerald-600"
-          : "bg-emerald-500";
-
-  const weeks = Array.from({ length: WEEKS }, (_, w) =>
-    Array.from({ length: 7 }, (_, d) => {
-      const cur = new Date(start.getTime() + (w * 7 + d) * DAY);
-      const k = dayKey(cur);
-      return {
-        future: cur.getTime() > today.getTime(),
-        count: counts.get(k) ?? 0,
-        launch: launches.has(k),
-        label: cur.toDateString(),
-      };
-    }),
-  );
-
-  return (
-    <div className="overflow-x-auto pb-1">
-      <div className="flex gap-[3px] sm:gap-1">
-        {weeks.map((week, wi) => (
-          <div key={wi} className="flex flex-col gap-[3px] sm:gap-1">
-            {week.map((day, di) =>
-              day.launch ? (
-                <div
-                  key={di}
-                  title={`${day.label}: launched 🚀`}
-                  className="relative size-2.5 sm:size-5"
-                >
-                  <span className="absolute inset-0 flex items-center justify-center text-[11px] leading-none sm:text-base">
-                    🚀
-                  </span>
-                </div>
-              ) : (
-                <div
-                  key={di}
-                  title={day.future ? undefined : `${day.label}: ${day.count} ship${day.count === 1 ? "" : "s"}`}
-                  className={`size-2.5 rounded-[2px] sm:size-5 sm:rounded-sm ${day.future ? "bg-transparent" : level(day.count)}`}
-                />
-              ),
-            )}
-          </div>
-        ))}
-      </div>
-    </div>
-  );
 }
 
 // Small chip marking the kind of ship (post / wrote / build / launch …).

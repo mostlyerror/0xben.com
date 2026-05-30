@@ -130,6 +130,9 @@ export const shipped: {
   href?: string;
   // Optional kind label shown as a small chip: "post" | "wrote" | "build" | "launch" …
   tag?: string;
+  // Optional project this relates to (matches a project `name` below). Lets
+  // distribution effort (tag "post") roll up per project.
+  project?: string;
   // Optional: makes the entry expandable to reveal the breakdown.
   details?: string[];
 }[] = [

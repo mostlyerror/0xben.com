@@ -252,6 +252,7 @@ export default async function Home() {
                 <p className="text-sm text-black/60 dark:text-white/60">
                   {p.description}
                 </p>
+                <ProjectDistribution projectName={p.name} />
               </div>
               <div className="text-right">
                 <p className="font-semibold tabular-nums">{p.metricValue}</p>
@@ -325,6 +326,45 @@ function computeWeekStreak(dates: Date[]): number {
     streak++;
   }
   return streak;
+}
+
+// Recency helpers for per-project distribution freshness.
+function daysAgo(dateStr: string): number | null {
+  const t = new Date(dateStr).getTime();
+  return Number.isNaN(t) ? null : Math.max(0, Math.floor((Date.now() - t) / 86_400_000));
+}
+
+function agoLabel(days: number): string {
+  return days === 0 ? "today" : days === 1 ? "1 day ago" : `${days} days ago`;
+}
+
+function freshnessColor(days: number): string {
+  return days <= 7
+    ? "text-emerald-600 dark:text-emerald-400"
+    : days <= 21
+      ? "text-amber-600 dark:text-amber-400"
+      : "text-red-600 dark:text-red-400";
+}
+
+// Distribution effort for a project, rolled up from the ledger's "post"
+// entries. "not promoted yet" is the nudge for built-but-unshared projects.
+function ProjectDistribution({ projectName }: { projectName: string }) {
+  const posts = shipped.filter((s) => s.project === projectName && s.tag === "post");
+  if (posts.length === 0) {
+    return <p className="mt-1 text-xs text-black/30 dark:text-white/30">🗣 not promoted yet</p>;
+  }
+  const days = daysAgo(posts[0].date);
+  return (
+    <p className="mt-1 text-xs text-black/40 dark:text-white/40">
+      🗣 {posts.length} {posts.length === 1 ? "post" : "posts"}
+      {days != null && (
+        <>
+          {" · "}
+          <span className={freshnessColor(days)}>last promoted {agoLabel(days)}</span>
+        </>
+      )}
+    </p>
+  );
 }
 
 // Small chip marking the kind of ship (post / wrote / build / launch …).

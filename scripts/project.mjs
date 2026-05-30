@@ -53,7 +53,7 @@ const projectEntry = [
 ].join("\n");
 
 const date = new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
-const shipEntry = `  { date: ${JSON.stringify(date)}, what: ${JSON.stringify(`Launched ${name}`)}, href: ${JSON.stringify(href)}, tag: "launch" },`;
+const shipEntry = `  { date: ${JSON.stringify(date)}, what: ${JSON.stringify(`Launched ${name}`)}, href: ${JSON.stringify(href)}, tag: "launch", project: ${JSON.stringify(name)} },`;
 const alsoShip = !has("no-ship");
 
 console.log("\n🆕  New project:\n" + projectEntry + "\n");

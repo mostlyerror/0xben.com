@@ -19,9 +19,11 @@ const flags = new Set(args.filter((a) => a.startsWith("--")));
 const [what, href] = args.filter((a) => !a.startsWith("--"));
 const tagArg = args.find((a) => a.startsWith("--tag="));
 const tag = tagArg ? tagArg.slice("--tag=".length) : undefined;
+const projArg = args.find((a) => a.startsWith("--project="));
+const project = projArg ? projArg.slice("--project=".length) : undefined;
 
 if (!what) {
-  console.error('Usage: npm run ship -- "What you shipped" [https://link] [--tag=post] [--no-deploy] [--dry]');
+  console.error('Usage: npm run ship -- "What you shipped" [https://link] [--tag=post] [--project=Name] [--no-deploy] [--dry]');
   process.exit(1);
 }
 
@@ -44,6 +46,7 @@ const entry =
   `  { date: ${JSON.stringify(date)}, what: ${JSON.stringify(what)}` +
   (href ? `, href: ${JSON.stringify(href)}` : "") +
   (tag ? `, tag: ${JSON.stringify(tag)}` : "") +
+  (project ? `, project: ${JSON.stringify(project)}` : "") +
   ` },`;
 
 console.log("\n📦  New ship:\n" + entry + "\n");

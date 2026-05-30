@@ -157,6 +157,7 @@ export const shipped: {
   details?: string[];
 }[] = [
   // ship:insert — `npm run ship` inserts new entries directly below this line
+  { date: "May 30, 2026", what: "Built @GeoToMarket autopilot: 3 cloud routines (morning/midday/close) drafting Jiang-lens tweet candidates and pushing to Discord for phone notifications" },
   { date: "May 30, 2026", what: "ClusterDesk product + analytics pass: wired PostHog conversion-funnel analytics, added price sparklines + interactive insider-buy chart markers across the site/email/cards, and shipped 3 research blog posts with a design pass, per-post OG share cards, and share buttons", project: "ClusterDesk" },
   { date: "May 30, 2026", what: "Fixed ClusterDesk's automated X posting engine (it was silently never firing — cron sat outside the posting window), retimed it for the retail audience, and built the content + reply-graph engine around it: weekly leaderboard, thread mode, evergreen floor, and a leverage-ranked reply scout with intra-day fast scans", project: "ClusterDesk" },
   { date: "May 30, 2026", what: "Launched the Carte landing page — live editorial site with real Houston menu demos embedded as scannable iframes", href: "https://site-bens-projects-1984.vercel.app", tag: "launch", project: "Carte" },

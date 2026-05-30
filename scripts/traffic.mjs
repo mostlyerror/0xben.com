@@ -46,7 +46,11 @@ const targets = [];
 for (const obj of pBlock.match(/\{[\s\S]*?\}/g) || []) {
   const name = (obj.match(/name:\s*"([^"]+)"/) || [])[1];
   const phId = (obj.match(/posthogId:\s*"([^"]+)"/) || [])[1];
-  if (name && phId) targets.push({ name, phId });
+  const href = (obj.match(/href:\s*"([^"]+)"/) || [])[1];
+  // Production host from the project's href, so we only count REAL traffic
+  // (not localhost dev sessions or *.vercel.app preview deploys = you).
+  const host = href ? href.replace(/^https?:\/\//, "").replace(/\/.*$/, "") : null;
+  if (name && phId) targets.push({ name, phId, host });
 }
 
 if (targets.length === 0) {
@@ -54,19 +58,24 @@ if (targets.length === 0) {
   process.exit(1);
 }
 
-// HogQL: weekly unique pageview visitors over the window.
-const hogql = `
-  SELECT toStartOfWeek(timestamp) AS week, count(DISTINCT person_id) AS visitors
-  FROM events
-  WHERE event = '$pageview' AND timestamp > now() - INTERVAL ${weeks} WEEK
-  GROUP BY week ORDER BY week ASC
-`;
+// HogQL: weekly unique visitors on the production host only.
+function buildQuery(host) {
+  const hostFilter = host
+    ? `AND properties.$host = '${host}'`
+    : `AND properties.$host NOT LIKE '%localhost%' AND properties.$host NOT LIKE '%vercel.app%'`;
+  return `
+    SELECT toStartOfWeek(timestamp) AS week, count(DISTINCT person_id) AS visitors
+    FROM events
+    WHERE event = '$pageview' ${hostFilter} AND timestamp > now() - INTERVAL ${weeks} WEEK
+    GROUP BY week ORDER BY week ASC
+  `;
+}
 
-async function fetchWeekly(projectId) {
+async function fetchWeekly(projectId, host) {
   const res = await fetch(`${HOST}/api/projects/${projectId}/query/`, {
     method: "POST",
     headers: { Authorization: `Bearer ${KEY}`, "Content-Type": "application/json" },
-    body: JSON.stringify({ query: { kind: "HogQLQuery", query: hogql } }),
+    body: JSON.stringify({ query: { kind: "HogQLQuery", query: buildQuery(host) } }),
   });
   if (!res.ok) throw new Error(`PostHog ${res.status}: ${(await res.text()).slice(0, 160)}`);
   const data = await res.json();
@@ -79,7 +88,7 @@ let updated = src;
 let any = false;
 for (const t of targets) {
   try {
-    const series = await fetchWeekly(t.phId);
+    const series = await fetchWeekly(t.phId, t.host);
     if (series.length === 0) {
       console.log(`  ${t.name.padEnd(16)} no pageview data in window`);
       continue;

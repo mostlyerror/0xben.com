@@ -106,7 +106,7 @@ export const projects: {
     metricValue: "—",
     emoji: "🏓",
     posthogId: "444689",
-    traffic: [7],
+    traffic: [6],
   },
   {
     name: "ClusterDesk",
@@ -116,7 +116,7 @@ export const projects: {
     metricValue: "—",
     emoji: "📈",
     posthogId: "446437",
-    traffic: [4],
+    traffic: [2],
   },
   {
     name: "noyu",
@@ -126,7 +126,7 @@ export const projects: {
     metricValue: "$2.99",
     emoji: "💌",
     posthogId: "444905",
-    traffic: [33],
+    traffic: [31],
   },
 ];
 

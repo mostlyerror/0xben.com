@@ -180,11 +180,8 @@ export const shipped: {
       "Explored 8 design directions before committing to this minimal one",
     ],
   },
-  // TODO: these are seeded placeholders — fix the dates and add real ones.
-  { date: "May 2026", what: "Launched noyu, weekly reconnect questions", href: "https://noyu.love" },
-  { date: "Apr 2026", what: "Launched ClusterDesk, insider-buy stock signals", href: "https://clusterdesk.io" },
+  { date: "May 2026", what: "Launched PickleRadar for Houston pickleball", href: "https://pickleradar.app" },
   { date: "Feb 2026", what: "Shipped Raincheck to the Chrome Web Store", href: "https://letsraincheck.com" },
-  { date: "Dec 2025", what: "Launched PickleRadar for Houston pickleball", href: "https://pickleradar.app" },
-  { date: "Oct 2025", what: "Opened Good Robot Co for business", href: "https://goodrobotco.com" },
+  { date: "2022", what: "Opened Good Robot Co for business", href: "https://goodrobotco.com" },
 ];
 

@@ -1,9 +1,10 @@
 #!/usr/bin/env node
 // Log a ship in one command. Prepends a dated entry to the `shipped`
-// array in lib/site.ts, commits, and (by default) deploys to production.
+// array in lib/site.ts, commits, and pushes (Vercel's GitHub integration
+// then builds & deploys automatically).
 //
 //   npm run ship -- "What you shipped" [https://link]
-//   npm run ship -- "Wrote a post about X" https://… --no-deploy
+//   npm run ship -- "Wrote a post about X" https://…
 //   npm run ship -- "test" --dry        # preview only, writes nothing
 //
 // The point is zero friction: the easier this is, the more you'll log,
@@ -73,20 +74,7 @@ try {
 
 try {
   run("git push");
-  console.log("✅  Pushed to GitHub");
+  console.log("\n🚀  Pushed. Vercel's GitHub integration will build & deploy it.");
 } catch {
-  console.error("⚠️  Push skipped (offline or no upstream).");
-}
-
-if (flags.has("--no-deploy")) {
-  console.log("Skipped deploy (--no-deploy). Run `vercel deploy --prod` when ready.");
-  process.exit(0);
-}
-
-try {
-  console.log("🚀  Deploying to production…");
-  run("vercel deploy --prod --yes");
-  console.log("\n🎉  Shipped and live.");
-} catch {
-  console.error("⚠️  Deploy failed — change is committed locally. Run `vercel deploy --prod` manually.");
+  console.error("⚠️  Push skipped (offline or no upstream) — committed locally, push when ready.");
 }

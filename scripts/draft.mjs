@@ -117,14 +117,9 @@ try {
 } catch {
   console.error("⚠️  commit failed — file is updated; commit manually.");
 }
-if (noDeploy) {
-  console.log("Skipped deploy (--no-deploy).");
-  process.exit(0);
-}
 try {
-  console.log("🚀  Deploying…");
-  run("vercel deploy --prod --yes");
-  console.log("🎉  Live.");
+  run("git push");
+  console.log("🚀  Pushed. Vercel's GitHub integration will build & deploy it.");
 } catch {
-  console.error("⚠️  deploy failed — committed locally. Run `vercel deploy --prod`.");
+  console.error("⚠️  push skipped (offline or no upstream) — committed locally, push when ready.");
 }

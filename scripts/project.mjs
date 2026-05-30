@@ -1,10 +1,11 @@
 #!/usr/bin/env node
 // Register a new project in one command. Adds it to the `projects` array
 // in lib/site.ts, also logs a "Launched <name>" ship (tag: launch),
-// commits, and deploys. Registering a project IS a ship.
+// commits, and pushes (Vercel builds via GitHub integration). Registering a
+// project IS a ship.
 //
 //   npm run project -- "PickleRadar" https://pickleradar.app "Houston pickleball tournaments" --emoji=🏓 --metric=tournaments
-//   npm run project -- "Thing" https://thing.com "Desc" --no-ship --no-deploy --dry
+//   npm run project -- "Thing" https://thing.com "Desc" --no-ship --dry
 
 import { readFileSync, writeFileSync } from "node:fs";
 import { execSync } from "node:child_process";
@@ -21,7 +22,7 @@ const [name, href, description] = args.filter((a) => !a.startsWith("--"));
 
 if (!name || !href) {
   console.error(
-    'Usage: npm run project -- "Name" https://url "One-line description" [--emoji=🚀] [--metric=users] [--value=—] [--no-ship] [--no-deploy] [--dry]',
+    'Usage: npm run project -- "Name" https://url "One-line description" [--emoji=🚀] [--metric=users] [--value=—] [--no-ship] [--dry]',
   );
   process.exit(1);
 }
@@ -80,15 +81,9 @@ try {
   console.error("⚠️  Commit skipped/failed — file updated; commit manually.");
 }
 
-if (has("no-deploy")) {
-  console.log("Skipped deploy (--no-deploy). Run `vercel deploy --prod` when ready.");
-  process.exit(0);
-}
-
 try {
-  console.log("🚀  Deploying to production…");
-  run("vercel deploy --prod --yes");
-  console.log("\n🎉  Project live.");
+  run("git push");
+  console.log("\n🚀  Pushed. Vercel's GitHub integration will build & deploy it.");
 } catch {
-  console.error("⚠️  Deploy failed — committed locally. Run `vercel deploy --prod` manually.");
+  console.error("⚠️  Push skipped (offline or no upstream) — committed locally, push when ready.");
 }

@@ -122,4 +122,4 @@ if (!any) {
 }
 
 writeFileSync(sitePath, updated);
-console.log("\n✅  Wrote traffic arrays to lib/site.ts. Commit & deploy to publish:\n   git add lib/site.ts && git commit -m \"traffic: refresh sparklines\" && git push && vercel deploy --prod --yes\n");
+console.log("\n✅  Wrote traffic arrays to lib/site.ts. Commit & push to publish (Vercel builds via GitHub):\n   git add lib/site.ts && git commit -m \"traffic: refresh sparklines\" && git push\n");

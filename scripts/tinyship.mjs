@@ -77,7 +77,6 @@ if (text) {
   if (link) args.push(link);
   if (tag) args.push(`--tag=${tag}`);
   if (project) args.push(`--project=${project}`);
-  if (flags.includes("--no-deploy")) args.push("--no-deploy");
   if (flags.includes("--dry")) args.push("--dry");
   run("ship.mjs", args);
   process.exit(0);

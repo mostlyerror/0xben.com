@@ -89,7 +89,7 @@ export const projects: {
     description: "Hourly weather forecasts, right inside Google Calendar. Privacy-first Chrome extension, free forever.",
     href: "https://letsraincheck.com",
     metricLabel: "users",
-    metricValue: "—",
+    metricValue: "5",
     emoji: "🌦️",
   },
   {

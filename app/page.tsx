@@ -269,8 +269,11 @@ export default async function Home() {
         </div>
       </div>
 
-      <footer className="mt-auto pt-8 text-sm text-black/40 dark:text-white/40">
-        © {new Date().getFullYear()} {site.name} · {site.domain}
+      <footer className="mt-auto flex flex-wrap items-center gap-x-2 gap-y-1 pt-8 text-sm text-black/40 dark:text-white/40">
+        <span>
+          © {new Date().getFullYear()} {site.name} · {site.domain}
+        </span>
+        <BuildStamp />
       </footer>
     </main>
   );
@@ -356,6 +359,27 @@ function ProjectDistribution({ projectName }: { projectName: string }) {
         </>
       )}
     </p>
+  );
+}
+
+// Footer build stamp: the exact git SHA Vercel built from, so what's "live"
+// is always verifiable at a glance. Links to the commit on GitHub.
+function BuildStamp() {
+  const sha = process.env.VERCEL_GIT_COMMIT_SHA;
+  if (!sha) {
+    return <span className="font-mono text-xs opacity-70">· dev</span>;
+  }
+  const short = sha.slice(0, 7);
+  return (
+    <a
+      href={`https://github.com/${site.github}/${site.domain}/commit/${sha}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="font-mono text-xs underline-offset-2 hover:underline"
+      title="Deployed commit"
+    >
+      · {short}
+    </a>
   );
 }
 

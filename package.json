@@ -14,7 +14,8 @@
     "project": "node scripts/project.mjs",
     "sync": "node scripts/sync.mjs",
     "rollup": "node scripts/rollup.mjs",
-    "draft": "node scripts/draft.mjs"
+    "draft": "node scripts/draft.mjs",
+    "traffic": "node scripts/traffic.mjs"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",

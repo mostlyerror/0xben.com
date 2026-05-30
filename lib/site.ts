@@ -75,8 +75,11 @@ export const projects: {
   metricValue: string;
   emoji: string;
   // Optional weekly visitor counts, oldest to newest. Renders a sparkline
-  // on the card. Update by hand for now; later this can pull from PostHog.
+  // on the card. Set by hand, or auto-filled by `npm run traffic` from PostHog.
   traffic?: number[];
+  // PostHog project ID for this product. If set, `npm run traffic` pulls
+  // weekly unique visitors for it. Find it in PostHog → Settings → Project ID.
+  posthogId?: string;
 }[] = [
   // project:insert — `npm run project` inserts new entries directly below this line
   {

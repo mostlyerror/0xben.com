@@ -46,7 +46,7 @@ export const tinyship = {
   manifesto:
     "You don't have a building problem. You have a shipping problem. " +
     "Last week: 353 commits, 1 launch. So I built a wall that counts " +
-    "launches, not commits — and dares me to keep it alive. Ship tiny. " +
+    "launches, not commits, and dares me to keep it alive. Ship tiny. " +
     "Ship ugly. Ship today.",
   seedLine: "A real product someday. For now, it's just mine.",
   followHref: "https://x.com/mostly_error",
@@ -102,7 +102,7 @@ export const projects: {
   },
   {
     name: "ClusterDesk",
-    description: "Weekly alerts when multiple insiders buy the same micro-cap within days — straight from SEC Form 4 filings.",
+    description: "Weekly alerts when multiple insiders buy the same micro-cap within days, straight from SEC Form 4 filings.",
     href: "https://clusterdesk.io",
     metricLabel: "subscribers",
     metricValue: "—",
@@ -147,12 +147,12 @@ export const shipped: {
   // ship:insert — `npm run ship` inserts new entries directly below this line
   { date: "May 30, 2026", what: "Launched Raincheck on Product Hunt", href: "https://www.producthunt.com/products/raincheck-4", tag: "post", project: "Raincheck" },
   { date: "May 30, 2026", what: "Promoted ClusterDesk on X (@clusterdesk)", href: "https://x.com/clusterdesk", tag: "post", project: "ClusterDesk" },
-  { date: "May 30, 2026", what: "Built Hot Take — automated Kalshi weather-markets engine on Cloudflare Workers + D1: twice-daily X posts (NYC daily high, GFS ensemble vs market odds), in-Worker chart + OG generation, and a live quant terminal (edge/EV/Kelly, calibration, simulated P&L)", tag: "build", project: "Hot Take" },
+  { date: "May 30, 2026", what: "Built Hot Take, an automated Kalshi weather-markets engine on Cloudflare Workers + D1: twice-daily X posts (NYC daily high, GFS ensemble vs market odds), in-Worker chart + OG generation, and a live quant terminal (edge/EV/Kelly, calibration, simulated P&L)", tag: "build", project: "Hot Take" },
   { date: "May 30, 2026", what: "Built Carte pilot end-to-end: live brand/palette extraction, vision-based menu transcription, 9:16 brand-matched renderer, scannable QR + live hosted menus, and a batch scorecard. Validated on 8 real Houston restaurants.", href: "https://site-bens-projects-1984.vercel.app", tag: "build", project: "Carte" },
   { date: "May 30, 2026", what: "Launched Carte", href: "https://site-bens-projects-1984.vercel.app", tag: "launch", project: "Carte" },
   { date: "May 30, 2026", what: "Posted PickleRadar to Houston pickleball FB groups", tag: "post", project: "PickleRadar" },
   { date: "May 30, 2026", what: "Posted about PickleRadar's new ratings histogram", href: "https://x.com/mostly_error/status/2060719470939615536", tag: "post", project: "PickleRadar" },
-  { date: "May 30, 2026", what: "Locked ClusterDesk's funnel priorities — an 8-week falsification gate", href: "https://clusterdesk.io", project: "ClusterDesk" },
+  { date: "May 30, 2026", what: "Locked ClusterDesk's funnel priorities: an 8-week falsification gate", href: "https://clusterdesk.io", project: "ClusterDesk" },
   { date: "May 30, 2026", what: "Shipped TinyShip rollup + auto-draft: build-vs-ship effort per project", href: "https://0xben.com" },
   { date: "May 30, 2026", what: "Redesigned PickleRadar's ratings distribution as a unit-square histogram", href: "https://pickleradar.app", project: "PickleRadar" },
   {
@@ -161,15 +161,15 @@ export const shipped: {
     href: "https://0xben.com",
     tag: "launch",
     details: [
-      "Designed and built the whole site — empty folder to production in one session",
+      "Designed and built the whole site, empty folder to production in one session",
       "Registered the domain on Porkbun and shipped on Vercel (apex + www, SSL)",
       "Hero, bio, live project list, and this very Shipped ledger",
       "Explored 8 design directions before committing to this minimal one",
     ],
   },
   // TODO: these are seeded placeholders — fix the dates and add real ones.
-  { date: "May 2026", what: "Launched noyu — weekly reconnect questions", href: "https://noyu.love" },
-  { date: "Apr 2026", what: "Launched ClusterDesk — insider-buy stock signals", href: "https://clusterdesk.io" },
+  { date: "May 2026", what: "Launched noyu, weekly reconnect questions", href: "https://noyu.love" },
+  { date: "Apr 2026", what: "Launched ClusterDesk, insider-buy stock signals", href: "https://clusterdesk.io" },
   { date: "Feb 2026", what: "Shipped Raincheck to the Chrome Web Store", href: "https://letsraincheck.com" },
   { date: "Dec 2025", what: "Launched PickleRadar for Houston pickleball", href: "https://pickleradar.app" },
   { date: "Oct 2025", what: "Opened Good Robot Co for business", href: "https://goodrobotco.com" },

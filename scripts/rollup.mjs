@@ -38,8 +38,9 @@ for (const name of repos) {
 
 // --- logged ships: parse the ledger for { project, tag } ---
 const src = readFileSync(join(root, "lib", "site.ts"), "utf8");
-const start = src.indexOf("export const shipped");
-const block = start >= 0 ? src.slice(start, src.indexOf("];", start)) : "";
+// Anchor on the in-array marker so the type's `string[];` doesn't truncate us.
+const mStart = src.indexOf("// ship:insert");
+const block = mStart >= 0 ? src.slice(mStart, src.indexOf("\n];", mStart)) : "";
 const ships = {}; // key (lowercased) -> { name, ships, posts, launches, total }
 for (const e of block.match(/\{[^}]*\}/g) || []) {
   const proj = (e.match(/project:\s*"([^"]+)"/) || [])[1];

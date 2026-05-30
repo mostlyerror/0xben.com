@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { site, socials, projects, manualStats, inlineLinks, shipped, status, tinyship } from "@/lib/site";
 import { ShipHeatmap } from "@/components/ShipHeatmap";
+import { Sparkline } from "@/components/Sparkline";
 import { StatusLine } from "@/components/StatusLine";
 import { SocialIcons } from "@/components/SocialIcons";
 
@@ -117,6 +118,14 @@ export default async function Home() {
                 </p>
                 <ProjectDistribution projectName={p.name} />
               </div>
+              {p.traffic && p.traffic.length >= 2 && (
+                <div className="mt-auto flex items-end justify-between gap-2 pt-1">
+                  <span className="text-[10px] uppercase tracking-wide text-black/30 dark:text-white/30">
+                    visitors / wk
+                  </span>
+                  <Sparkline data={p.traffic} className="h-5 w-20" />
+                </div>
+              )}
             </a>
           ))}
         </div>

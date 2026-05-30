@@ -74,6 +74,9 @@ export const projects: {
   metricLabel: string;
   metricValue: string;
   emoji: string;
+  // Optional weekly visitor counts, oldest to newest. Renders a sparkline
+  // on the card. Update by hand for now; later this can pull from PostHog.
+  traffic?: number[];
 }[] = [
   // project:insert — `npm run project` inserts new entries directly below this line
   {
@@ -91,6 +94,7 @@ export const projects: {
     metricLabel: "users",
     metricValue: "5",
     emoji: "🌦️",
+    traffic: [12, 18, 9, 24, 31, 22, 40],
   },
   {
     name: "PickleRadar",
@@ -99,6 +103,7 @@ export const projects: {
     metricLabel: "tournaments",
     metricValue: "—",
     emoji: "🏓",
+    traffic: [40, 35, 60, 80, 120, 95, 160],
   },
   {
     name: "ClusterDesk",

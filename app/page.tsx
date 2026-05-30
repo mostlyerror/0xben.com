@@ -54,7 +54,9 @@ export default async function Home() {
   const weekStreak = computeWeekStreak(shipDates);
 
   return (
-    <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col gap-14 px-6 py-16 sm:py-24">
+    <main className="mx-auto flex w-full max-w-7xl flex-1 flex-col gap-14 px-6 py-16 sm:py-24">
+      <div className="flex flex-1 flex-col gap-14 lg:grid lg:grid-cols-[22rem_minmax(0,1fr)] lg:items-start lg:gap-16">
+        <div className="flex flex-col gap-14 lg:sticky lg:top-16">
       {/* Hero */}
       <section className="flex flex-col gap-4">
         <Image
@@ -94,8 +96,10 @@ export default async function Home() {
             <Linkified text={p} />
           </p>
         ))}
-      </section>
+        </div>
 
+        {/* RIGHT — shipping activity */}
+        <div className="flex flex-col gap-14">
       {/* Shipped — the proof-of-shipping ledger */}
       <section className="flex flex-col gap-5">
         <div className="flex flex-col gap-1">
@@ -264,6 +268,8 @@ export default async function Home() {
           ))}
         </div>
       </section>
+        </div>
+      </div>
 
       <footer className="mt-auto flex flex-col gap-2 pt-8 text-sm text-black/40 dark:text-white/40">
         {gh && (
@@ -370,7 +376,7 @@ function ProjectDistribution({ projectName }: { projectName: string }) {
 // Small chip marking the kind of ship (post / wrote / build / launch …).
 function Tag({ label }: { label: string }) {
   return (
-    <span className="mr-2 rounded bg-black/[0.06] px-1.5 py-0.5 align-middle text-[10px] font-medium uppercase tracking-wide text-black/50 dark:bg-white/10 dark:text-white/50">
+    <span className="badge badge-sm badge-ghost mr-2 align-middle uppercase">
       {label}
     </span>
   );

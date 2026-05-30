@@ -11,11 +11,11 @@ export const site = {
   // Circular headshot at the top of the hero. Lives in /public.
   avatar: "/ben.jpg",
   // The big sentence at the top. Keep it short and human.
-  headline: "Hi, I'm Ben 👋",
+  headline: "sup nerds 👋",
   tagline: "Software solopreneur. I run Good Robot Co and ship small products on the side.",
   // A short paragraph or two. Plain strings = separate paragraphs.
   bio: [
-    "I'm a software solopreneur. I run Good Robot Co, where I build automation systems for local service businesses — responding to leads in minutes, following up on autopilot, getting more reviews.",
+    "I'm Ben — a software solopreneur. I run Good Robot Co, where I build automation systems for local service businesses — responding to leads in minutes, following up on autopilot, getting more reviews.",
     "On the side I ship small products and learn in public. This page is where I keep them, and the numbers behind them. No team, no funding — just me and code.",
   ],
   // Your GitHub handle. Stats are fetched live from the public API.

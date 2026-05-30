@@ -341,13 +341,17 @@ function ShipHeatmap({ entries }: { entries: { date: string; tag?: string }[] })
 
   return (
     <div className="overflow-x-auto pb-1">
-      <div className="flex gap-[3px]">
+      <div className="flex gap-[3px] sm:gap-1">
         {weeks.map((week, wi) => (
-          <div key={wi} className="flex flex-col gap-[3px]">
+          <div key={wi} className="flex flex-col gap-[3px] sm:gap-1">
             {week.map((day, di) =>
               day.launch ? (
-                <div key={di} title={`${day.label}: launched 🚀`} className="relative size-2.5">
-                  <span className="absolute inset-0 flex items-center justify-center text-[11px] leading-none">
+                <div
+                  key={di}
+                  title={`${day.label}: launched 🚀`}
+                  className="relative size-2.5 sm:size-5"
+                >
+                  <span className="absolute inset-0 flex items-center justify-center text-[11px] leading-none sm:text-base">
                     🚀
                   </span>
                 </div>
@@ -355,7 +359,7 @@ function ShipHeatmap({ entries }: { entries: { date: string; tag?: string }[] })
                 <div
                   key={di}
                   title={day.future ? undefined : `${day.label}: ${day.count} ship${day.count === 1 ? "" : "s"}`}
-                  className={`size-2.5 rounded-[2px] ${day.future ? "bg-transparent" : level(day.count)}`}
+                  className={`size-2.5 rounded-[2px] sm:size-5 sm:rounded-sm ${day.future ? "bg-transparent" : level(day.count)}`}
                 />
               ),
             )}

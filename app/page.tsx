@@ -41,6 +41,16 @@ export default async function Home() {
           ? "text-amber-600 dark:text-amber-400"
           : "text-red-600 dark:text-red-400";
 
+  // Cadence stats, all derived from the ledger dates.
+  const shipDates = shipped
+    .map((s) => new Date(s.date))
+    .filter((d) => !Number.isNaN(d.getTime()));
+  const now = new Date();
+  const shipsThisMonth = shipDates.filter(
+    (d) => d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear(),
+  ).length;
+  const weekStreak = computeWeekStreak(shipDates);
+
   return (
     <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col gap-14 px-6 py-16 sm:py-24">
       {/* Hero */}
@@ -85,20 +95,26 @@ export default async function Home() {
 
       {/* Shipped — the proof-of-shipping ledger */}
       <section className="flex flex-col gap-5">
-        <div className="flex items-baseline justify-between">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-black/40 dark:text-white/40">
-            Shipped
-          </h2>
-          <span className="text-sm tabular-nums text-black/40 dark:text-white/40">
+        <div className="flex flex-col gap-1">
+          <div className="flex items-baseline justify-between">
+            <h2 className="text-sm font-semibold uppercase tracking-wider text-black/40 dark:text-white/40">
+              Shipped
+            </h2>
             {lastShipLabel && (
-              <>
-                <span className={lastShipColor}>{lastShipLabel}</span>
-                {" · "}
-              </>
+              <span className={`text-sm tabular-nums ${lastShipColor}`}>
+                {lastShipLabel}
+              </span>
             )}
-            {shipped.length} total
-          </span>
+          </div>
+          <p className="text-xs tabular-nums text-black/40 dark:text-white/40">
+            {shipsThisMonth} this month
+            {weekStreak > 0 && ` · 🔥 ${weekStreak}-week streak`}
+            {` · ${shipped.length} total`}
+          </p>
         </div>
+
+        <ShipHeatmap dates={shipDates} />
+
         <ol className="flex flex-col">
           {shipped.map((s, i) => (
             <li
@@ -262,6 +278,73 @@ function Linkified({ text }: { text: string }) {
         ),
       )}
     </>
+  );
+}
+
+// Consecutive 7-day windows (back from today) that each contain a ship.
+function computeWeekStreak(dates: Date[]): number {
+  const DAY = 86_400_000;
+  const now = Date.now();
+  let streak = 0;
+  for (let w = 0; w < 520; w++) {
+    const end = now - w * 7 * DAY;
+    const start = end - 7 * DAY;
+    if (!dates.some((d) => d.getTime() > start && d.getTime() <= end)) break;
+    streak++;
+  }
+  return streak;
+}
+
+// GitHub-style contribution calendar of ships over the last 26 weeks.
+function ShipHeatmap({ dates }: { dates: Date[] }) {
+  const WEEKS = 26;
+  const DAY = 86_400_000;
+  const dayKey = (d: Date) => `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
+
+  const counts = new Map<string, number>();
+  for (const d of dates) counts.set(dayKey(d), (counts.get(dayKey(d)) ?? 0) + 1);
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const thisSunday = new Date(today.getTime() - today.getDay() * DAY);
+  const start = new Date(thisSunday.getTime() - (WEEKS - 1) * 7 * DAY);
+
+  const level = (n: number) =>
+    n === 0
+      ? "bg-black/[0.06] dark:bg-white/[0.07]"
+      : n === 1
+        ? "bg-emerald-300 dark:bg-emerald-800"
+        : n === 2
+          ? "bg-emerald-400 dark:bg-emerald-600"
+          : "bg-emerald-500";
+
+  const weeks = Array.from({ length: WEEKS }, (_, w) =>
+    Array.from({ length: 7 }, (_, d) => {
+      const cur = new Date(start.getTime() + (w * 7 + d) * DAY);
+      return {
+        future: cur.getTime() > today.getTime(),
+        count: counts.get(dayKey(cur)) ?? 0,
+        label: cur.toDateString(),
+      };
+    }),
+  );
+
+  return (
+    <div className="overflow-x-auto pb-1">
+      <div className="flex gap-[3px]">
+        {weeks.map((week, wi) => (
+          <div key={wi} className="flex flex-col gap-[3px]">
+            {week.map((day, di) => (
+              <div
+                key={di}
+                title={day.future ? undefined : `${day.label}: ${day.count} ship${day.count === 1 ? "" : "s"}`}
+                className={`size-2.5 rounded-[2px] ${day.future ? "bg-transparent" : level(day.count)}`}
+              />
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }
 

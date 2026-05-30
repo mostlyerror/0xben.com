@@ -15,8 +15,8 @@ export const site = {
   tagline: "Software solopreneur. I run Good Robot Co and ship small products on the side.",
   // A short paragraph or two. Plain strings = separate paragraphs.
   bio: [
-    "I'm Ben — a software solopreneur. I run Good Robot Co, where I build automation systems for local service businesses — responding to leads in minutes, following up on autopilot, getting more reviews.",
-    "On the side I ship small products and learn in public. This page is where I keep them, and the numbers behind them. No team, no funding — just me and code.",
+    "I'm Ben. I run Good Robot Co, a one-person shop that builds automation for local service businesses. Think faster replies to new leads, follow-ups that happen on their own, and a steadier stream of reviews.",
+    "On the side I build small products and share the work as I go. This page is where I keep them and the numbers behind them. No team, no funding, just me and code.",
   ],
   // Your GitHub handle. Stats are fetched live from the public API.
   // Set to null to hide the live GitHub card entirely.

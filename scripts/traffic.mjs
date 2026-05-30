@@ -84,7 +84,8 @@ for (const t of targets) {
       console.log(`  ${t.name.padEnd(16)} no pageview data in window`);
       continue;
     }
-    console.log(`  ${t.name.padEnd(16)} [${series.join(", ")}]  (latest ${series[series.length - 1]})`);
+    const latest = series[series.length - 1];
+    console.log(`  ${t.name.padEnd(16)} [${series.join(", ")}]  (latest ${latest})`);
     any = true;
     if (!dry) {
       // Replace this project's traffic: [...] (or insert after its posthogId line)

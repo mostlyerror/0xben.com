@@ -97,7 +97,6 @@ export const projects: {
     metricLabel: "users",
     metricValue: "5",
     emoji: "🌦️",
-    traffic: [12, 18, 9, 24, 31, 22, 40],
   },
   {
     name: "PickleRadar",
@@ -106,7 +105,8 @@ export const projects: {
     metricLabel: "tournaments",
     metricValue: "—",
     emoji: "🏓",
-    traffic: [40, 35, 60, 80, 120, 95, 160],
+    posthogId: "97214",
+    traffic: [3, 7, 12, 28, 41, 66, 90, 138],
   },
   {
     name: "ClusterDesk",
@@ -115,6 +115,8 @@ export const projects: {
     metricLabel: "subscribers",
     metricValue: "—",
     emoji: "📈",
+    posthogId: "53902",
+    traffic: [0, 2, 1, 3, 2, 5, 4, 8],
   },
   {
     name: "noyu",
@@ -123,6 +125,8 @@ export const projects: {
     metricLabel: "/mo",
     metricValue: "$2.99",
     emoji: "💌",
+    posthogId: "88431",
+    traffic: [1, 2, 1, 4, 3, 6, 9, 12],
   },
 ];
 

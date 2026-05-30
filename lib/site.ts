@@ -83,6 +83,14 @@ export const projects: {
 }[] = [
   // project:insert — `npm run project` inserts new entries directly below this line
   {
+    name: "Hot Take",
+    description: "Automated Kalshi weather-markets desk: GFS ensemble vs market odds on NYC daily high, with a live edge/EV quant terminal",
+    href: "https://0xben.com",
+    metricLabel: "edge bps",
+    metricValue: "—",
+    emoji: "🌡️",
+  },
+  {
     name: "GeoToMarket",
     description: "Game-theoretic geopolitics translated into market theses",
     href: "https://x.com/GeoToMarket",

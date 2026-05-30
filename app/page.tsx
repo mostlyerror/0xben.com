@@ -121,7 +121,7 @@ export default async function Home() {
               {p.traffic && p.traffic.length >= 2 && (
                 <div className="mt-auto flex items-end justify-between gap-2 pt-1">
                   <span className="text-[10px] uppercase tracking-wide text-black/30 dark:text-white/30">
-                    visitors / day
+                    visitors / wk
                   </span>
                   <Sparkline data={p.traffic} className="h-5 w-20" />
                 </div>

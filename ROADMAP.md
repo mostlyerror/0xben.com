@@ -50,7 +50,8 @@ at once. Not required to start — the `ship` script is the 80/20.
 3. "Shipped this month" + streak — computed from existing data
 4. Ship heatmap/calendar — visual gaps motivate
 5. ~~Auto-post new ships to X~~ — REJECTED: Ben doesn't want commands posting to social
-6. Auto-import ships from git/GitHub/Vercel — surfaces the ~27 active repos
+6. ✅ Auto-import v1 — `npm run sync` read-only weekly digest of ~/dev repos
+   (commits per repo + new-repo flags). Future: auto-draft ledger entries.
 
 **Cut/deferred:** milestone badges, RSS/subscribe (audience features — goal is
 momentum, not awareness yet); `/ship` mobile form (only if the script still

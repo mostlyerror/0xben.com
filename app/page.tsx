@@ -79,7 +79,7 @@ export default async function Home() {
               href={s.href}
               target={s.href.startsWith("http") ? "_blank" : undefined}
               rel="noopener noreferrer"
-              className="rounded-full border border-black/10 px-4 py-1.5 text-sm font-medium transition-colors hover:bg-black/5 dark:border-white/15 dark:hover:bg-white/10"
+              className="btn btn-sm btn-outline rounded-full"
             >
               {s.label}
             </a>
@@ -102,7 +102,7 @@ export default async function Home() {
           <div className="flex items-baseline justify-between">
             <h2 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-black/40 dark:text-white/40">
               Shipped
-              <span className="rounded-full bg-black/[0.06] px-1.5 py-0.5 text-[10px] font-medium normal-case tracking-normal text-black/45 dark:bg-white/10 dark:text-white/45">
+              <span className="badge badge-sm badge-ghost normal-case tracking-normal">
                 🚀 {tinyship.wordmark}
               </span>
             </h2>

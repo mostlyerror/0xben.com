@@ -39,6 +39,19 @@ export const status: string[] = [
   "probably renaming a variable",
 ];
 
+// TinyShip — the shipping-momentum system on this page, as the seed of a
+// product. Pure copy; edit freely. (Future: its own home at tinyship.dev.)
+export const tinyship = {
+  wordmark: "TinyShip",
+  manifesto:
+    "You don't have a building problem. You have a shipping problem. " +
+    "Last week: 353 commits, 1 launch. So I built a wall that counts " +
+    "launches, not commits — and dares me to keep it alive. Ship tiny. " +
+    "Ship ugly. Ship today.",
+  seedLine: "A real product someday. For now, it's just mine.",
+  followHref: "https://x.com/mostly_error",
+};
+
 // ── Social links (shown as buttons + drives the "following" stat) ──
 // followers: a number shows a stat card; null hides the count.
 export const socials: {

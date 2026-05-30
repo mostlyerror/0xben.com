@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { site, socials, projects, manualStats, inlineLinks, shipped, status } from "@/lib/site";
+import { site, socials, projects, manualStats, inlineLinks, shipped, status, tinyship } from "@/lib/site";
 import { getGitHubStats } from "@/lib/github";
 import { ShipHeatmap } from "@/components/ShipHeatmap";
 import { StatusLine } from "@/components/StatusLine";
@@ -100,8 +100,11 @@ export default async function Home() {
       <section className="flex flex-col gap-5">
         <div className="flex flex-col gap-1">
           <div className="flex items-baseline justify-between">
-            <h2 className="text-sm font-semibold uppercase tracking-wider text-black/40 dark:text-white/40">
+            <h2 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-black/40 dark:text-white/40">
               Shipped
+              <span className="rounded-full bg-black/[0.06] px-1.5 py-0.5 text-[10px] font-medium normal-case tracking-normal text-black/45 dark:bg-white/10 dark:text-white/45">
+                🚀 {tinyship.wordmark}
+              </span>
             </h2>
             {lastShipLabel && (
               <span className={`text-sm tabular-nums ${lastShipColor}`}>
@@ -187,6 +190,32 @@ export default async function Home() {
             </li>
           ))}
         </ol>
+
+        {/* TinyShip manifesto — the claim, right under the live evidence */}
+        <div className="mt-1 flex flex-col gap-2 rounded-2xl border border-black/10 bg-black/[0.02] p-5 dark:border-white/10 dark:bg-white/[0.03]">
+          <p className="text-sm leading-relaxed text-black/70 dark:text-white/70">
+            <span className="font-semibold text-black dark:text-white">
+              🚀 {tinyship.wordmark}
+            </span>{" "}
+            — {tinyship.manifesto}
+          </p>
+          <p className="text-xs text-black/40 dark:text-white/40">
+            {tinyship.seedLine}
+            {tinyship.followHref && (
+              <>
+                {" · "}
+                <a
+                  href={tinyship.followHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline-offset-2 hover:underline"
+                >
+                  follow the build ↗
+                </a>
+              </>
+            )}
+          </p>
+        </div>
       </section>
 
       {/* Stats — only shown when there are real numbers to show */}

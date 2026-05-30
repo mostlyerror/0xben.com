@@ -242,28 +242,30 @@ export default async function Home() {
         <h2 className="text-sm font-semibold uppercase tracking-wider text-black/40 dark:text-white/40">
           What I'm building
         </h2>
-        <div className="flex flex-col gap-3">
+        <div className="grid gap-3 sm:grid-cols-2">
           {projects.map((p) => (
             <a
               key={p.name}
               href={p.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-center gap-4 rounded-2xl border border-black/10 p-4 transition-colors hover:bg-black/[0.03] dark:border-white/10 dark:hover:bg-white/[0.04]"
+              className="group flex flex-col gap-2 rounded-2xl border border-black/10 p-4 transition-colors hover:bg-black/[0.03] dark:border-white/10 dark:hover:bg-white/[0.04]"
             >
-              <span className="text-2xl">{p.emoji}</span>
-              <div className="flex-1">
+              <div className="flex items-start justify-between gap-3">
+                <span className="text-2xl">{p.emoji}</span>
+                <div className="text-right">
+                  <p className="font-semibold tabular-nums leading-none">{p.metricValue}</p>
+                  <p className="text-xs text-black/40 dark:text-white/40">
+                    {p.metricLabel}
+                  </p>
+                </div>
+              </div>
+              <div>
                 <h3 className="font-semibold group-hover:underline">{p.name}</h3>
                 <p className="text-sm text-black/60 dark:text-white/60">
                   {p.description}
                 </p>
                 <ProjectDistribution projectName={p.name} />
-              </div>
-              <div className="text-right">
-                <p className="font-semibold tabular-nums">{p.metricValue}</p>
-                <p className="text-xs text-black/40 dark:text-white/40">
-                  {p.metricLabel}
-                </p>
               </div>
             </a>
           ))}

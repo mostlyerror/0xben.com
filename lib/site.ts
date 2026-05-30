@@ -77,6 +77,14 @@ export const projects: {
 }[] = [
   // project:insert — `npm run project` inserts new entries directly below this line
   {
+    name: "Carte",
+    description: "Auto-rebuilds restaurants' ugly menus into live, brand-matched QR web menus for agencies",
+    href: "https://site-bens-projects-1984.vercel.app",
+    metricLabel: "menus rebuilt",
+    metricValue: "—",
+    emoji: "🍽️",
+  },
+  {
     name: "Raincheck",
     description: "Hourly weather forecasts, right inside Google Calendar. Privacy-first Chrome extension, free forever.",
     href: "https://letsraincheck.com",
@@ -137,6 +145,7 @@ export const shipped: {
   details?: string[];
 }[] = [
   // ship:insert — `npm run ship` inserts new entries directly below this line
+  { date: "May 30, 2026", what: "Launched Carte", href: "https://site-bens-projects-1984.vercel.app", tag: "launch", project: "Carte" },
   { date: "May 30, 2026", what: "digest" },
   { date: "May 30, 2026", what: "Posted PickleRadar to Houston pickleball FB groups", tag: "post", project: "PickleRadar" },
   { date: "May 30, 2026", what: "Posted about PickleRadar's new ratings histogram", href: "https://x.com/mostly_error/status/2060719470939615536", tag: "post", project: "PickleRadar" },

@@ -120,6 +120,32 @@ export default async function Home() {
             </a>
           ))}
         </div>
+
+        {/* TinyShip manifesto */}
+        <div className="mt-1 flex flex-col gap-2 rounded-2xl border border-black/10 bg-black/[0.02] p-5 dark:border-white/10 dark:bg-white/[0.03]">
+          <p className="text-sm leading-relaxed text-black/70 dark:text-white/70">
+            <span className="font-semibold text-black dark:text-white">
+              🚀 {tinyship.wordmark}
+            </span>{" "}
+            {tinyship.manifesto}
+          </p>
+          <p className="text-xs text-black/40 dark:text-white/40">
+            {tinyship.seedLine}
+            {tinyship.followHref && (
+              <>
+                {" · "}
+                <a
+                  href={tinyship.followHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline-offset-2 hover:underline"
+                >
+                  follow the build ↗
+                </a>
+              </>
+            )}
+          </p>
+        </div>
       </section>
 
       {/* Shipped — the proof-of-shipping ledger */}
@@ -216,32 +242,6 @@ export default async function Home() {
             </li>
           ))}
         </ol>
-
-        {/* TinyShip manifesto — the claim, right under the live evidence */}
-        <div className="mt-1 flex flex-col gap-2 rounded-2xl border border-black/10 bg-black/[0.02] p-5 dark:border-white/10 dark:bg-white/[0.03]">
-          <p className="text-sm leading-relaxed text-black/70 dark:text-white/70">
-            <span className="font-semibold text-black dark:text-white">
-              🚀 {tinyship.wordmark}
-            </span>{" "}
-            — {tinyship.manifesto}
-          </p>
-          <p className="text-xs text-black/40 dark:text-white/40">
-            {tinyship.seedLine}
-            {tinyship.followHref && (
-              <>
-                {" · "}
-                <a
-                  href={tinyship.followHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="underline-offset-2 hover:underline"
-                >
-                  follow the build ↗
-                </a>
-              </>
-            )}
-          </p>
-        </div>
       </section>
 
       {/* Stats — only shown when there are real numbers to show */}

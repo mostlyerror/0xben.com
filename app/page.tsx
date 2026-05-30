@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { site, socials, projects, manualStats, inlineLinks, shipped, status, tinyship } from "@/lib/site";
-import { getGitHubStats } from "@/lib/github";
 import { ShipHeatmap } from "@/components/ShipHeatmap";
 import { StatusLine } from "@/components/StatusLine";
 import { SocialIcons } from "@/components/SocialIcons";
@@ -8,8 +7,6 @@ import { SocialIcons } from "@/components/SocialIcons";
 // Server component: GitHub stats are fetched here (cached 1h) so the
 // page arrives fully rendered with no client-side loading flash.
 export default async function Home() {
-  const gh = await getGitHubStats(site.github);
-
   // Prominent stat cards — your real, current numbers. GitHub is handled
   // separately as a de-emphasized footnote (see below).
   const cards = [
@@ -90,6 +87,41 @@ export default async function Home() {
 
         {/* RIGHT — shipping activity */}
         <div className="flex flex-col gap-14">
+      {/* Projects */}
+      <section className="flex flex-col gap-6">
+        <h2 className="text-sm font-semibold uppercase tracking-wider text-black/40 dark:text-white/40">
+          What I'm building
+        </h2>
+        <div className="grid gap-3 sm:grid-cols-2">
+          {projects.map((p) => (
+            <a
+              key={p.name}
+              href={p.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex flex-col gap-2 rounded-2xl border border-black/10 p-4 transition-colors hover:bg-black/[0.03] dark:border-white/10 dark:hover:bg-white/[0.04]"
+            >
+              <div className="flex items-start justify-between gap-3">
+                <span className="text-2xl">{p.emoji}</span>
+                <div className="text-right">
+                  <p className="font-semibold tabular-nums leading-none">{p.metricValue}</p>
+                  <p className="text-xs text-black/40 dark:text-white/40">
+                    {p.metricLabel}
+                  </p>
+                </div>
+              </div>
+              <div>
+                <h3 className="font-semibold group-hover:underline">{p.name}</h3>
+                <p className="text-sm text-black/60 dark:text-white/60">
+                  {p.description}
+                </p>
+                <ProjectDistribution projectName={p.name} />
+              </div>
+            </a>
+          ))}
+        </div>
+      </section>
+
       {/* Shipped — the proof-of-shipping ledger */}
       <section className="flex flex-col gap-5">
         <div className="flex flex-col gap-1">
@@ -225,58 +257,11 @@ export default async function Home() {
           </div>
         </section>
       )}
-
-      {/* Projects */}
-      <section className="flex flex-col gap-6">
-        <h2 className="text-sm font-semibold uppercase tracking-wider text-black/40 dark:text-white/40">
-          What I'm building
-        </h2>
-        <div className="grid gap-3 sm:grid-cols-2">
-          {projects.map((p) => (
-            <a
-              key={p.name}
-              href={p.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex flex-col gap-2 rounded-2xl border border-black/10 p-4 transition-colors hover:bg-black/[0.03] dark:border-white/10 dark:hover:bg-white/[0.04]"
-            >
-              <div className="flex items-start justify-between gap-3">
-                <span className="text-2xl">{p.emoji}</span>
-                <div className="text-right">
-                  <p className="font-semibold tabular-nums leading-none">{p.metricValue}</p>
-                  <p className="text-xs text-black/40 dark:text-white/40">
-                    {p.metricLabel}
-                  </p>
-                </div>
-              </div>
-              <div>
-                <h3 className="font-semibold group-hover:underline">{p.name}</h3>
-                <p className="text-sm text-black/60 dark:text-white/60">
-                  {p.description}
-                </p>
-                <ProjectDistribution projectName={p.name} />
-              </div>
-            </a>
-          ))}
-        </div>
-      </section>
         </div>
       </div>
 
-      <footer className="mt-auto flex flex-col gap-2 pt-8 text-sm text-black/40 dark:text-white/40">
-        {gh && (
-          <a
-            href={`https://github.com/${site.github}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-fit transition-colors hover:text-black/60 dark:hover:text-white/60"
-          >
-            {gh.publicRepos} repos on GitHub ↗
-          </a>
-        )}
-        <span>
-          © {new Date().getFullYear()} {site.name} · {site.domain}
-        </span>
+      <footer className="mt-auto pt-8 text-sm text-black/40 dark:text-white/40">
+        © {new Date().getFullYear()} {site.name} · {site.domain}
       </footer>
     </main>
   );

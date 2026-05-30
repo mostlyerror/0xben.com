@@ -145,6 +145,7 @@ export const shipped: {
   details?: string[];
 }[] = [
   // ship:insert — `npm run ship` inserts new entries directly below this line
+  { date: "May 30, 2026", what: "Built Carte pilot end-to-end: live brand/palette extraction, vision-based menu transcription, 9:16 brand-matched renderer, scannable QR + live hosted menus, and a batch scorecard. Validated on 8 real Houston restaurants.", href: "https://site-bens-projects-1984.vercel.app", tag: "build", project: "Carte" },
   { date: "May 30, 2026", what: "Launched Carte", href: "https://site-bens-projects-1984.vercel.app", tag: "launch", project: "Carte" },
   { date: "May 30, 2026", what: "digest" },
   { date: "May 30, 2026", what: "Posted PickleRadar to Houston pickleball FB groups", tag: "post", project: "PickleRadar" },

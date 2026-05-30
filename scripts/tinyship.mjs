@@ -41,6 +41,16 @@ if (sub === "sync") {
   process.exit(0);
 }
 
+if (sub === "rollup") {
+  run("rollup.mjs", argv.slice(1));
+  process.exit(0);
+}
+
+if (sub === "draft") {
+  run("draft.mjs", argv.slice(1));
+  process.exit(0);
+}
+
 if (sub === "project") {
   if (argv.length > 1) {
     run("project.mjs", argv.slice(1));

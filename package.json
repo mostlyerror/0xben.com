@@ -12,7 +12,9 @@
     "ship": "node scripts/ship.mjs",
     "post": "node scripts/ship.mjs --tag=post",
     "project": "node scripts/project.mjs",
-    "sync": "node scripts/sync.mjs"
+    "sync": "node scripts/sync.mjs",
+    "rollup": "node scripts/rollup.mjs",
+    "draft": "node scripts/draft.mjs"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",

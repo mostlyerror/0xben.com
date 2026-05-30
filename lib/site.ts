@@ -105,7 +105,7 @@ export const projects: {
     metricLabel: "tournaments",
     metricValue: "—",
     emoji: "🏓",
-    posthogId: "97214",
+    posthogId: "444689",
     traffic: [3, 7, 12, 28, 41, 66, 90, 138],
   },
   {
@@ -115,7 +115,7 @@ export const projects: {
     metricLabel: "subscribers",
     metricValue: "—",
     emoji: "📈",
-    posthogId: "53902",
+    posthogId: "446437",
     traffic: [0, 2, 1, 3, 2, 5, 4, 8],
   },
   {
@@ -125,7 +125,7 @@ export const projects: {
     metricLabel: "/mo",
     metricValue: "$2.99",
     emoji: "💌",
-    posthogId: "88431",
+    posthogId: "444905",
     traffic: [1, 2, 1, 4, 3, 6, 9, 12],
   },
 ];
@@ -157,6 +157,7 @@ export const shipped: {
   details?: string[];
 }[] = [
   // ship:insert — `npm run ship` inserts new entries directly below this line
+  { date: "May 30, 2026", what: "Fixed ClusterDesk's automated X posting engine (it was silently never firing — cron sat outside the posting window), retimed it for the retail audience, and built the content + reply-graph engine around it: weekly leaderboard, thread mode, evergreen floor, and a leverage-ranked reply scout with intra-day fast scans", project: "ClusterDesk" },
   { date: "May 30, 2026", what: "Launched the Carte landing page — live editorial site with real Houston menu demos embedded as scannable iframes", href: "https://site-bens-projects-1984.vercel.app", tag: "launch", project: "Carte" },
   { date: "May 30, 2026", what: "Launched Raincheck on Product Hunt", href: "https://www.producthunt.com/products/raincheck-4", tag: "post", project: "Raincheck" },
   { date: "May 30, 2026", what: "Promoted ClusterDesk on X (@clusterdesk)", href: "https://x.com/clusterdesk", tag: "post", project: "ClusterDesk" },

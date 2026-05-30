@@ -35,7 +35,7 @@ if (!KEY) {
 }
 
 const args = process.argv.slice(2);
-const days = Number(args.find((a) => /^\d+$/.test(a))) || 14;
+const weeks = Number(args.find((a) => /^\d+$/.test(a))) || 8;
 const dry = args.includes("--dry");
 
 // --- find projects with a posthogId in lib/site.ts ---
@@ -54,12 +54,12 @@ if (targets.length === 0) {
   process.exit(1);
 }
 
-// HogQL: daily unique pageview visitors over the window.
+// HogQL: weekly unique pageview visitors over the window.
 const hogql = `
-  SELECT toStartOfDay(timestamp) AS day, count(DISTINCT person_id) AS visitors
+  SELECT toStartOfWeek(timestamp) AS week, count(DISTINCT person_id) AS visitors
   FROM events
-  WHERE event = '$pageview' AND timestamp > now() - INTERVAL ${days} DAY
-  GROUP BY day ORDER BY day ASC
+  WHERE event = '$pageview' AND timestamp > now() - INTERVAL ${weeks} WEEK
+  GROUP BY week ORDER BY week ASC
 `;
 
 async function fetchWeekly(projectId) {

@@ -137,6 +137,7 @@ export const shipped: {
   details?: string[];
 }[] = [
   // ship:insert — `npm run ship` inserts new entries directly below this line
+  { date: "May 30, 2026", what: "Redesigned PickleRadar's ratings distribution as a unit-square histogram", href: "https://pickleradar.app", project: "PickleRadar" },
   {
     date: "May 29, 2026",
     what: "Launched 0xben.com",

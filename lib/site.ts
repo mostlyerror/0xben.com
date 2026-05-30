@@ -153,6 +153,7 @@ export const shipped: {
   details?: string[];
 }[] = [
   // ship:insert — `npm run ship` inserts new entries directly below this line
+  { date: "May 30, 2026", what: "Launched the Carte landing page — live editorial site with real Houston menu demos embedded as scannable iframes", href: "https://site-bens-projects-1984.vercel.app", tag: "launch", project: "Carte" },
   { date: "May 30, 2026", what: "Launched Raincheck on Product Hunt", href: "https://www.producthunt.com/products/raincheck-4", tag: "post", project: "Raincheck" },
   { date: "May 30, 2026", what: "Promoted ClusterDesk on X (@clusterdesk)", href: "https://x.com/clusterdesk", tag: "post", project: "ClusterDesk" },
   { date: "May 30, 2026", what: "Built Hot Take, an automated Kalshi weather-markets engine on Cloudflare Workers + D1: twice-daily X posts (NYC daily high, GFS ensemble vs market odds), in-Worker chart + OG generation, and a live quant terminal (edge/EV/Kelly, calibration, simulated P&L)", tag: "build", project: "Hot Take" },

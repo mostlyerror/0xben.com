@@ -17,7 +17,6 @@ import { createInterface } from "node:readline/promises";
 const argv = process.argv.slice(2);
 const days = Number(argv.find((a) => /^\d+$/.test(a))) || 7;
 const dry = argv.includes("--dry");
-const noDeploy = argv.includes("--no-deploy");
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const sitePath = join(root, "lib", "site.ts");

@@ -23,7 +23,7 @@ const projArg = args.find((a) => a.startsWith("--project="));
 const project = projArg ? projArg.slice("--project=".length) : undefined;
 
 if (!what) {
-  console.error('Usage: npm run ship -- "What you shipped" [https://link] [--tag=post] [--project=Name] [--no-deploy] [--dry]');
+  console.error('Usage: npm run ship -- "What you shipped" [https://link] [--tag=post] [--project=Name] [--dry]');
   process.exit(1);
 }
 

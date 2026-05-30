@@ -49,8 +49,8 @@ at once. Not required to start — the `ship` script is the 80/20.
 2. ✅ "Last shipped: N days ago" counter — biggest nudge for least code
 3. "Shipped this month" + streak — computed from existing data
 4. Ship heatmap/calendar — visual gaps motivate
-5. Auto-post new ships to X — accountability + distribution
-6. (stretch) Auto-import ships from git/GitHub/Vercel — see below
+5. ~~Auto-post new ships to X~~ — REJECTED: Ben doesn't want commands posting to social
+6. Auto-import ships from git/GitHub/Vercel — surfaces the ~27 active repos
 
 **Cut/deferred:** milestone badges, RSS/subscribe (audience features — goal is
 momentum, not awareness yet); `/ship` mobile form (only if the script still
@@ -76,8 +76,8 @@ The whole point is zero friction — if logging has any cost, it won't happen.
   registers a project AND auto-logs a "Launched <name>" ship, then deploys
   (`--no-ship`, `--no-deploy`, `--dry` available)
 
-Follow-ups: per-type counts ("3 posts this week"); auto-post ships to X when a
-following exists.
+Follow-ups: per-type counts ("3 posts this week"). (Auto-post to X: rejected —
+no auto-posting to social.)
 
 ## Capability note — can the ledger auto-populate?
 

@@ -96,6 +96,7 @@ export default async function Home() {
             <Linkified text={p} />
           </p>
         ))}
+      </section>
         </div>
 
         {/* RIGHT — shipping activity */}

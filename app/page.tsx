@@ -3,6 +3,7 @@ import { site, socials, projects, manualStats, inlineLinks, shipped, status, tin
 import { getGitHubStats } from "@/lib/github";
 import { ShipHeatmap } from "@/components/ShipHeatmap";
 import { StatusLine } from "@/components/StatusLine";
+import { SocialIcons } from "@/components/SocialIcons";
 
 // Server component: GitHub stats are fetched here (cached 1h) so the
 // page arrives fully rendered with no client-side loading flash.
@@ -74,19 +75,7 @@ export default async function Home() {
           {site.tagline}
         </p>
         <StatusLine items={status} />
-        <div className="mt-2 flex flex-wrap gap-2">
-          {socials.map((s) => (
-            <a
-              key={s.label}
-              href={s.href}
-              target={s.href.startsWith("http") ? "_blank" : undefined}
-              rel="noopener noreferrer"
-              className="btn btn-sm btn-outline rounded-full"
-            >
-              {s.label}
-            </a>
-          ))}
-        </div>
+        <SocialIcons />
       </section>
 
       {/* Bio */}

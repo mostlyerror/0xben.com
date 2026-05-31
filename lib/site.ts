@@ -83,6 +83,14 @@ export const projects: {
 }[] = [
   // project:insert — `npm run project` inserts new entries directly below this line
   {
+    name: "Pickup Studio",
+    description: "Auto-generates AI voice-receptionist demos for small businesses",
+    href: "https://pickupstudio.app",
+    metricLabel: "demos",
+    metricValue: "—",
+    emoji: "📞",
+  },
+  {
     name: "Hot Take",
     description: "Bets on tomorrow's NYC temperature using weather models.",
     href: "https://0xben.com",
@@ -170,6 +178,7 @@ export const shipped: {
   details?: string[];
 }[] = [
   // ship:insert — `npm run ship` inserts new entries directly below this line
+  { date: "May 31, 2026", what: "Launched Pickup Studio", href: "https://pickupstudio.app", tag: "launch", project: "Pickup Studio" },
   { date: "May 31, 2026", what: "Ran the reply-graph on builder accounts", tag: "post" },
   { date: "May 31, 2026", what: "Ran the reply-graph: 10 replies on builder accounts", tag: "post" },
   { date: "May 31, 2026", what: "Rewrote X bio + pinned the build-vs-ship thread", tag: "post", project: "PickleRadar" },

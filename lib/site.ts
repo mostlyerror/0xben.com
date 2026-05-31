@@ -170,6 +170,7 @@ export const shipped: {
   details?: string[];
 }[] = [
   // ship:insert — `npm run ship` inserts new entries directly below this line
+  { date: "May 31, 2026", what: "Rewrote X bio + pinned the build-vs-ship thread", tag: "post", project: "PickleRadar" },
   { date: "May 30, 2026", what: "Launched GeoToMarket", href: "https://x.com/GeoToMarket", tag: "launch", project: "GeoToMarket" },
   { date: "May 30, 2026", what: "Built @GeoToMarket autopilot: 3 cloud routines (morning/midday/close) drafting Jiang-lens tweet candidates and pushing to Discord for phone notifications" },
   { date: "May 30, 2026", what: "ClusterDesk product + analytics pass: wired PostHog conversion-funnel analytics, added price sparklines + interactive insider-buy chart markers across the site/email/cards, and shipped 3 research blog posts with a design pass, per-post OG share cards, and share buttons", project: "ClusterDesk" },

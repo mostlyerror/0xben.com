@@ -100,7 +100,7 @@ export const projects: {
   },
   {
     name: "Carte",
-    description: "Auto-rebuilds restaurants' ugly menus into live, brand-matched QR web menus for agencies",
+    description: "Turns a restaurant's messy menu into a clean QR web menu.",
     href: "https://site-bens-projects-1984.vercel.app",
     metricLabel: "menus rebuilt",
     metricValue: "—",
@@ -108,7 +108,7 @@ export const projects: {
   },
   {
     name: "Raincheck",
-    description: "Hourly weather forecasts, right inside Google Calendar. Privacy-first Chrome extension, free forever.",
+    description: "Puts the weather forecast inside your Google Calendar.",
     href: "https://letsraincheck.com",
     metricLabel: "users",
     metricValue: "5",
@@ -116,7 +116,7 @@ export const projects: {
   },
   {
     name: "PickleRadar",
-    description: "Every upcoming Houston-area pickleball tournament, one search away. Browse by venue and skill level.",
+    description: "Finds every pickleball tournament near Houston.",
     href: "https://pickleradar.app",
     metricLabel: "tournaments",
     metricValue: "—",
@@ -125,7 +125,7 @@ export const projects: {
   },
   {
     name: "ClusterDesk",
-    description: "Weekly alerts when multiple insiders buy the same micro-cap within days, straight from SEC Form 4 filings.",
+    description: "Flags stocks where several insiders are buying at once.",
     href: "https://clusterdesk.io",
     metricLabel: "subscribers",
     metricValue: "—",
@@ -134,7 +134,7 @@ export const projects: {
   },
   {
     name: "noyu",
-    description: "A weekly question, forwarded to someone you've been meaning to reach out to. One question. Forward it. See what happens.",
+    description: "Sends you a weekly nudge to reconnect with someone.",
     href: "https://noyu.love",
     metricLabel: "/mo",
     metricValue: "$2.99",

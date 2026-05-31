@@ -84,7 +84,7 @@ export const projects: {
   // project:insert — `npm run project` inserts new entries directly below this line
   {
     name: "Hot Take",
-    description: "Automated Kalshi weather-markets desk: GFS ensemble vs market odds on NYC daily high, with a live edge/EV quant terminal",
+    description: "Bets on tomorrow's NYC temperature using weather models.",
     href: "https://0xben.com",
     metricLabel: "edge bps",
     metricValue: "—",
@@ -92,7 +92,7 @@ export const projects: {
   },
   {
     name: "GeoToMarket",
-    description: "Game-theoretic geopolitics translated into market theses",
+    description: "Turns geopolitical events into market trade ideas.",
     href: "https://x.com/GeoToMarket",
     metricLabel: "subscribers",
     metricValue: "—",

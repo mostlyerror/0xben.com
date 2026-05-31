@@ -34,6 +34,13 @@ and the demo. Increase shipping motivation via a clear point of view.
    plus an optional follow link (X `@mostly_error`). No "coming soon" button, no
    dead links.
 
+## Domain note (2026-05-31)
+
+`tinyship.dev` is TAKEN. `tinyship.io` was available as of 2026-05-31 — grab it
+when ready to build the standalone product (Porkbun, ~$30-60/yr; Ben has API
+keys in `.env`). `.io` fits the indie-SaaS positioning. Decided to hold off for
+now, not buy yet.
+
 ## Scope — OUT (explicitly deferred)
 
 - A separate `/tinyship` route (decided: no new URL).

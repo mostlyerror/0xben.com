@@ -125,29 +125,7 @@ export default async function Home() {
                 {/* Secondary growth lines only — the line matching the card's
                     headline metric is shown top-right, not repeated here. */}
                 <ProjectGrowth project={p} />
-                {p.phPostId && (
-                  <>
-                    {/* Theme-matched PH badge: light in light mode, dark in dark
-                        mode, swapped by CSS. Left-aligned + sized to sit inline
-                        with the rest of the card, not floating centered. */}
-                    <img
-                      src={`https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=${p.phPostId}&theme=light`}
-                      alt="Featured on Product Hunt"
-                      width={170}
-                      height={37}
-                      loading="lazy"
-                      className="mr-auto block h-[30px] w-auto opacity-85 transition-opacity group-hover:opacity-100 dark:hidden"
-                    />
-                    <img
-                      src={`https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=${p.phPostId}&theme=dark`}
-                      alt="Featured on Product Hunt"
-                      width={170}
-                      height={37}
-                      loading="lazy"
-                      className="mr-auto hidden h-[30px] w-auto opacity-85 transition-opacity group-hover:opacity-100 dark:block"
-                    />
-                  </>
-                )}
+                {p.phPostId && <ProductHuntChip project={p} />}
               </div>
             </a>
           ))}
@@ -423,6 +401,22 @@ function growthView(series: { date: string; value: number }[]) {
 }
 
 type Project = (typeof projects)[number];
+
+// Small "Featured on Product Hunt" chip in the card's own styling — a quiet
+// credential, not a loud sticker. Non-interactive (the whole card already
+// links out), so it stays valid inside the card's outer <a> and renders
+// server-side. PH's brand coral, dialed down to chip weight.
+function ProductHuntChip({ project: p }: { project: Project }) {
+  return (
+    <span className="mr-auto inline-flex items-center gap-1.5 rounded-full border border-[#da552f]/30 bg-[#da552f]/[0.06] px-2 py-0.5 text-[10px] font-medium text-[#da552f] dark:border-[#ff6154]/30 dark:bg-[#ff6154]/10 dark:text-[#ff6154]">
+      <span className="font-bold">P</span>
+      <span className="uppercase tracking-wide">Featured on PH</span>
+      {p.phUpvotes != null && (
+        <span className="tabular-nums opacity-80">▲ {p.phUpvotes}</span>
+      )}
+    </span>
+  );
+}
 
 // A growth line is the card's "headline" metric when its label matches the
 // project's metricLabel (e.g. Raincheck's "users" line == its headline number).

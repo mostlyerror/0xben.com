@@ -80,10 +80,13 @@ export const projects: {
   // PostHog project ID for this product. If set, `npm run traffic` pulls
   // weekly unique visitors for it. Find it in PostHog → Settings → Project ID.
   posthogId?: string;
-  // Product Hunt numeric post_id. If set, the "Featured on Product Hunt" badge
-  // renders on the card. Find it in the embed code on the PH product page
-  // (api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=NNNNN).
+  // Product Hunt numeric post_id. If set, a small "Featured on PH" chip renders
+  // on the card, linking to the launch. Find it in the embed code on the PH
+  // product page (…/featured.svg?post_id=NNNNN).
   phPostId?: string;
+  // Product Hunt upvote count. Static (bump it by hand when you check) since a
+  // styled chip can't auto-update like the official badge. Omit to hide the number.
+  phUpvotes?: number;
 }[] = [
   // project:insert — `npm run project` inserts new entries directly below this line
   {
@@ -126,6 +129,7 @@ export const projects: {
     metricValue: "5",
     emoji: "🌦️",
     phPostId: "1154324",
+    phUpvotes: 2,
   },
   {
     name: "PickleRadar",

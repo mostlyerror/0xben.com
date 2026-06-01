@@ -375,27 +375,75 @@ function ProjectDistribution({ projectName }: { projectName: string }) {
   );
 }
 
+// Turn an irregularly-logged series of cumulative totals into an honest view.
+// Totals only ever climb, and you log only when a number changes, so a chart
+// of the total is a meaningless staircase. Instead:
+//   - delta = change since your PREVIOUS logged value (no fake "this week"
+//     time claim — just the true move between two real check-ins)
+//   - rate = new-per-week, bucketed with carry-forward (flat weeks read as 0),
+//     shown as a sparkline only once there's enough history to mean something.
+function growthView(series: { date: string; value: number }[]) {
+  const pts = series
+    .map((p) => ({ t: new Date(p.date).getTime(), v: p.value }))
+    .filter((p) => !Number.isNaN(p.t))
+    .sort((a, b) => a.t - b.t);
+  if (pts.length === 0) return null;
+
+  const latest = pts[pts.length - 1].v;
+  // Delta vs the previous logged point. Undefined with only one point —
+  // we genuinely don't know the change yet, so we won't invent one.
+  const delta = pts.length >= 2 ? latest - pts[pts.length - 2].v : null;
+
+  // Weekly carry-forward totals from first log to now, then diff → per-week rate.
+  const WEEK = 7 * 86_400_000;
+  const rate: number[] = [];
+  let pi = 0;
+  let carried = pts[0].v;
+  let prev = pts[0].v;
+  for (let w = pts[0].t; w <= Date.now() + WEEK; w += WEEK) {
+    while (pi < pts.length && pts[pi].t < w + WEEK) carried = pts[pi++].v;
+    rate.push(carried - prev);
+    prev = carried;
+  }
+  const weeklyRate = rate.slice(1); // drop the seed week (always 0)
+  // Only chart once there's real history with at least one non-flat week.
+  const showChart = weeklyRate.length >= 6 && weeklyRate.some((r) => r > 0);
+
+  return { latest, delta, weeklyRate, showChart };
+}
+
 // Growth lines for a project: audience you're building (followers, engagement).
-// One logged point shows as text; two or more draw a sparkline. Renders
-// nothing until there's at least one real number, so the card stays honest.
+// Renders nothing until there's at least one real number, so the card stays
+// honest. Number + delta now; a per-week rate sparkline once history allows.
 function ProjectGrowth({ projectName }: { projectName: string }) {
   const lines = growth.filter((g) => g.project === projectName && g.series.length > 0);
   if (lines.length === 0) return null;
   return (
     <div className="flex flex-col gap-0.5">
       {lines.map((g) => {
-        const latest = g.series[g.series.length - 1].value;
+        const v = growthView(g.series)!;
         return (
           <div key={g.key} className="flex items-center justify-between gap-2">
             <span className="text-[10px] uppercase tracking-wide text-black/30 dark:text-white/30">
               {g.label}
             </span>
             <span className="flex items-center gap-1.5">
-              {g.series.length >= 2 && (
-                <Sparkline data={g.series.map((p) => p.value)} className="h-4 w-14" />
+              {v.showChart && (
+                <Sparkline data={v.weeklyRate} className="h-4 w-14" />
+              )}
+              {v.delta != null && v.delta !== 0 && (
+                <span
+                  className={`text-[10px] font-semibold tabular-nums ${
+                    v.delta > 0
+                      ? "text-emerald-600 dark:text-emerald-400"
+                      : "text-black/40 dark:text-white/40"
+                  }`}
+                >
+                  {v.delta > 0 ? `+${v.delta}` : v.delta}
+                </span>
               )}
               <span className="text-xs font-semibold tabular-nums text-black/60 dark:text-white/60">
-                {latest.toLocaleString()}
+                {v.latest.toLocaleString()}
               </span>
             </span>
           </div>

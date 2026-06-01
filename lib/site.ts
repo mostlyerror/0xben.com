@@ -160,7 +160,9 @@ export const projects: {
 // followers and engagement on the accounts that'll carry the launch.
 // Log a real number by hand whenever you check: `tinyship growth <key> <n>`.
 // Nothing fabricated — a line renders only once you've logged real points.
-// One point shows the number as text; two or more draws a sparkline.
+// Totals only climb and you log irregularly, so the card shows the number
+// plus the change since your last entry (no fake "this week" claim), and
+// upgrades to a per-week growth-rate sparkline only once there's real history.
 // `project` matches a project `name` to render on that card; omit it for a
 // personal line (e.g. @mostly_error) shown in the left identity column.
 export const growth: {

@@ -129,14 +129,27 @@ export default async function Home() {
                 )}
                 <ProjectGrowth projectName={p.name} />
                 {p.phPostId && (
-                  <img
-                    src={`https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=${p.phPostId}&theme=neutral`}
-                    alt="Featured on Product Hunt"
-                    width={130}
-                    height={28}
-                    loading="lazy"
-                    className="mt-1 h-7 w-auto opacity-90 transition-opacity group-hover:opacity-100"
-                  />
+                  <>
+                    {/* Theme-matched PH badge: light variant in light mode,
+                        dark variant in dark mode, swapped by CSS so neither
+                        looks like a sticker on the wrong background. */}
+                    <img
+                      src={`https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=${p.phPostId}&theme=light`}
+                      alt="Featured on Product Hunt"
+                      width={130}
+                      height={28}
+                      loading="lazy"
+                      className="mt-1 block h-7 w-auto opacity-90 transition-opacity group-hover:opacity-100 dark:hidden"
+                    />
+                    <img
+                      src={`https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=${p.phPostId}&theme=dark`}
+                      alt="Featured on Product Hunt"
+                      width={130}
+                      height={28}
+                      loading="lazy"
+                      className="mt-1 hidden h-7 w-auto opacity-90 transition-opacity group-hover:opacity-100 dark:block"
+                    />
+                  </>
                 )}
               </div>
             </a>

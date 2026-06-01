@@ -104,12 +104,7 @@ export default async function Home() {
             >
               <div className="flex items-start justify-between gap-3">
                 <span className="text-2xl">{p.emoji}</span>
-                <div className="text-right">
-                  <p className="font-semibold tabular-nums leading-none">{p.metricValue}</p>
-                  <p className="text-xs text-black/40 dark:text-white/40">
-                    {p.metricLabel}
-                  </p>
-                </div>
+                <HeadlineMetric project={p} />
               </div>
               <div>
                 <h3 className="font-semibold group-hover:underline">{p.name}</h3>
@@ -118,7 +113,7 @@ export default async function Home() {
                 </p>
                 <ProjectDistribution projectName={p.name} />
               </div>
-              <div className="mt-auto flex flex-col gap-1 pt-1">
+              <div className="mt-auto flex flex-col gap-2 pt-1">
                 {p.traffic && p.traffic.length >= 2 && (
                   <div className="flex items-end justify-between gap-2">
                     <span className="text-[10px] uppercase tracking-wide text-black/30 dark:text-white/30">
@@ -127,27 +122,29 @@ export default async function Home() {
                     <Sparkline data={p.traffic} className="h-5 w-20" />
                   </div>
                 )}
-                <ProjectGrowth projectName={p.name} />
+                {/* Secondary growth lines only — the line matching the card's
+                    headline metric is shown top-right, not repeated here. */}
+                <ProjectGrowth project={p} />
                 {p.phPostId && (
                   <>
-                    {/* Theme-matched PH badge: light variant in light mode,
-                        dark variant in dark mode, swapped by CSS so neither
-                        looks like a sticker on the wrong background. */}
+                    {/* Theme-matched PH badge: light in light mode, dark in dark
+                        mode, swapped by CSS. Left-aligned + sized to sit inline
+                        with the rest of the card, not floating centered. */}
                     <img
                       src={`https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=${p.phPostId}&theme=light`}
                       alt="Featured on Product Hunt"
-                      width={130}
-                      height={28}
+                      width={170}
+                      height={37}
                       loading="lazy"
-                      className="mt-1 block h-7 w-auto opacity-90 transition-opacity group-hover:opacity-100 dark:hidden"
+                      className="mr-auto block h-[30px] w-auto opacity-85 transition-opacity group-hover:opacity-100 dark:hidden"
                     />
                     <img
                       src={`https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=${p.phPostId}&theme=dark`}
                       alt="Featured on Product Hunt"
-                      width={130}
-                      height={28}
+                      width={170}
+                      height={37}
                       loading="lazy"
-                      className="mt-1 hidden h-7 w-auto opacity-90 transition-opacity group-hover:opacity-100 dark:block"
+                      className="mr-auto hidden h-[30px] w-auto opacity-85 transition-opacity group-hover:opacity-100 dark:block"
                     />
                   </>
                 )}
@@ -425,11 +422,50 @@ function growthView(series: { date: string; value: number }[]) {
   return { latest, delta, weeklyRate, showChart };
 }
 
-// Growth lines for a project: audience you're building (followers, engagement).
-// Renders nothing until there's at least one real number, so the card stays
-// honest. Number + delta now; a per-week rate sparkline once history allows.
-function ProjectGrowth({ projectName }: { projectName: string }) {
-  const lines = growth.filter((g) => g.project === projectName && g.series.length > 0);
+type Project = (typeof projects)[number];
+
+// A growth line is the card's "headline" metric when its label matches the
+// project's metricLabel (e.g. Raincheck's "users" line == its headline number).
+// That single source of truth means logging `tinyship growth raincheck 6`
+// updates the big number top-right, and we never print it twice.
+function headlineLine(p: Project) {
+  return growth.find(
+    (g) =>
+      g.project === p.name &&
+      g.series.length > 0 &&
+      g.label.toLowerCase() === p.metricLabel.toLowerCase(),
+  );
+}
+
+// Top-right number on a card. Prefers the live logged growth value (with its
+// delta); falls back to the static metricValue when nothing's been logged.
+function HeadlineMetric({ project: p }: { project: Project }) {
+  const line = headlineLine(p);
+  const v = line ? growthView(line.series) : null;
+  const value = v ? v.latest.toLocaleString() : p.metricValue;
+  return (
+    <div className="flex flex-col items-end text-right">
+      <p className="flex items-center gap-1 font-semibold tabular-nums leading-none">
+        {v && v.delta != null && v.delta > 0 && (
+          <span className="text-[11px] font-semibold text-emerald-600 dark:text-emerald-400">
+            +{v.delta}
+          </span>
+        )}
+        {value}
+      </p>
+      <p className="text-xs text-black/40 dark:text-white/40">{p.metricLabel}</p>
+    </div>
+  );
+}
+
+// Secondary growth lines for a project (the ones NOT already shown as the
+// headline metric) — e.g. noyu's engagement under its follower headline.
+// Renders nothing until there's a real number, so the card stays honest.
+function ProjectGrowth({ project: p }: { project: Project }) {
+  const headline = headlineLine(p);
+  const lines = growth.filter(
+    (g) => g.project === p.name && g.series.length > 0 && g.key !== headline?.key,
+  );
   if (lines.length === 0) return null;
   return (
     <div className="flex flex-col gap-0.5">

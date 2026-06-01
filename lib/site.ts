@@ -80,6 +80,10 @@ export const projects: {
   // PostHog project ID for this product. If set, `npm run traffic` pulls
   // weekly unique visitors for it. Find it in PostHog → Settings → Project ID.
   posthogId?: string;
+  // Product Hunt numeric post_id. If set, the "Featured on Product Hunt" badge
+  // renders on the card. Find it in the embed code on the PH product page
+  // (api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=NNNNN).
+  phPostId?: string;
 }[] = [
   // project:insert — `npm run project` inserts new entries directly below this line
   {
@@ -149,6 +153,30 @@ export const projects: {
     emoji: "💌",
     posthogId: "444905",
   },
+];
+
+// ── Growth log — audience you're building, not pageviews ──
+// For pre-launch products the real "am I moving" signal is distribution:
+// followers and engagement on the accounts that'll carry the launch.
+// Log a real number by hand whenever you check: `tinyship growth <key> <n>`.
+// Nothing fabricated — a line renders only once you've logged real points.
+// One point shows the number as text; two or more draws a sparkline.
+// `project` matches a project `name` to render on that card; omit it for a
+// personal line (e.g. @mostly_error) shown in the left identity column.
+export const growth: {
+  key: string;        // what you type in the CLI: `tinyship growth <key> <n>`
+  label: string;      // shown on the card, e.g. "X followers"
+  href: string;       // where you read the number (links the label)
+  project?: string;   // matches a project name; omit for a personal line
+  series: { date: string; value: number }[]; // oldest → newest, real numbers only
+}[] = [
+  // growth:insert — `tinyship growth <key> <n>` appends a dated point to a key below
+  { key: "clusterdesk", label: "X followers", href: "https://x.com/clusterdesk", project: "ClusterDesk", series: [] },
+  { key: "geotomarket", label: "X followers", href: "https://x.com/GeoToMarket", project: "GeoToMarket", series: [] },
+  { key: "noyu-followers", label: "IG followers", href: "https://instagram.com/noyu.love", project: "noyu", series: [] },
+  { key: "noyu-engagement", label: "IG engagement", href: "https://instagram.com/noyu.love", project: "noyu", series: [] },
+  { key: "raincheck", label: "users", href: "https://chromewebstore.google.com/detail/raincheck/gmgmmjggiiebldadplogbkcbiijnldfk", project: "Raincheck", series: [{ date: "Jun 1, 2026", value: 5 }] },
+  { key: "mostly_error", label: "X followers", href: "https://x.com/mostly_error", series: [] },
 ];
 
 // ── Manual stats you control by hand ──

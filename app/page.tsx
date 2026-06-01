@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { site, socials, projects, manualStats, inlineLinks, shipped, status, tinyship } from "@/lib/site";
+import { site, socials, projects, manualStats, inlineLinks, shipped, status, tinyship, growth } from "@/lib/site";
 import { ShipHeatmap } from "@/components/ShipHeatmap";
 import { Sparkline } from "@/components/Sparkline";
 import { StatusLine } from "@/components/StatusLine";
@@ -118,14 +118,27 @@ export default async function Home() {
                 </p>
                 <ProjectDistribution projectName={p.name} />
               </div>
-              {p.traffic && p.traffic.length >= 2 && (
-                <div className="mt-auto flex items-end justify-between gap-2 pt-1">
-                  <span className="text-[10px] uppercase tracking-wide text-black/30 dark:text-white/30">
-                    visitors / wk
-                  </span>
-                  <Sparkline data={p.traffic} className="h-5 w-20" />
-                </div>
-              )}
+              <div className="mt-auto flex flex-col gap-1 pt-1">
+                {p.traffic && p.traffic.length >= 2 && (
+                  <div className="flex items-end justify-between gap-2">
+                    <span className="text-[10px] uppercase tracking-wide text-black/30 dark:text-white/30">
+                      visitors / wk
+                    </span>
+                    <Sparkline data={p.traffic} className="h-5 w-20" />
+                  </div>
+                )}
+                <ProjectGrowth projectName={p.name} />
+                {p.phPostId && (
+                  <img
+                    src={`https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=${p.phPostId}&theme=neutral`}
+                    alt="Featured on Product Hunt"
+                    width={130}
+                    height={28}
+                    loading="lazy"
+                    className="mt-1 h-7 w-auto opacity-90 transition-opacity group-hover:opacity-100"
+                  />
+                )}
+              </div>
             </a>
           ))}
         </div>
@@ -359,6 +372,36 @@ function ProjectDistribution({ projectName }: { projectName: string }) {
         </>
       )}
     </p>
+  );
+}
+
+// Growth lines for a project: audience you're building (followers, engagement).
+// One logged point shows as text; two or more draw a sparkline. Renders
+// nothing until there's at least one real number, so the card stays honest.
+function ProjectGrowth({ projectName }: { projectName: string }) {
+  const lines = growth.filter((g) => g.project === projectName && g.series.length > 0);
+  if (lines.length === 0) return null;
+  return (
+    <div className="flex flex-col gap-0.5">
+      {lines.map((g) => {
+        const latest = g.series[g.series.length - 1].value;
+        return (
+          <div key={g.key} className="flex items-center justify-between gap-2">
+            <span className="text-[10px] uppercase tracking-wide text-black/30 dark:text-white/30">
+              {g.label}
+            </span>
+            <span className="flex items-center gap-1.5">
+              {g.series.length >= 2 && (
+                <Sparkline data={g.series.map((p) => p.value)} className="h-4 w-14" />
+              )}
+              <span className="text-xs font-semibold tabular-nums text-black/60 dark:text-white/60">
+                {latest.toLocaleString()}
+              </span>
+            </span>
+          </div>
+        );
+      })}
+    </div>
   );
 }
 

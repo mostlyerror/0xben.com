@@ -182,6 +182,7 @@ export const growth: {
   { key: "geotomarket", label: "X followers", href: "https://x.com/GeoToMarket", project: "GeoToMarket", series: [{ date: "Jun 2, 2026", value: 2 }] },
   { key: "noyu-followers", label: "IG followers", href: "https://instagram.com/noyu.love", project: "noyu", series: [{ date: "Jun 2, 2026", value: 1 }] },
   { key: "noyu-engagement", label: "IG engagement", href: "https://instagram.com/noyu.love", project: "noyu", series: [] },
+  { key: "pickleradar-ig", label: "IG followers", href: "https://www.instagram.com/pickleradar", project: "PickleRadar", series: [] },
   { key: "raincheck", label: "users", href: "https://chromewebstore.google.com/detail/raincheck/gmgmmjggiiebldadplogbkcbiijnldfk", project: "Raincheck", series: [{ date: "Jun 1, 2026", value: 5 }] },
   { key: "mostly_error", label: "X followers", href: "https://x.com/mostly_error", series: [{ date: "Jun 2, 2026", value: 130 }] },
 ];

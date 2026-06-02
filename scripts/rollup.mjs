@@ -23,6 +23,9 @@ const git = (repo, args) => {
   }
 };
 
+// Client repos are masked as "client" so confidential work never shows by name.
+const CLIENT_REPOS = new Set(["acclinate"]);
+
 // --- build effort: commits per repo in the window ---
 const repos = existsSync(devDir)
   ? readdirSync(devDir, { withFileTypes: true })
@@ -33,7 +36,9 @@ const since = `--since="${days} days ago"`;
 const commits = {}; // key (lowercased) -> count
 for (const name of repos) {
   const n = git(join(devDir, name), `log ${since} --oneline`).split("\n").filter(Boolean).length;
-  if (n > 0) commits[name.toLowerCase()] = n;
+  if (n === 0) continue;
+  const key = CLIENT_REPOS.has(name) ? "client" : name.toLowerCase();
+  commits[key] = (commits[key] || 0) + n; // sum if multiple client repos collapse
 }
 
 // --- logged ships: parse the ledger for { project, tag } ---

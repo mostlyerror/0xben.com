@@ -27,6 +27,10 @@ const git = (repo, args) => {
   }
 };
 
+// Client repos: shown as "client" with their commit messages hidden, so
+// confidential work never leaks into a digest. Add a folder name to mask it.
+const CLIENT_REPOS = new Set(["acclinate"]);
+
 const repos = readdirSync(devDir, { withFileTypes: true })
   .filter((e) => e.isDirectory() && existsSync(join(devDir, e.name, ".git")))
   .map((e) => join(devDir, e.name));
@@ -36,14 +40,17 @@ const rows = [];
 for (const repo of repos) {
   const count = git(repo, `log ${since} --oneline`).split("\n").filter(Boolean).length;
   if (count === 0) continue;
+  const folder = repo.split("/").pop();
+  const isClient = CLIENT_REPOS.has(folder);
   const firstEver = git(repo, `log --reverse --format=%cd --date=short`).split("\n")[0];
   const isNew = firstEver && new Date(firstEver).getTime() >= Date.now() - days * 86_400_000;
   rows.push({
-    name: repo.split("/").pop(),
+    name: isClient ? "client" : folder,
     count,
-    last: git(repo, `log -1 --format=%s`),
+    // Hide client commit subjects — even the message could leak specifics.
+    last: isClient ? "(client work — hidden)" : git(repo, `log -1 --format=%s`),
     lastDate: git(repo, `log -1 --format=%cd --date=short`),
-    isNew,
+    isNew: isClient ? false : isNew,
   });
 }
 

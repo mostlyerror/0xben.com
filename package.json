@@ -16,7 +16,8 @@
     "rollup": "node scripts/rollup.mjs",
     "draft": "node scripts/draft.mjs",
     "traffic": "node scripts/traffic.mjs",
-    "growth": "node scripts/growth.mjs"
+    "growth": "node scripts/growth.mjs",
+    "pulse": "node scripts/pulse.mjs"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",

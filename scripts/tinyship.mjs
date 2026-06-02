@@ -56,6 +56,11 @@ if (sub === "growth") {
   process.exit(0);
 }
 
+if (sub === "pulse") {
+  run("pulse.mjs", argv.slice(1));
+  process.exit(0);
+}
+
 if (sub === "project") {
   if (argv.length > 1) {
     run("project.mjs", argv.slice(1));

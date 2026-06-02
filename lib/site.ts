@@ -213,6 +213,7 @@ export const shipped: {
   details?: string[];
 }[] = [
   // ship:insert — `npm run ship` inserts new entries directly below this line
+  { date: "Jun 1, 2026", what: "Shipped a global recovery-hash safety net for password reset on PickleRadar", tag: "build", project: "PickleRadar" },
   { date: "Jun 1, 2026", what: "Built a growth-tracking system for the wall: audience sparklines that chart growth-rate, not vanity totals, plus a Product Hunt badge https://0xben.com" },
   { date: "May 31, 2026", what: "Launched Pickup Studio", href: "https://pickupstudio.app", tag: "launch", project: "Pickup Studio" },
   { date: "May 31, 2026", what: "Ran the reply-graph on builder accounts", tag: "post" },

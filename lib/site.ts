@@ -183,7 +183,7 @@ export const growth: {
   { key: "noyu-followers", label: "IG followers", href: "https://instagram.com/noyu.love", project: "noyu", series: [] },
   { key: "noyu-engagement", label: "IG engagement", href: "https://instagram.com/noyu.love", project: "noyu", series: [] },
   { key: "raincheck", label: "users", href: "https://chromewebstore.google.com/detail/raincheck/gmgmmjggiiebldadplogbkcbiijnldfk", project: "Raincheck", series: [{ date: "Jun 1, 2026", value: 5 }] },
-  { key: "mostly_error", label: "X followers", href: "https://x.com/mostly_error", series: [] },
+  { key: "mostly_error", label: "X followers", href: "https://x.com/mostly_error", series: [{ date: "Jun 2, 2026", value: 130 }] },
 ];
 
 // ── Manual stats you control by hand ──

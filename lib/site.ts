@@ -178,7 +178,7 @@ export const growth: {
   series: { date: string; value: number }[]; // oldest → newest, real numbers only
 }[] = [
   // growth:insert — `tinyship growth <key> <n>` appends a dated point to a key below
-  { key: "clusterdesk", label: "X followers", href: "https://x.com/clusterdesk", project: "ClusterDesk", series: [] },
+  { key: "clusterdesk", label: "X followers", href: "https://x.com/clusterdesk", project: "ClusterDesk", series: [{ date: "Jun 2, 2026", value: 3 }] },
   { key: "geotomarket", label: "X followers", href: "https://x.com/GeoToMarket", project: "GeoToMarket", series: [] },
   { key: "noyu-followers", label: "IG followers", href: "https://instagram.com/noyu.love", project: "noyu", series: [] },
   { key: "noyu-engagement", label: "IG engagement", href: "https://instagram.com/noyu.love", project: "noyu", series: [] },

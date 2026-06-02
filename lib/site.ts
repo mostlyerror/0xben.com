@@ -151,10 +151,10 @@ export const projects: {
   },
   {
     name: "noyu",
-    description: "Sends you a weekly nudge to reconnect with someone.",
+    description: "Helps you stay close to the people who matter.",
     href: "https://noyu.love",
-    metricLabel: "/mo",
-    metricValue: "$2.99",
+    metricLabel: "",
+    metricValue: "—",
     emoji: "💌",
     posthogId: "444905",
   },

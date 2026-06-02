@@ -179,7 +179,7 @@ export const growth: {
 }[] = [
   // growth:insert — `tinyship growth <key> <n>` appends a dated point to a key below
   { key: "clusterdesk", label: "X followers", href: "https://x.com/clusterdesk", project: "ClusterDesk", series: [{ date: "Jun 2, 2026", value: 3 }] },
-  { key: "geotomarket", label: "X followers", href: "https://x.com/GeoToMarket", project: "GeoToMarket", series: [] },
+  { key: "geotomarket", label: "X followers", href: "https://x.com/GeoToMarket", project: "GeoToMarket", series: [{ date: "Jun 2, 2026", value: 2 }] },
   { key: "noyu-followers", label: "IG followers", href: "https://instagram.com/noyu.love", project: "noyu", series: [] },
   { key: "noyu-engagement", label: "IG engagement", href: "https://instagram.com/noyu.love", project: "noyu", series: [] },
   { key: "raincheck", label: "users", href: "https://chromewebstore.google.com/detail/raincheck/gmgmmjggiiebldadplogbkcbiijnldfk", project: "Raincheck", series: [{ date: "Jun 1, 2026", value: 5 }] },

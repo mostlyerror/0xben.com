@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type CSSProperties } from "react";
 
 type Entry = { date: string; what: string; tag?: string };
 
@@ -81,6 +81,17 @@ export function ShipHeatmap({ entries, nowMs }: { entries: Entry[]; nowMs: numbe
                   >
                     🚀
                   </span>
+                  {launching === day.k && (
+                    <span aria-hidden className="pointer-events-none absolute inset-0">
+                      {[0, 1, 2, 3, 4].map((s) => (
+                        <span
+                          key={s}
+                          className="ship-spark absolute left-1/2 top-1/2 size-1 rounded-full bg-amber-400"
+                          style={{ "--a": `${s * 72}deg` } as CSSProperties}
+                        />
+                      ))}
+                    </span>
+                  )}
                 </button>
               ) : (
                 <div

@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import Image from "next/image";
 import { site, socials, projects, manualStats, inlineLinks, shipped, status, tinyship, growth } from "@/lib/site";
 import { ShipHeatmap } from "@/components/ShipHeatmap";
@@ -57,17 +58,17 @@ export default async function Home() {
       <div className="flex flex-1 flex-col gap-14 lg:grid lg:grid-cols-[22rem_minmax(0,1fr)] lg:items-start lg:gap-16">
         <div className="flex flex-col gap-14 lg:sticky lg:top-16">
       {/* Hero */}
-      <section className="flex flex-col gap-4">
+      <section className="toy-hero flex flex-col gap-4">
         <Image
           src={site.avatar}
           alt={site.name}
           width={112}
           height={112}
           priority
-          className="size-24 rounded-full object-cover ring-1 ring-black/10 sm:size-28 dark:ring-white/15"
+          className="toy-avatar size-24 rounded-full object-cover ring-1 ring-black/10 sm:size-28 dark:ring-white/15"
         />
         <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
-          {site.headline}
+          <WavingHeadline text={site.headline} />
         </h1>
         <p className="text-lg text-black/60 dark:text-white/60">
           {site.tagline}
@@ -94,20 +95,29 @@ export default async function Home() {
           What I'm building
         </h2>
         <div className="grid gap-3 sm:grid-cols-2">
-          {projects.map((p) => (
+          {projects.map((p, i) => (
             <a
               key={p.name}
               href={p.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex flex-col rounded-xl border border-black/[0.08] p-5 transition-colors hover:border-black/15 hover:bg-black/[0.015] dark:border-white/[0.08] dark:hover:border-white/20 dark:hover:bg-white/[0.02]"
+              style={{ "--i": i } as CSSProperties}
+              className="toy-card rise group flex flex-col rounded-xl border border-black/[0.08] p-5 transition-colors hover:border-black/15 hover:bg-black/[0.015] dark:border-white/[0.08] dark:hover:border-white/20 dark:hover:bg-white/[0.02]"
             >
-              {/* Header row: name as the lead, emoji a quiet glyph. Editorial. */}
+              {/* Header row: name as the lead, emoji a quiet glyph that pops on hover.
+                  A fresh project (real activity in the last 3 days) gets a live dot —
+                  the earned pulse, honest because it only fires when something happened. */}
               <div className="flex items-center gap-2.5">
-                <span className="text-lg leading-none">{p.emoji}</span>
+                <span className="toy-emoji text-lg leading-none">{p.emoji}</span>
                 <h3 className="text-[15px] font-semibold tracking-tight group-hover:underline">
                   {p.name}
                 </h3>
+                {isFresh(p) && (
+                  <span
+                    title="Active in the last few days"
+                    className="metric-fresh ml-auto size-1.5 shrink-0 rounded-full bg-emerald-500"
+                  />
+                )}
               </div>
               <p className="mt-2 text-[13px] leading-relaxed text-black/55 dark:text-white/55">
                 {p.description}
@@ -154,7 +164,7 @@ export default async function Home() {
                   href={tinyship.followHref}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="underline-offset-2 hover:underline"
+                  className="toy-press inline-block font-medium text-emerald-700 underline-offset-2 hover:underline dark:text-emerald-400"
                 >
                   follow the build ↗
                 </a>
@@ -182,7 +192,12 @@ export default async function Home() {
           </div>
           <p className="text-xs tabular-nums text-black/40 dark:text-white/40">
             {shipsThisMonth} this month
-            {weekStreak > 0 && ` · 🔥 ${weekStreak}-week streak`}
+            {weekStreak > 0 && (
+              <>
+                {" · "}
+                <span className="flame">🔥</span> {weekStreak}-week streak
+              </>
+            )}
             {` · ${shipped.length} total`}
           </p>
         </div>
@@ -406,7 +421,43 @@ function growthView(series: { date: string; value: number }[]) {
   return { latest, delta, weeklyRate, showChart };
 }
 
+// Wraps any emoji in the headline so it waves on its own — the signature toy.
+// Splits on the wave-able glyphs and animates just those, leaving text still.
+function WavingHeadline({ text }: { text: string }) {
+  const parts = text.split(/(👋)/);
+  return (
+    <>
+      {parts.map((part, i) =>
+        part === "👋" ? (
+          <span key={i} className="wave">
+            👋
+          </span>
+        ) : (
+          part
+        ),
+      )}
+    </>
+  );
+}
+
 type Project = (typeof projects)[number];
+
+// A project is "fresh" if it had real activity in the last 3 days — a recent
+// ledger entry OR a logged growth gain. Drives the earned pulse: a card only
+// comes alive when the world actually responded, never as idle decoration.
+function isFresh(p: Project): boolean {
+  const FRESH_DAYS = 3;
+  const recentShip = shipped.some(
+    (s) => s.project === p.name && (daysAgo(s.date) ?? 99) <= FRESH_DAYS,
+  );
+  if (recentShip) return true;
+  return growth.some((g) => {
+    if (g.project !== p.name || g.series.length < 2) return false;
+    const last = g.series[g.series.length - 1];
+    const gained = last.value > g.series[g.series.length - 2].value;
+    return gained && (daysAgo(last.date) ?? 99) <= FRESH_DAYS;
+  });
+}
 
 // Small "Featured on Product Hunt" chip in the card's own styling — a quiet
 // credential, not a loud sticker. Non-interactive (the whole card already

@@ -42,3 +42,5 @@ next-env.d.ts
 
 # parallel-explore
 .worktrees
+.screenshots/
+.design/

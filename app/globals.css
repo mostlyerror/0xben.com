@@ -44,3 +44,74 @@ body {
 .ship-rocket { transition: transform 0.15s; }
 .ship-rocket:hover { animation: ship-wiggle 0.45s ease-in-out infinite; }
 .ship-launching { animation: ship-launch 0.6s ease-in forwards; }
+
+/* Launch spark burst: five particles fan out along their angle and fade. */
+@keyframes ship-spark {
+  0% { transform: translate(-50%, -50%) rotate(var(--a)) translateY(0); opacity: 1; }
+  100% { transform: translate(-50%, -50%) rotate(var(--a)) translateY(-22px); opacity: 0; }
+}
+.ship-spark { animation: ship-spark 0.55s ease-out forwards; }
+
+/* ──────────────────────────────────────────────────────────────
+   Playful motion — the site as a toy you enjoy poking.
+   Every loop is wrapped in prefers-reduced-motion so anyone who
+   wants calm gets it automatically. "Lean into it" by choice.
+   ────────────────────────────────────────────────────────────── */
+
+/* The signature: the headline hand waves on its own. */
+@keyframes wave {
+  0%, 60%, 100% { transform: rotate(0); }
+  10% { transform: rotate(16deg); }
+  20% { transform: rotate(-8deg); }
+  30% { transform: rotate(16deg); }
+  40% { transform: rotate(-4deg); }
+  50% { transform: rotate(10deg); }
+}
+.wave { display: inline-block; transform-origin: 70% 75%; }
+
+/* Staggered load-in: the page settles into place. Index via --i. */
+@keyframes rise { to { opacity: 1; transform: none; } }
+.rise {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: rise 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: calc(var(--i, 0) * 70ms);
+}
+
+/* Perpetual streak flame flicker. */
+@keyframes flame-flick {
+  0%, 100% { transform: scale(1) rotate(-2deg); }
+  50% { transform: scale(1.14) rotate(3deg); }
+}
+.flame { display: inline-block; transform-origin: 50% 80%; }
+
+/* The earned "live" dot — a perpetual breathing halo on fresh-activity cards. */
+@keyframes metric-halo {
+  0% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.5); }
+  70% { box-shadow: 0 0 0 6px rgba(52, 211, 153, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .wave { animation: wave 2.6s ease-in-out infinite; }
+  .flame { animation: flame-flick 1.7s ease-in-out infinite; }
+  .metric-fresh { animation: metric-halo 2.2s cubic-bezier(0.16, 1, 0.3, 1) infinite; }
+
+  /* Springy, poke-able project cards: lift + micro-tilt, emoji pops. */
+  .toy-card { transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease; }
+  .toy-card:hover {
+    transform: translateY(-4px) rotate(-0.4deg);
+    box-shadow: 0 18px 34px -18px rgba(20, 40, 30, 0.28);
+  }
+  .toy-emoji { display: inline-block; transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+  .toy-card:hover .toy-emoji { transform: scale(1.22) rotate(9deg); }
+
+  /* Avatar reacts when you hover the hero. */
+  .toy-avatar { transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); }
+  .toy-hero:hover .toy-avatar { transform: rotate(-7deg) scale(1.06); }
+
+  /* Tactile squish: springy on hover, press-down on click. */
+  .toy-press { transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1); }
+  .toy-press:hover { transform: translateY(-2px) scale(1.04); }
+  .toy-press:active { transform: scale(0.94); }
+}

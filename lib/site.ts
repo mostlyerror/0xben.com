@@ -219,7 +219,7 @@ export const shipped: {
   { date: "Jun 1, 2026", what: "Wrote the ClusterDesk DB migration spec (Supabase to Railway Postgres)", tag: "build", project: "ClusterDesk" },
   { date: "Jun 1, 2026", what: "Shipped a global recovery-hash safety net for password reset on PickleRadar", tag: "build", project: "PickleRadar" },
   { date: "Jun 1, 2026", what: "Built a growth-tracking system for the wall: audience sparklines that chart growth-rate, not vanity totals, plus a Product Hunt badge https://0xben.com" },
-  { date: "May 31, 2026", what: "Launched Pickup Studio", href: "https://pickupstudio.app", tag: "launch", project: "Pickup Studio" },
+  { date: "May 31, 2026", what: "Built Pickup Studio and put it online (not yet shipped: nobody's seen it)", href: "https://pickupstudio.app", tag: "build", project: "Pickup Studio" },
   { date: "May 31, 2026", what: "Ran the reply-graph on builder accounts", tag: "post" },
   { date: "May 31, 2026", what: "Ran the reply-graph: 10 replies on builder accounts", tag: "post" },
   { date: "May 31, 2026", what: "Rewrote X bio + pinned the build-vs-ship thread", tag: "post", project: "PickleRadar" },

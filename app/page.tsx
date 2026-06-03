@@ -100,31 +100,37 @@ export default async function Home() {
               href={p.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex flex-col gap-2 rounded-2xl border border-black/10 p-4 transition-colors hover:bg-black/[0.03] dark:border-white/10 dark:hover:bg-white/[0.04]"
+              className="group flex flex-col rounded-xl border border-black/[0.08] p-5 transition-colors hover:border-black/15 hover:bg-black/[0.015] dark:border-white/[0.08] dark:hover:border-white/20 dark:hover:bg-white/[0.02]"
             >
-              <div className="flex items-start justify-between gap-3">
-                <span className="text-2xl">{p.emoji}</span>
+              {/* Header row: name as the lead, emoji a quiet glyph. Editorial. */}
+              <div className="flex items-center gap-2.5">
+                <span className="text-lg leading-none">{p.emoji}</span>
+                <h3 className="text-[15px] font-semibold tracking-tight group-hover:underline">
+                  {p.name}
+                </h3>
+              </div>
+              <p className="mt-2 text-[13px] leading-relaxed text-black/55 dark:text-white/55">
+                {p.description}
+              </p>
+
+              {/* Instrument readout: metrics as labeled rows on hairline
+                  dividers, mono numerals — precise, not boastful. Cockpit. */}
+              <div className="mt-4 flex flex-col">
                 <HeadlineMetric project={p} />
-              </div>
-              <div>
-                <h3 className="font-semibold group-hover:underline">{p.name}</h3>
-                <p className="text-sm text-black/60 dark:text-white/60">
-                  {p.description}
-                </p>
-                <ProjectDistribution projectName={p.name} />
-              </div>
-              <div className="mt-auto flex flex-col gap-2 pt-1">
+                <ProjectGrowth project={p} />
                 {p.traffic && p.traffic.length >= 2 && (
-                  <div className="flex items-end justify-between gap-2">
-                    <span className="text-[10px] uppercase tracking-wide text-black/30 dark:text-white/30">
+                  <div className="flex items-center justify-between border-t border-black/[0.06] py-2 dark:border-white/[0.07]">
+                    <span className="text-[10px] uppercase tracking-[0.08em] text-black/35 dark:text-white/35">
                       visitors / wk
                     </span>
-                    <Sparkline data={p.traffic} className="h-5 w-20" />
+                    <Sparkline data={p.traffic} className="h-4 w-16" />
                   </div>
                 )}
-                {/* Secondary growth lines only — the line matching the card's
-                    headline metric is shown top-right, not repeated here. */}
-                <ProjectGrowth project={p} />
+              </div>
+
+              {/* Footer: distribution status + PH credential, quiet. */}
+              <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1.5 pt-1">
+                <ProjectDistribution projectName={p.name} />
                 {p.phPostId && <ProductHuntChip project={p} />}
               </div>
             </a>
@@ -347,19 +353,19 @@ function freshnessColor(days: number): string {
 function ProjectDistribution({ projectName }: { projectName: string }) {
   const posts = shipped.filter((s) => s.project === projectName && s.tag === "post");
   if (posts.length === 0) {
-    return <p className="mt-1 text-xs text-black/30 dark:text-white/30">🗣 not promoted yet</p>;
+    return <span className="text-[11px] text-black/30 dark:text-white/30">not promoted yet</span>;
   }
   const days = daysAgo(posts[0].date);
   return (
-    <p className="mt-1 text-xs text-black/40 dark:text-white/40">
-      🗣 {posts.length} {posts.length === 1 ? "post" : "posts"}
+    <span className="text-[11px] text-black/40 dark:text-white/40">
+      <span className="tabular-nums">{posts.length}</span> {posts.length === 1 ? "post" : "posts"}
       {days != null && (
         <>
           {" · "}
-          <span className={freshnessColor(days)}>last promoted {agoLabel(days)}</span>
+          <span className={freshnessColor(days)}>promoted {agoLabel(days)}</span>
         </>
       )}
-    </p>
+    </span>
   );
 }
 
@@ -431,23 +437,26 @@ function headlineLine(p: Project) {
   );
 }
 
-// Top-right number on a card. Prefers the live logged growth value (with its
-// delta); falls back to the static metricValue when nothing's been logged.
+// Headline metric as an instrument readout row: label left, mono value right,
+// on a hairline divider. Prefers the live logged growth value (with delta);
+// falls back to the static metricValue. The label-less placeholder (a bare "—")
+// stays quiet so unlaunched projects don't pretend to have a reading.
 function HeadlineMetric({ project: p }: { project: Project }) {
   const line = headlineLine(p);
   const v = line ? growthView(line.series) : null;
   const value = v ? v.latest.toLocaleString() : p.metricValue;
+  const labelText = p.metricLabel || (value === "—" ? "" : "—");
   return (
-    <div className="flex flex-col items-end text-right">
-      <p className="flex items-center gap-1 font-semibold tabular-nums leading-none">
+    <div className="flex items-baseline justify-between border-t border-black/[0.06] py-2 dark:border-white/[0.07]">
+      <span className="text-[10px] uppercase tracking-[0.08em] text-black/35 dark:text-white/35">
+        {labelText}
+      </span>
+      <span className="flex items-baseline gap-1.5 font-mono text-sm font-medium tabular-nums">
         {v && v.delta != null && v.delta > 0 && (
-          <span className="text-[11px] font-semibold text-emerald-600 dark:text-emerald-400">
-            +{v.delta}
-          </span>
+          <span className="text-[10px] text-emerald-600 dark:text-emerald-400">+{v.delta}</span>
         )}
-        {value}
-      </p>
-      <p className="text-xs text-black/40 dark:text-white/40">{p.metricLabel}</p>
+        <span>{value}</span>
+      </span>
     </div>
   );
 }
@@ -462,21 +471,22 @@ function ProjectGrowth({ project: p }: { project: Project }) {
   );
   if (lines.length === 0) return null;
   return (
-    <div className="flex flex-col gap-0.5">
+    <>
       {lines.map((g) => {
         const v = growthView(g.series)!;
         return (
-          <div key={g.key} className="flex items-center justify-between gap-2">
-            <span className="text-[10px] uppercase tracking-wide text-black/30 dark:text-white/30">
+          <div
+            key={g.key}
+            className="flex items-center justify-between gap-2 border-t border-black/[0.06] py-2 dark:border-white/[0.07]"
+          >
+            <span className="text-[10px] uppercase tracking-[0.08em] text-black/35 dark:text-white/35">
               {g.label}
             </span>
-            <span className="flex items-center gap-1.5">
-              {v.showChart && (
-                <Sparkline data={v.weeklyRate} className="h-4 w-14" />
-              )}
+            <span className="flex items-center gap-1.5 font-mono text-sm font-medium tabular-nums">
+              {v.showChart && <Sparkline data={v.weeklyRate} className="h-4 w-12" />}
               {v.delta != null && v.delta !== 0 && (
                 <span
-                  className={`text-[10px] font-semibold tabular-nums ${
+                  className={`text-[10px] ${
                     v.delta > 0
                       ? "text-emerald-600 dark:text-emerald-400"
                       : "text-black/40 dark:text-white/40"
@@ -485,14 +495,12 @@ function ProjectGrowth({ project: p }: { project: Project }) {
                   {v.delta > 0 ? `+${v.delta}` : v.delta}
                 </span>
               )}
-              <span className="text-xs font-semibold tabular-nums text-black/60 dark:text-white/60">
-                {v.latest.toLocaleString()}
-              </span>
+              <span>{v.latest.toLocaleString()}</span>
             </span>
           </div>
         );
       })}
-    </div>
+    </>
   );
 }
 

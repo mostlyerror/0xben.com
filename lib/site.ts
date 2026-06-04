@@ -224,6 +224,7 @@ export const shipped: {
   details?: string[];
 }[] = [
   // ship:insert — `npm run ship` inserts new entries directly below this line
+  { date: "Jun 4, 2026", what: "Tweeting GeoToMarket picks manually", tag: "post", project: "GeoToMarket" },
   { date: "Jun 4, 2026", what: "Posting PickleRadar to Houston Facebook groups", tag: "post", project: "PickleRadar" },
   { date: "Jun 4, 2026", what: "Tweeting ClusterDesk manually plus built automated tweeting infra", tag: "post", project: "ClusterDesk" },
   { date: "Jun 4, 2026", what: "Posting noyu card carousels to Instagram and tagging friends", tag: "post", project: "noyu" },

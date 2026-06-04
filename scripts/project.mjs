@@ -65,9 +65,11 @@ if (has("dry")) {
   process.exit(0);
 }
 
-src = src.replace(new RegExp(`(.*${PROJ_MARKER}.*\\n)`), `$1${projectEntry}\n`);
+// Replacement FUNCTIONs (not strings) so `$` in a project name/description or
+// ship text is never read as a regex backreference and corrupts lib/site.ts.
+src = src.replace(new RegExp(`(.*${PROJ_MARKER}.*\\n)`), (m) => `${m}${projectEntry}\n`);
 if (alsoShip && src.includes(SHIP_MARKER)) {
-  src = src.replace(new RegExp(`(.*${SHIP_MARKER}.*\\n)`), `$1${shipEntry}\n`);
+  src = src.replace(new RegExp(`(.*${SHIP_MARKER}.*\\n)`), (m) => `${m}${shipEntry}\n`);
 }
 writeFileSync(sitePath, src);
 console.log("✅  Added to lib/site.ts" + (alsoShip ? " (+ launch logged in Shipped)" : ""));

@@ -115,3 +115,100 @@ body {
   .toy-press:hover { transform: translateY(-2px) scale(1.04); }
   .toy-press:active { transform: scale(0.94); }
 }
+
+/* ── Per-emoji hover personalities (project cards) ───────────────
+   Each project's glyph animates in character on card hover. Gated
+   behind reduced-motion like every other perpetual/loop motion. The
+   base .toy-emoji (inline-block + transition) still applies; these
+   override transform via keyframes only while hovering. */
+@media (prefers-reduced-motion: no-preference) {
+  /* 🏓 pickleball — bounces */
+  @keyframes emoji-bounce {
+    0%, 100% { transform: translateY(0); }
+    30%      { transform: translateY(-6px); }
+    50%      { transform: translateY(0); }
+    70%      { transform: translateY(-3px); }
+    85%      { transform: translateY(0); }
+  }
+  .toy-card:hover .emoji-pickle { animation: emoji-bounce 0.7s ease-in-out infinite; }
+
+  /* 🌦️ raincheck — jiggles like rain (small shake + slight vertical) */
+  @keyframes emoji-rain {
+    0%, 100% { transform: translate(0, 0); }
+    20%      { transform: translate(-1px, 1px); }
+    40%      { transform: translate(1px, 2px); }
+    60%      { transform: translate(-1px, 1px); }
+    80%      { transform: translate(1px, 2px); }
+  }
+  .toy-card:hover .emoji-rain { animation: emoji-rain 0.5s ease-in-out infinite; }
+
+  /* 📈 chart — ticks upward */
+  @keyframes emoji-tick {
+    0%   { transform: translate(0, 0); }
+    100% { transform: translate(2px, -4px); }
+  }
+  .toy-card:hover .emoji-chart { animation: emoji-tick 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) infinite alternate; }
+
+  /* 💌 letter — flutters (gentle rotate wobble) */
+  @keyframes emoji-flutter {
+    0%, 100% { transform: rotate(-5deg); }
+    50%      { transform: rotate(5deg); }
+  }
+  .toy-card:hover .emoji-letter { animation: emoji-flutter 0.55s ease-in-out infinite; }
+
+  /* 📞 phone — rings (rotate shake) */
+  @keyframes emoji-ring {
+    0%, 100%      { transform: rotate(0); }
+    10%, 30%, 50% { transform: rotate(-12deg); }
+    20%, 40%, 60% { transform: rotate(12deg); }
+    70%           { transform: rotate(0); }
+  }
+  .toy-card:hover .emoji-phone { animation: emoji-ring 0.9s ease-in-out infinite; }
+
+  /* 🌐 globe — spins */
+  @keyframes emoji-spin {
+    from { transform: rotateY(0deg); }
+    to   { transform: rotateY(360deg); }
+  }
+  .toy-card:hover .emoji-globe { animation: emoji-spin 1.6s linear infinite; }
+
+  /* 🍽️ plate — wiggles */
+  @keyframes emoji-wiggle {
+    0%, 100% { transform: rotate(0); }
+    25%      { transform: rotate(-9deg); }
+    75%      { transform: rotate(9deg); }
+  }
+  .toy-card:hover .emoji-plate { animation: emoji-wiggle 0.6s ease-in-out infinite; }
+
+  /* 🌡️ thermometer — pulses */
+  @keyframes emoji-pulse {
+    0%, 100% { transform: scale(1); }
+    50%      { transform: scale(1.28); }
+  }
+  .toy-card:hover .emoji-temp { animation: emoji-pulse 0.8s ease-in-out infinite; }
+}
+
+/* ──────────────────────────────────────────────────────────────
+   Avatar easter egg — click the hero avatar for a quick spin + a
+   tiny emoji burst. One-shot (forwards); transform/opacity only.
+   Gated so reduced-motion users keep a calm, still avatar.
+   ────────────────────────────────────────────────────────────── */
+@keyframes avatar-spin {
+  0%   { transform: rotate(0) scale(1); }
+  35%  { transform: rotate(140deg) scale(1.12); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+@keyframes avatar-burst {
+  0%   { transform: translate(-50%, -50%) rotate(var(--a)) translateY(0) scale(0.4); opacity: 0; }
+  18%  { opacity: 1; }
+  100% { transform: translate(-50%, -50%) rotate(var(--a)) translateY(-34px) scale(1); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Springy press feedback even before the spin lands. */
+  .avatar-egg { transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1); }
+  .avatar-egg:active { transform: scale(0.93); }
+
+  .avatar-spin { animation: avatar-spin 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); }
+  .avatar-burst { animation: avatar-burst 0.6s ease-out forwards; }
+}

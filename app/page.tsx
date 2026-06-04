@@ -1,10 +1,25 @@
 import type { CSSProperties } from "react";
-import Image from "next/image";
-import { site, socials, projects, manualStats, inlineLinks, shipped, status, tinyship, growth } from "@/lib/site";
+import { site, socials, projects, manualStats, inlineLinks, shipped, status, now as nowLine, tinyship, growth } from "@/lib/site";
 import { ShipHeatmap } from "@/components/ShipHeatmap";
 import { Sparkline } from "@/components/Sparkline";
 import { StatusLine } from "@/components/StatusLine";
 import { SocialIcons } from "@/components/SocialIcons";
+import { ClickableAvatar } from "@/components/ClickableAvatar";
+import { FooterRotator } from "@/components/FooterRotator";
+
+// Per-project emoji hover personality (see globals.css). Keys must match the
+// emoji literals in lib/site.ts exactly, including any U+FE0F variation selector
+// on 🌦️ / 🍽️ / 🌡️. Unmapped emoji fall back to the base .toy-emoji pop.
+const emojiClass: Record<string, string> = {
+  "🏓": "emoji-pickle",
+  "🌦️": "emoji-rain",
+  "📈": "emoji-chart",
+  "💌": "emoji-letter",
+  "📞": "emoji-phone",
+  "🌐": "emoji-globe",
+  "🍽️": "emoji-plate",
+  "🌡️": "emoji-temp",
+};
 
 // Server component: GitHub stats are fetched here (cached 1h) so the
 // page arrives fully rendered with no client-side loading flash.
@@ -59,12 +74,10 @@ export default async function Home() {
         <div className="flex flex-col gap-14 lg:sticky lg:top-16">
       {/* Hero */}
       <section className="toy-hero flex flex-col gap-4">
-        <Image
+        <ClickableAvatar
           src={site.avatar}
           alt={site.name}
-          width={112}
-          height={112}
-          priority
+          size={112}
           className="toy-avatar size-24 rounded-full object-cover ring-1 ring-black/10 sm:size-28 dark:ring-white/15"
         />
         <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
@@ -75,6 +88,17 @@ export default async function Home() {
         </p>
         <StatusLine items={status} />
         <SocialIcons />
+        {nowLine && (
+          <p className="mt-1 flex items-baseline gap-2 text-[13px] leading-relaxed text-black/55 dark:text-white/55">
+            <span className="metric-fresh mt-1.5 size-1.5 shrink-0 rounded-full bg-emerald-500" />
+            <span>
+              <span className="mr-1.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-emerald-700 dark:text-emerald-400">
+                Now
+              </span>
+              {nowLine.replace(/^Right now:\s*/i, "")}
+            </span>
+          </p>
+        )}
       </section>
 
       {/* Bio */}
@@ -108,7 +132,7 @@ export default async function Home() {
                   A fresh project (real activity in the last 3 days) gets a live dot —
                   the earned pulse, honest because it only fires when something happened. */}
               <div className="flex items-center gap-2.5">
-                <span className="toy-emoji text-lg leading-none">{p.emoji}</span>
+                <span className={`toy-emoji text-lg leading-none ${emojiClass[p.emoji] ?? ""}`}>{p.emoji}</span>
                 <h3 className="text-[15px] font-semibold tracking-tight group-hover:underline">
                   {p.name}
                 </h3>
@@ -138,8 +162,9 @@ export default async function Home() {
                 )}
               </div>
 
-              {/* Footer: distribution status + PH credential, quiet. */}
+              {/* Footer: distribution channels + status + PH credential, quiet. */}
               <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1.5 pt-1">
+                <ProjectChannels project={p} />
                 <ProjectDistribution projectName={p.name} />
                 {p.phPostId && <ProductHuntChip project={p} />}
               </div>
@@ -299,6 +324,18 @@ export default async function Home() {
           © {new Date().getFullYear()} {site.name} · {site.domain}
         </span>
         <BuildStamp />
+        {daysSinceShip != null && (
+          <span title="Newest entry on the shipping wall">
+            ·{" "}
+            {daysSinceShip === 0
+              ? "last shipped today"
+              : daysSinceShip === 1
+                ? "last shipped 1d ago"
+                : `last shipped ${daysSinceShip}d ago`}
+          </span>
+        )}
+        <span className="w-full" />
+        <FooterRotator />
       </footer>
     </main>
   );
@@ -394,8 +431,30 @@ function analyzeGap(): { items: GapItem[]; built: number; shown: number } {
   return { items, built, shown };
 }
 
+// Days since the most recent REAL launch (a shipped entry tagged "launch").
+// This is the slow-burn counter for the Gap board: posts and builds don't
+// reset it, only actually putting a new thing into the world does. Returns
+// null if there's never been a launch logged.
+function daysSinceLaunch(): number | null {
+  const launchDays = shipped
+    .filter((s) => s.tag === "launch")
+    .map((s) => daysAgo(s.date))
+    .filter((d): d is number => d != null);
+  return launchDays.length ? Math.min(...launchDays) : null;
+}
+
+// Launch-freshness color: a real launch earns a longer green glow than a
+// single ship (launches are rare), then ambers, then reddens as it ages.
+function launchColor(days: number): string {
+  return days <= 14
+    ? "text-emerald-600 dark:text-emerald-400"
+    : days <= 30
+      ? "text-amber-600 dark:text-amber-400"
+      : "text-red-600 dark:text-red-400";
+}
+
 // Consecutive 7-day windows (back from today) each containing a DISTRIBUTION
-// act (a "post" ship). This is the streak that can't be faked by coding —
+// act (a "post" ship). This is the streak that can't be faked by coding,
 // it only advances when you put something in front of people.
 function distributionStreak(): number {
   const DAY = 86_400_000;
@@ -440,6 +499,15 @@ function ShippingGap() {
   const streak = distributionStreak();
   const unshown = items.filter((i) => !i.shown);
   const overdue = items.filter((i) => i.overdue);
+  const sinceLaunch = daysSinceLaunch();
+  const launchLabel =
+    sinceLaunch == null
+      ? null
+      : sinceLaunch === 0
+        ? "launched today"
+        : sinceLaunch === 1
+          ? "1 day since a real launch"
+          : `${sinceLaunch} days since a real launch`;
 
   return (
     <section className="flex flex-col gap-4 rounded-xl border border-black/[0.08] bg-black/[0.015] p-5 dark:border-white/[0.08] dark:bg-white/[0.02]">
@@ -463,13 +531,20 @@ function ShippingGap() {
             <span className="tabular-nums">{shown}</span> shown to anyone
           </span>
         </p>
+        {launchLabel && (
+          <p className="text-xs font-medium tabular-nums">
+            <span className={sinceLaunch === 0 ? "text-emerald-600 dark:text-emerald-400" : launchColor(sinceLaunch!)}>
+              {launchLabel}
+            </span>
+          </p>
+        )}
         <p className="text-xs text-black/45 dark:text-white/45">
           A commit is you talking to yourself. Shipping is when someone else sees it.
           {streak > 0 ? (
             <>
               {" "}
               <span className="text-emerald-600 dark:text-emerald-400">
-                🔥 {streak}-week distribution streak
+                <span className="flame">🔥</span> {streak}-week distribution streak
               </span>{" "}
               so keep reaching people.
             </>
@@ -658,6 +733,31 @@ function ProductHuntChip({ project: p }: { project: Project }) {
         <span className="tabular-nums opacity-80">▲ {p.phUpvotes}</span>
       )}
     </span>
+  );
+}
+
+// Distribution channels as quiet emerald chips on the card. Channels mean
+// ACTIVE distribution, so they earn the accent color. Each chip shows
+// `label · cadence` (cadence optional). The whole card is already an <a>, so a
+// nested interactive <a> would be invalid HTML; channels render as plain
+// non-interactive <span> chips even when channel.href exists. Renders nothing
+// when there are no channels, keeping unhustled projects honest.
+function ProjectChannels({ project: p }: { project: Project }) {
+  if (!p.channels || p.channels.length === 0) return null;
+  return (
+    <>
+      {p.channels.map((c) => (
+        <span
+          key={c.label}
+          className="inline-flex items-center gap-1 rounded-full border border-emerald-600/25 bg-emerald-500/[0.06] px-2 py-0.5 text-[10px] font-medium text-emerald-700 dark:border-emerald-400/25 dark:bg-emerald-400/10 dark:text-emerald-400"
+        >
+          <span>{c.label}</span>
+          {c.cadence && (
+            <span className="text-emerald-700/60 dark:text-emerald-400/60">· {c.cadence}</span>
+          )}
+        </span>
+      ))}
+    </>
   );
 }
 

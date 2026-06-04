@@ -29,6 +29,11 @@ export const inlineLinks: Record<string, string> = {
   "Good Robot Co": "https://goodrobotco.com",
 };
 
+// One quiet "Right now" line, what Ben is heads-down on THIS week. Gives the
+// static wall a current pulse. Keep it true and present-tense. Set to "" to hide.
+// ("client work" intentionally masks a confidential client project name; never expand it.)
+export const now = "Right now: heads-down on client work, growing ClusterDesk and noyu by showing up daily.";
+
 // Rotating "currently —" line in the hero. Pure personality — edit freely,
 // keep them short. Set to [] to hide the line.
 export const status: string[] = [
@@ -224,8 +229,7 @@ export const shipped: {
   details?: string[];
 }[] = [
   // ship:insert — `npm run ship` inserts new entries directly below this line
-  { date: "Jun 4, 2026", what: "Tweeted LODE follow-up: cluster we flagged May 21 (4 insiders,   // ship:insert — `npm run ship` inserts new entries directly below this line
-.6M, 93/100) now up ~19%, near 52-week high", href: "https://x.com/clusterdesk/status/2062557148534468819", tag: "post", project: "ClusterDesk" },
+  { date: "Jun 4, 2026", what: "Tweeted LODE follow-up: cluster we flagged May 21 (4 insiders, $1.6M, 93/100) now up ~19%, near 52-week high", href: "https://x.com/clusterdesk/status/2062557148534468819", tag: "post", project: "ClusterDesk" },
   { date: "Jun 4, 2026", what: "Tweeting GeoToMarket picks manually", tag: "post", project: "GeoToMarket" },
   { date: "Jun 4, 2026", what: "Posting PickleRadar to Houston Facebook groups", tag: "post", project: "PickleRadar" },
   { date: "Jun 4, 2026", what: "Tweeting ClusterDesk manually plus built automated tweeting infra", tag: "post", project: "ClusterDesk" },

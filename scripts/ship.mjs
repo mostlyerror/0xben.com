@@ -58,7 +58,9 @@ if (flags.has("--dry")) {
 }
 
 // Insert directly after the marker line → keeps the ledger newest-first.
-const updated = src.replace(new RegExp(`(.*${MARKER}.*\\n)`), `$1${entry}\n`);
+// Use a replacement FUNCTION (not a string) so `$` in the ship text (e.g.
+// "$1.6M") is never interpreted as a regex backreference and corrupts the file.
+const updated = src.replace(new RegExp(`(.*${MARKER}.*\\n)`), (m) => `${m}${entry}\n`);
 writeFileSync(sitePath, updated);
 console.log("✅  Added to lib/site.ts");
 

@@ -351,14 +351,17 @@ function computeWeekStreak(dates: Date[]): number {
 // ── The Gap: built vs shown ──────────────────────────────────────────────
 // Anti-avoidance, not celebration. A commit/build feels like progress, but a
 // thing nobody has seen isn't shipped. This confronts the wall with its own
-// limbo: projects that exist but have ZERO distribution (no "post" entry).
-// All derived from the ledger you already keep — nothing fabricated.
+// limbo: projects that exist but aren't being put in front of anyone.
+// "Shown" = a logged distribution (post) OR an active ongoing channel (daily
+// IG, ongoing tweeting). Channels capture CONTINUOUS distribution without
+// forcing a log of every single post. All real — nothing fabricated.
 const KILL_OR_SHIP_DAYS = 7;
 
 type GapItem = {
   name: string;
-  shown: boolean; // has at least one distribution (post) entry
-  posts: number; // distribution actions (the real "reach" proxy, for now)
+  shown: boolean; // logged a post OR has an active distribution channel
+  posts: number; // logged one-off distribution actions
+  channel: string | null; // ongoing channel summary, e.g. "Instagram · daily"
   builtDaysAgo: number | null; // since first ledger activity for this project
   overdue: boolean; // built, unshown, past the kill-or-ship window
 };
@@ -367,16 +370,17 @@ function analyzeGap(): { items: GapItem[]; built: number; shown: number } {
   const items: GapItem[] = [];
   for (const proj of projects) {
     const entries = shipped.filter((s) => s.project === proj.name);
-    // "Built" = it exists as a project with any ledger footprint, OR it's a
-    // live project card at all. Use the oldest entry as the build anchor.
     const dates = entries
       .map((e) => daysAgo(e.date))
       .filter((d): d is number => d != null);
     const builtDaysAgo = dates.length ? Math.max(...dates) : null;
     const posts = entries.filter((e) => e.tag === "post").length;
-    const shown = posts > 0;
+    const ch = proj.channels?.[0];
+    const channel = ch ? `${ch.label}${ch.cadence ? ` · ${ch.cadence}` : ""}` : null;
+    // Shown if you've logged a post OR you're actively distributing on a channel.
+    const shown = posts > 0 || channel != null;
     const overdue = !shown && (builtDaysAgo ?? 0) >= KILL_OR_SHIP_DAYS;
-    items.push({ name: proj.name, shown, posts, builtDaysAgo, overdue });
+    items.push({ name: proj.name, shown, posts, channel, builtDaysAgo, overdue });
   }
   const built = items.length;
   const shown = items.filter((i) => i.shown).length;
@@ -517,10 +521,12 @@ function ShippingGap() {
               />
               <span className={i.shown ? "" : "text-black/70 dark:text-white/70"}>{i.name}</span>
             </span>
-            <span className="text-xs tabular-nums">
+            <span className="text-xs">
               {i.shown ? (
                 <span className="text-black/45 dark:text-white/45">
-                  {i.posts} {i.posts === 1 ? "post" : "posts"}
+                  {i.channel
+                    ? i.channel
+                    : `${i.posts} ${i.posts === 1 ? "post" : "posts"}`}
                 </span>
               ) : (
                 <span className={i.overdue ? "text-red-600 dark:text-red-400" : "text-amber-600 dark:text-amber-400"}>

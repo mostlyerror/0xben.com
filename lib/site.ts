@@ -87,6 +87,12 @@ export const projects: {
   // Product Hunt upvote count. Static (bump it by hand when you check) since a
   // styled chip can't auto-update like the official badge. Omit to hide the number.
   phUpvotes?: number;
+  // Ongoing distribution channels — where you're ACTIVELY putting this in front
+  // of people, as a status (not per-post logging). A project with a channel is
+  // "being shipped," even between logged posts. This is what keeps The Gap board
+  // honest about continuous distribution (daily IG, ongoing tweeting, etc).
+  // `cadence` is free text: "daily", "weekly", "ongoing". Keep it true.
+  channels?: { label: string; href?: string; cadence?: string }[];
 }[] = [
   // project:insert — `npm run project` inserts new entries directly below this line
   {
@@ -112,6 +118,7 @@ export const projects: {
     metricLabel: "subscribers",
     metricValue: "—",
     emoji: "🌐",
+    channels: [{ label: "X", href: "https://x.com/GeoToMarket", cadence: "manual tweets" }],
   },
   {
     name: "Carte",
@@ -139,6 +146,7 @@ export const projects: {
     metricValue: "—",
     emoji: "🏓",
     posthogId: "444689",
+    channels: [{ label: "Facebook groups", cadence: "posting" }],
   },
   {
     name: "ClusterDesk",
@@ -148,6 +156,7 @@ export const projects: {
     metricValue: "—",
     emoji: "📈",
     posthogId: "446437",
+    channels: [{ label: "X", href: "https://x.com/clusterdesk", cadence: "manual + automated" }],
   },
   {
     name: "noyu",
@@ -157,6 +166,7 @@ export const projects: {
     metricValue: "—",
     emoji: "💌",
     posthogId: "444905",
+    channels: [{ label: "Instagram", href: "https://instagram.com/noyu.love", cadence: "daily carousels + tagging" }],
   },
 ];
 
@@ -214,6 +224,7 @@ export const shipped: {
   details?: string[];
 }[] = [
   // ship:insert — `npm run ship` inserts new entries directly below this line
+  { date: "Jun 4, 2026", what: "Posting noyu card carousels to Instagram and tagging friends", tag: "post", project: "noyu" },
   { date: "Jun 2, 2026", what: "Promoted ClusterDesk on X", tag: "post", project: "ClusterDesk" },
   { date: "Jun 2, 2026", what: "PickleRadar's first signs of life: a stranger submitted a tournament, first email subscriber, and tournament views climbing since launch (best day 38)", project: "PickleRadar" },
   { date: "Jun 1, 2026", what: "Wrote the ClusterDesk DB migration spec (Supabase to Railway Postgres)", tag: "build", project: "ClusterDesk" },

@@ -224,6 +224,8 @@ export const shipped: {
   details?: string[];
 }[] = [
   // ship:insert — `npm run ship` inserts new entries directly below this line
+  { date: "Jun 4, 2026", what: "Tweeted LODE follow-up: cluster we flagged May 21 (4 insiders,   // ship:insert — `npm run ship` inserts new entries directly below this line
+.6M, 93/100) now up ~19%, near 52-week high", href: "https://x.com/clusterdesk/status/2062557148534468819", tag: "post", project: "ClusterDesk" },
   { date: "Jun 4, 2026", what: "Tweeting GeoToMarket picks manually", tag: "post", project: "GeoToMarket" },
   { date: "Jun 4, 2026", what: "Posting PickleRadar to Houston Facebook groups", tag: "post", project: "PickleRadar" },
   { date: "Jun 4, 2026", what: "Tweeting ClusterDesk manually plus built automated tweeting infra", tag: "post", project: "ClusterDesk" },

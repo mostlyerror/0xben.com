@@ -5,6 +5,7 @@
 //   tinyship "Shipped the new map"     → quick ship
 //   tinyship "Launch thread" --post --project=PickleRadar --link=https://x.com/...
 //   tinyship sync [days]               → weekly shipping digest
+//   tinyship tweet [n] [--pillar=...]   → draft maker-brand tweets into the queue
 //   tinyship project                   → register a new project (interactive)
 //
 // It knows where the repo lives, so it works from any directory.
@@ -48,6 +49,11 @@ if (sub === "rollup") {
 
 if (sub === "draft") {
   run("draft.mjs", argv.slice(1));
+  process.exit(0);
+}
+
+if (sub === "tweet") {
+  run("tweet.mjs", argv.slice(1));
   process.exit(0);
 }
 

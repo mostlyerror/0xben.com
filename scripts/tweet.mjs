@@ -11,7 +11,7 @@
 //   node scripts/tweet.mjs --pillar=teach  # bias toward teach (still prints all)
 //   node scripts/tweet.mjs 4 --pillar=tool --dry
 //
-// --pillar=teach|build|take|tool : optional bias, noted in the header only.
+// --pillar=teach|build|take|tool|vibe : optional bias, noted in the header only.
 // --dry                          : parity flag; this script never writes anyway.
 
 import { readdirSync, existsSync, readFileSync, statSync } from "node:fs";

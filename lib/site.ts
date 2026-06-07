@@ -101,6 +101,14 @@ export const projects: {
 }[] = [
   // project:insert — `npm run project` inserts new entries directly below this line
   {
+    name: "Content Engine",
+    description: "Multi-piece content & distribution engine — spy · analyzer · remix · posting · UGC on one shared spine",
+    href: "https://github.com/mostlyerror/content-engine",
+    metricLabel: "users",
+    metricValue: "—",
+    emoji: "🚂",
+  },
+  {
     name: "Pickup Studio",
     description: "Auto-generates AI voice-receptionist demos for small businesses",
     href: "https://pickupstudio.app",
@@ -232,6 +240,7 @@ export const shipped: {
   details?: string[];
 }[] = [
   // ship:insert — `npm run ship` inserts new entries directly below this line
+  { date: "Jun 7, 2026", what: "Launched Content Engine", href: "https://github.com/mostlyerror/content-engine", tag: "launch", project: "Content Engine" },
   { date: "Jun 6, 2026", what: "noyu is now auto-posting 1 IG carousel per day", tag: "build", project: "noyu" },
   { date: "Jun 6, 2026", what: "Built a Remotion animation renderer for noyu to iterate on auto-posted IG reel content", tag: "build", project: "noyu" },
   { date: "Jun 5, 2026", what: "PickleRadar got found organically: first visitor via Yahoo search", tag: "post", project: "PickleRadar" },

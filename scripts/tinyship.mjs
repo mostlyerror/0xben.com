@@ -7,6 +7,7 @@
 //   tinyship sync [days]               → weekly shipping digest
 //   tinyship tweet [n] [--pillar=...]   → draft maker-brand tweets into the queue
 //   tinyship project                   → register a new project (interactive)
+//   tinyship x auth|followers|report   → @mostly_error analytics via the X API
 //
 // It knows where the repo lives, so it works from any directory.
 
@@ -64,6 +65,11 @@ if (sub === "growth") {
 
 if (sub === "pulse") {
   run("pulse.mjs", argv.slice(1));
+  process.exit(0);
+}
+
+if (sub === "x") {
+  run("x.mjs", argv.slice(1));
   process.exit(0);
 }
 

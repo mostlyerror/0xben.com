@@ -240,6 +240,7 @@ export const shipped: {
   details?: string[];
 }[] = [
   // ship:insert — `npm run ship` inserts new entries directly below this line
+  { date: "Jun 8, 2026", what: "Posted a build-in-public tweet: running 7 projects at once like a node.js event loop (dispatch agents, don't await, thread-switch)", tag: "post" },
   { date: "Jun 7, 2026", what: "Launched Content Engine", href: "https://github.com/mostlyerror/content-engine", tag: "launch", project: "Content Engine" },
   { date: "Jun 6, 2026", what: "noyu is now auto-posting 1 IG carousel per day", tag: "build", project: "noyu" },
   { date: "Jun 6, 2026", what: "Built a Remotion animation renderer for noyu to iterate on auto-posted IG reel content", tag: "build", project: "noyu" },

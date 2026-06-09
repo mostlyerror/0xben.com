@@ -46,7 +46,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         {children}
         <Analytics />
-        {process.env.NEXT_PUBLIC_GA_ID && (
+        {process.env.NODE_ENV === "production" && process.env.NEXT_PUBLIC_GA_ID && (
           <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
         )}
       </body>

@@ -118,7 +118,7 @@ export default async function Home() {
         <h2 className="text-sm font-semibold uppercase tracking-wider text-black/40 dark:text-white/40">
           What I'm building
         </h2>
-        <div className="grid gap-3 sm:grid-cols-2">
+        <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
           {projects.map((p, i) => (
             <a
               key={p.name}
@@ -126,7 +126,7 @@ export default async function Home() {
               target="_blank"
               rel="noopener noreferrer"
               style={{ "--i": i } as CSSProperties}
-              className="toy-card rise group flex flex-col rounded-xl border border-black/[0.08] p-5 transition-colors hover:border-black/15 hover:bg-black/[0.015] dark:border-white/[0.08] dark:hover:border-white/20 dark:hover:bg-white/[0.02]"
+              className="toy-card rise group flex flex-col rounded-xl border border-black/[0.08] p-3 transition-colors hover:border-black/15 hover:bg-black/[0.015] sm:p-4 dark:border-white/[0.08] dark:hover:border-white/20 dark:hover:bg-white/[0.02]"
             >
               {/* Header row: name as the lead, emoji a quiet glyph that pops on hover.
                   A fresh project (real activity in the last 3 days) gets a live dot —
@@ -149,7 +149,7 @@ export default async function Home() {
 
               {/* Instrument readout: metrics as labeled rows on hairline
                   dividers, mono numerals — precise, not boastful. Cockpit. */}
-              <div className="mt-4 flex flex-col">
+              <div className="mt-3 flex flex-col sm:mt-4">
                 <HeadlineMetric project={p} />
                 <ProjectGrowth project={p} />
                 {p.traffic && p.traffic.length >= 2 && (
@@ -163,7 +163,7 @@ export default async function Home() {
               </div>
 
               {/* Footer: distribution channels + status + PH credential, quiet. */}
-              <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1.5 pt-1">
+              <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1.5 pt-1 sm:mt-3">
                 <ProjectChannels project={p} />
                 <ProjectDistribution projectName={p.name} />
                 {p.phPostId && <ProductHuntChip project={p} />}
@@ -198,9 +198,6 @@ export default async function Home() {
           </p>
         </div>
       </section>
-
-      {/* The Gap — confront built-but-unshown BEFORE the trophy ledger. */}
-      <ShippingGap />
 
       {/* Shipped — the proof-of-shipping ledger */}
       <section className="flex flex-col gap-5">
@@ -385,94 +382,6 @@ function computeWeekStreak(dates: Date[]): number {
   return streak;
 }
 
-// ── The Gap: built vs shown ──────────────────────────────────────────────
-// Anti-avoidance, not celebration. A commit/build feels like progress, but a
-// thing nobody has seen isn't shipped. This confronts the wall with its own
-// limbo: projects that exist but aren't being put in front of anyone.
-// "Shown" = a logged distribution (post) OR an active ongoing channel (daily
-// IG, ongoing tweeting). Channels capture CONTINUOUS distribution without
-// forcing a log of every single post. All real — nothing fabricated.
-const KILL_OR_SHIP_DAYS = 7;
-
-type GapItem = {
-  name: string;
-  shown: boolean; // logged a post OR has an active distribution channel
-  posts: number; // logged one-off distribution actions
-  channel: string | null; // ongoing channel summary, e.g. "Instagram · daily"
-  builtDaysAgo: number | null; // since first ledger activity for this project
-  overdue: boolean; // built, unshown, past the kill-or-ship window
-};
-
-function analyzeGap(): { items: GapItem[]; built: number; shown: number } {
-  const items: GapItem[] = [];
-  for (const proj of projects) {
-    const entries = shipped.filter((s) => s.project === proj.name);
-    const dates = entries
-      .map((e) => daysAgo(e.date))
-      .filter((d): d is number => d != null);
-    const builtDaysAgo = dates.length ? Math.max(...dates) : null;
-    const posts = entries.filter((e) => e.tag === "post").length;
-    const ch = proj.channels?.[0];
-    const channel = ch ? `${ch.label}${ch.cadence ? ` · ${ch.cadence}` : ""}` : null;
-    // Shown if you've logged a post OR you're actively distributing on a channel.
-    const shown = posts > 0 || channel != null;
-    const overdue = !shown && (builtDaysAgo ?? 0) >= KILL_OR_SHIP_DAYS;
-    items.push({ name: proj.name, shown, posts, channel, builtDaysAgo, overdue });
-  }
-  const built = items.length;
-  const shown = items.filter((i) => i.shown).length;
-  // Worst first: overdue, then unshown, then by least distribution.
-  items.sort(
-    (a, b) =>
-      Number(b.overdue) - Number(a.overdue) ||
-      Number(a.shown) - Number(b.shown) ||
-      a.posts - b.posts,
-  );
-  return { items, built, shown };
-}
-
-// Days since the most recent REAL launch (a shipped entry tagged "launch").
-// This is the slow-burn counter for the Gap board: posts and builds don't
-// reset it, only actually putting a new thing into the world does. Returns
-// null if there's never been a launch logged.
-function daysSinceLaunch(): number | null {
-  const launchDays = shipped
-    .filter((s) => s.tag === "launch")
-    .map((s) => daysAgo(s.date))
-    .filter((d): d is number => d != null);
-  return launchDays.length ? Math.min(...launchDays) : null;
-}
-
-// Launch-freshness color: a real launch earns a longer green glow than a
-// single ship (launches are rare), then ambers, then reddens as it ages.
-function launchColor(days: number): string {
-  return days <= 14
-    ? "text-emerald-600 dark:text-emerald-400"
-    : days <= 30
-      ? "text-amber-600 dark:text-amber-400"
-      : "text-red-600 dark:text-red-400";
-}
-
-// Consecutive 7-day windows (back from today) each containing a DISTRIBUTION
-// act (a "post" ship). This is the streak that can't be faked by coding,
-// it only advances when you put something in front of people.
-function distributionStreak(): number {
-  const DAY = 86_400_000;
-  const now = Date.now();
-  const postDates = shipped
-    .filter((s) => s.tag === "post")
-    .map((s) => new Date(s.date).getTime())
-    .filter((t) => !Number.isNaN(t));
-  let streak = 0;
-  for (let w = 0; w < 520; w++) {
-    const end = now - w * 7 * DAY;
-    const start = end - 7 * DAY;
-    if (!postDates.some((t) => t > start && t <= end)) break;
-    streak++;
-  }
-  return streak;
-}
-
 // Recency helpers for per-project distribution freshness.
 function daysAgo(dateStr: string): number | null {
   const t = new Date(dateStr).getTime();
@@ -489,139 +398,6 @@ function freshnessColor(days: number): string {
     : days <= 21
       ? "text-amber-600 dark:text-amber-400"
       : "text-red-600 dark:text-red-400";
-}
-
-// The Gap board — the anti-avoidance heart of the wall. Confronts you with
-// what you've BUILT but never SHOWN anyone. Loss-framed on purpose: a quiet
-// trophy log lets you avoid; a board that says "3 built, 1 shown" does not.
-function ShippingGap() {
-  const { items, built, shown } = analyzeGap();
-  const streak = distributionStreak();
-  const unshown = items.filter((i) => !i.shown);
-  const overdue = items.filter((i) => i.overdue);
-  const sinceLaunch = daysSinceLaunch();
-  const launchLabel =
-    sinceLaunch == null
-      ? null
-      : sinceLaunch === 0
-        ? "launched today"
-        : sinceLaunch === 1
-          ? "1 day since a real launch"
-          : `${sinceLaunch} days since a real launch`;
-
-  return (
-    <section className="flex flex-col gap-4 rounded-xl border border-black/[0.08] bg-black/[0.015] p-5 dark:border-white/[0.08] dark:bg-white/[0.02]">
-      <div className="flex flex-col gap-1">
-        <div className="flex items-baseline justify-between gap-3">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-black/40 dark:text-white/40">
-            The Gap
-          </h2>
-          <span className="text-xs text-black/40 dark:text-white/40">built ≠ shipped</span>
-        </div>
-        {/* The headline number that should sting. */}
-        <p className="text-[15px] font-semibold tracking-tight">
-          <span className="tabular-nums">{built}</span> built ·{" "}
-          <span
-            className={
-              shown < built
-                ? "text-amber-600 dark:text-amber-400"
-                : "text-emerald-600 dark:text-emerald-400"
-            }
-          >
-            <span className="tabular-nums">{shown}</span> shown to anyone
-          </span>
-        </p>
-        {launchLabel && (
-          <p className="text-xs font-medium tabular-nums">
-            <span className={sinceLaunch === 0 ? "text-emerald-600 dark:text-emerald-400" : launchColor(sinceLaunch!)}>
-              {launchLabel}
-            </span>
-          </p>
-        )}
-        <p className="text-xs text-black/45 dark:text-white/45">
-          A commit is you talking to yourself. Shipping is when someone else sees it.
-          {streak > 0 ? (
-            <>
-              {" "}
-              <span className="text-emerald-600 dark:text-emerald-400">
-                <span className="flame">🔥</span> {streak}-week distribution streak
-              </span>{" "}
-              so keep reaching people.
-            </>
-          ) : (
-            <span className="text-amber-600 dark:text-amber-400">
-              {" "}
-              No distribution this week. The streak is at 0.
-            </span>
-          )}
-        </p>
-      </div>
-
-      {/* Kill-or-ship: anything built and unshown past the window. */}
-      {overdue.length > 0 && (
-        <div className="rounded-lg border border-red-500/25 bg-red-500/[0.05] px-3.5 py-3">
-          <p className="text-xs font-semibold text-red-600 dark:text-red-400">
-            Ship it or kill it
-          </p>
-          <p className="mt-1 text-xs text-black/55 dark:text-white/55">
-            {overdue.map((i, n) => (
-              <span key={i.name}>
-                {n > 0 && ", "}
-                <span className="font-medium text-black/75 dark:text-white/75">{i.name}</span>
-                {i.builtDaysAgo != null && (
-                  <span className="text-black/40 dark:text-white/40">
-                    {" "}
-                    ({i.builtDaysAgo}d, nobody's seen it)
-                  </span>
-                )}
-              </span>
-            ))}
-            . Put it in front of people, or park it. No silent limbo.
-          </p>
-        </div>
-      )}
-
-      {/* The honest list: who's been shown, who hasn't. */}
-      <ul className="flex flex-col">
-        {items.map((i) => (
-          <li
-            key={i.name}
-            className="flex items-center justify-between gap-2 border-t border-black/[0.06] py-2 text-sm first:border-t-0 dark:border-white/[0.07]"
-          >
-            <span className="flex items-center gap-2">
-              <span
-                className={`size-1.5 shrink-0 rounded-full ${
-                  i.shown ? "bg-emerald-500" : i.overdue ? "bg-red-500" : "bg-black/20 dark:bg-white/20"
-                }`}
-              />
-              <span className={i.shown ? "" : "text-black/70 dark:text-white/70"}>{i.name}</span>
-            </span>
-            <span className="text-xs">
-              {i.shown ? (
-                <span className="text-black/45 dark:text-white/45">
-                  {i.channel
-                    ? i.channel
-                    : `${i.posts} ${i.posts === 1 ? "post" : "posts"}`}
-                </span>
-              ) : (
-                <span className={i.overdue ? "text-red-600 dark:text-red-400" : "text-amber-600 dark:text-amber-400"}>
-                  not shown
-                  {i.builtDaysAgo != null ? ` · ${i.builtDaysAgo}d` : ""}
-                </span>
-              )}
-            </span>
-          </li>
-        ))}
-      </ul>
-
-      {unshown.length > 0 && (
-        <p className="text-xs text-black/40 dark:text-white/40">
-          {unshown.length} {unshown.length === 1 ? "project is" : "projects are"} built but
-          invisible. The fix isn&apos;t more code, it&apos;s one post.
-        </p>
-      )}
-    </section>
-  );
 }
 
 // Distribution effort for a project, rolled up from the ledger's "post"

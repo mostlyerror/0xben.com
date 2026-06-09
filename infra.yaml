@@ -1,0 +1,65 @@
+project: 0xben.com
+client: false
+status: active
+repo: 0xben.com
+
+hosting:
+  - platform: Vercel (Next.js 16, project bens-projects-1984/0xben.com)
+    deploys: git push to main → Vercel GitHub integration auto-deploys; occasional `vercel redeploy` to pick up env-var changes
+    dashboard: https://vercel.com/bens-projects-1984/0xben.com
+    check:
+      type: http
+      url: https://0xben.com
+      expect: 200
+
+services:
+  - name: Porkbun (DNS + domain)
+    purpose: registrar + DNS for 0xben.com
+    env:
+      - PORKBUN_API_KEY
+      - PORKBUN_SECRET_KEY
+    check:
+      type: dns
+      host: 0xben.com
+  - name: Google Analytics 4 (gtag via @next/third-parties)
+    purpose: site traffic analytics; <GoogleAnalytics> gated on NODE_ENV === "production" && NEXT_PUBLIC_GA_ID so it only fires in prod
+    env:
+      - NEXT_PUBLIC_GA_ID
+    check:
+      type: command
+      run: 'curl -s https://0xben.com/ | grep -q "googletagmanager.com/gtag/js?id=G-"'
+      expectExit: 0
+  - name: Vercel Analytics
+    purpose: built-in pageview/visitor analytics (@vercel/analytics), no key
+  - name: PostHog
+    purpose: analytics data pulled by local scripts (scripts/traffic.mjs etc.) — not used by the deployed site
+    env:
+      - POSTHOG_API_KEY
+  - name: X / Twitter API (OAuth 1.0a)
+    purpose: tinyship x — @mostly_error follower + per-tweet analytics (scripts/x.mjs); pay-per-use reads
+    env:
+      - X_API_KEY
+      - X_API_SECRET
+      - X_ACCESS_TOKEN
+      - X_ACCESS_SECRET
+
+auth:
+  provider: none
+
+env_inventory:
+  - key: NEXT_PUBLIC_GA_ID
+    where: [vercel]
+  - key: PORKBUN_API_KEY
+    where: [local]
+  - key: PORKBUN_SECRET_KEY
+    where: [local]
+  - key: POSTHOG_API_KEY
+    where: [local]
+  - key: X_API_KEY
+    where: [local]
+  - key: X_API_SECRET
+    where: [local]
+  - key: X_ACCESS_TOKEN
+    where: [local]
+  - key: X_ACCESS_SECRET
+    where: [local]

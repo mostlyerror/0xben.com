@@ -101,6 +101,14 @@ export const projects: {
 }[] = [
   // project:insert — `npm run project` inserts new entries directly below this line
   {
+    name: "yt-trade-distill",
+    description: "Turns a YouTube trading channel into a mechanical, backtestable strategy spec + TradingView Pine Script",
+    href: "https://github.com/mostlyerror/yt-trade-distill",
+    metricLabel: "strategies generated",
+    metricValue: "—",
+    emoji: "📈",
+  },
+  {
     name: "Cabinet",
     description: "A personal board of AI 'deciders' on Discord — removes everyday decisions (when/what to eat, when to sleep)",
     href: "https://github.com/mostlyerror/cabinet",
@@ -248,6 +256,7 @@ export const shipped: {
   details?: string[];
 }[] = [
   // ship:insert — `npm run ship` inserts new entries directly below this line
+  { date: "Jun 9, 2026", what: "Launched yt-trade-distill", href: "https://github.com/mostlyerror/yt-trade-distill", tag: "launch", project: "yt-trade-distill" },
   { date: "Jun 9, 2026", what: "Launched Cabinet", href: "https://github.com/mostlyerror/cabinet", tag: "launch", project: "Cabinet" },
   { date: "Jun 8, 2026", what: "Posted a build-in-public tweet: running 7 projects at once like a node.js event loop (dispatch agents, don't await, thread-switch)", tag: "post" },
   { date: "Jun 7, 2026", what: "Launched Content Engine", href: "https://github.com/mostlyerror/content-engine", tag: "launch", project: "Content Engine" },

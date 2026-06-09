@@ -26,6 +26,19 @@ const git = (repo, args) => {
 // Client repos are masked as "client" so confidential work never shows by name.
 const CLIENT_REPOS = new Set(["acclinate"]);
 
+// Join key: collapse case / spaces / hyphens so "content-engine" (folder) meets
+// "Content Engine" (ledger). Normalized to lowercase alphanumeric.
+const norm = (s) => s.toLowerCase().replace(/[^a-z0-9]/g, "");
+
+// Repos whose folder name differs from the registered project name. Each mapping
+// is verified against the repo's own README / package.json — not guessed.
+// repo folder -> canonical project name.
+const REPO_ALIASES = {
+  "restaurant-menus": "Carte",
+  "kalshi-weather": "Hot Take",
+  trading: "yt-trade-distill",
+};
+
 // --- build effort: commits per repo in the window ---
 const repos = existsSync(devDir)
   ? readdirSync(devDir, { withFileTypes: true })
@@ -33,12 +46,14 @@ const repos = existsSync(devDir)
       .map((e) => e.name)
   : [];
 const since = `--since="${days} days ago"`;
-const commits = {}; // key (lowercased) -> count
+const commits = {}; // key (normalized) -> { count, display }
 for (const name of repos) {
   const n = git(join(devDir, name), `log ${since} --oneline`).split("\n").filter(Boolean).length;
   if (n === 0) continue;
-  const key = CLIENT_REPOS.has(name) ? "client" : name.toLowerCase();
-  commits[key] = (commits[key] || 0) + n; // sum if multiple client repos collapse
+  const canonical = CLIENT_REPOS.has(name) ? "client" : REPO_ALIASES[name] || name;
+  const key = norm(canonical);
+  commits[key] ??= { count: 0, display: canonical };
+  commits[key].count += n; // sum if multiple repos collapse to one project
 }
 
 // --- logged ships: parse the ledger for { project, tag } ---
@@ -51,7 +66,7 @@ for (const e of block.match(/\{[^}]*\}/g) || []) {
   const proj = (e.match(/project:\s*"([^"]+)"/) || [])[1];
   if (!proj) continue;
   const tag = (e.match(/tag:\s*"([^"]+)"/) || [])[1];
-  const k = proj.toLowerCase();
+  const k = norm(proj);
   ships[k] ??= { name: proj, ships: 0, posts: 0, launches: 0, total: 0 };
   ships[k].total++;
   if (tag === "post") ships[k].posts++;
@@ -63,8 +78,8 @@ for (const e of block.match(/\{[^}]*\}/g) || []) {
 const keys = [...new Set([...Object.keys(commits), ...Object.keys(ships)])];
 const rows = keys
   .map((k) => ({
-    name: ships[k]?.name || k,
-    commits: commits[k] || 0,
+    name: ships[k]?.name || commits[k]?.display || k,
+    commits: commits[k]?.count || 0,
     logged: ships[k]?.total || 0,
     posts: ships[k]?.posts || 0,
     launches: ships[k]?.launches || 0,

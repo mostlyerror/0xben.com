@@ -256,6 +256,7 @@ export const shipped: {
   details?: string[];
 }[] = [
   // ship:insert — `npm run ship` inserts new entries directly below this line
+  { date: "Jun 10, 2026", what: "digest" },
   { date: "Jun 9, 2026", what: "Launched yt-trade-distill", href: "https://github.com/mostlyerror/yt-trade-distill", tag: "launch", project: "yt-trade-distill" },
   { date: "Jun 9, 2026", what: "Launched Cabinet", href: "https://github.com/mostlyerror/cabinet", tag: "launch", project: "Cabinet" },
   { date: "Jun 8, 2026", what: "Posted a build-in-public tweet: running 7 projects at once like a node.js event loop (dispatch agents, don't await, thread-switch)", tag: "post" },

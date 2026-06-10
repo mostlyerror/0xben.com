@@ -80,3 +80,41 @@ try {
 } catch {
   console.error("⚠️  Push skipped (offline or no upstream) — committed locally, push when ready.");
 }
+
+// Dual-write to growthdeck (distribution C2) — fire-and-forget; a growthdeck
+// outage must never make a ship fail.
+try {
+  const env = readFileSync(join(root, ".env"), "utf8");
+  const token = (env.match(/^GROWTHDECK_INGEST_TOKEN=(.*)$/m) || [])[1]?.trim();
+  if (token) {
+    const slug = (project || "mostly-error").toLowerCase().trim().replace(/^@/, "").replace(/\s+/g, "-");
+    const channel = !href
+      ? "blog" // no link → the 0xben.com ledger itself is the surface
+      : /x\.com|twitter\.com/.test(href) ? "x"
+      : /producthunt\.com/.test(href) ? "producthunt"
+      : /instagram\.com/.test(href) ? "instagram"
+      : /facebook\.com/.test(href) ? "fb-groups"
+      : /tiktok\.com/.test(href) ? "tiktok"
+      : /youtube\.com|youtu\.be/.test(href) ? "youtube"
+      : /reddit\.com/.test(href) ? "reddit"
+      : /linkedin\.com/.test(href) ? "linkedin"
+      : /news\.ycombinator\.com/.test(href) ? "hn"
+      : "blog";
+    await fetch("https://growthdeck.0xben.com/api/events", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+      body: JSON.stringify({
+        project: slug,
+        channel,
+        type: tag || "other",
+        title: what,
+        url: href || "",
+        source: "tinyship",
+      }),
+      signal: AbortSignal.timeout(5000),
+    });
+    console.log("📡  Logged to growthdeck");
+  }
+} catch {
+  console.error("⚠️  growthdeck dual-write skipped (offline or unreachable).");
+}

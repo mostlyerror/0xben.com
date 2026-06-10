@@ -35,6 +35,10 @@ services:
     purpose: analytics data pulled by local scripts (scripts/traffic.mjs etc.) — not used by the deployed site
     env:
       - POSTHOG_API_KEY
+  - name: growthdeck ingest (distribution C2)
+    purpose: scripts/ship.mjs dual-writes every tinyship entry to growthdeck.0xben.com/api/events (fire-and-forget)
+    env:
+      - GROWTHDECK_INGEST_TOKEN
   - name: X / Twitter API (OAuth 1.0a)
     purpose: tinyship x — @mostly_error follower + per-tweet analytics (scripts/x.mjs); pay-per-use reads
     env:
@@ -49,6 +53,8 @@ auth:
 env_inventory:
   - key: NEXT_PUBLIC_GA_ID
     where: [vercel]
+  - key: GROWTHDECK_INGEST_TOKEN
+    where: [local]
   - key: PORKBUN_API_KEY
     where: [local]
   - key: PORKBUN_SECRET_KEY

@@ -113,7 +113,7 @@ export default async function Home() {
               .slice(0, 5)
               .map((s) => (
                 <li
-                  key={`${s.date}-${s.what.slice(0, 24)}`}
+                  key={`${s.date}-${s.what}`}
                   className="flex items-baseline gap-4 border-t border-black/[0.06] py-2.5 first:border-t-0 dark:border-white/[0.08]"
                 >
                   <span className="w-24 shrink-0 text-sm tabular-nums text-black/40 dark:text-white/40">

@@ -27,15 +27,16 @@ export function buildRssXml(opts: {
     .map((e) => {
       const title = escapeXml(e.gloss ?? e.what);
       const link = escapeXml(e.href ?? opts.link);
-      const pubDate = new Date(e.date).toUTCString();
+      const d = new Date(e.date);
+      const pubDate = Number.isNaN(d.getTime()) ? null : d.toUTCString();
       return [
         "    <item>",
         `      <title>${title}</title>`,
         `      <link>${link}</link>`,
         `      <guid isPermaLink="false">${escapeXml(`${e.date}:${e.gloss ?? e.what}`)}</guid>`,
-        `      <pubDate>${pubDate}</pubDate>`,
+        pubDate ? `      <pubDate>${pubDate}</pubDate>` : null,
         "    </item>",
-      ].join("\n");
+      ].filter((line) => line !== null).join("\n");
     })
     .join("\n");
 

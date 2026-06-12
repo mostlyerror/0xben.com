@@ -32,6 +32,18 @@ test("buildRssXml produces a valid channel with escaped items", () => {
   assert.match(xml, /<pubDate>Wed, 10 Jun 2026/);
 });
 
+test("buildRssXml omits pubDate for an unparseable date", () => {
+  const xml = buildRssXml({
+    title: "t",
+    link: "https://0xben.com",
+    description: "d",
+    entries: [{ date: "Jun 32, 2026", what: "typo entry" }],
+  });
+  assert.doesNotMatch(xml, /Invalid Date/);
+  assert.doesNotMatch(xml, /<pubDate>/);
+  assert.match(xml, /<title>typo entry<\/title>/);
+});
+
 test("buildRssXml prefers the gloss as the item title", () => {
   const xml = buildRssXml({
     title: "t",

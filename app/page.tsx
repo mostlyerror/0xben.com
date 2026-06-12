@@ -1,5 +1,5 @@
 import type { CSSProperties } from "react";
-import { site, socials, projects, manualStats, inlineLinks, shipped, status, now as nowLine, tinyship, growth } from "@/lib/site";
+import { site, socials, projects, inlineLinks, shipped, status, now as nowLine, tinyship, growth } from "@/lib/site";
 import { ShipHeatmap } from "@/components/ShipHeatmap";
 import { Sparkline } from "@/components/Sparkline";
 import { StatusLine } from "@/components/StatusLine";
@@ -24,17 +24,6 @@ const emojiClass: Record<string, string> = {
 // Server component: GitHub stats are fetched here (cached 1h) so the
 // page arrives fully rendered with no client-side loading flash.
 export default async function Home() {
-  // Prominent stat cards — your real, current numbers. GitHub is handled
-  // separately as a de-emphasized footnote (see below).
-  const cards = [
-    ...socials
-      .filter((s) => s.followers != null)
-      .map((s) => ({ label: `${s.label} followers`, value: s.followers!.toLocaleString() })),
-    ...manualStats
-      .filter((s) => s.value != null)
-      .map((s) => ({ label: s.label, value: s.value! })),
-  ];
-
   // Freshness nudge: how long since the newest ship. The longer the
   // silence, the redder it gets — make not-shipping uncomfortable.
   const lastShipDate = new Date(shipped[0]?.date ?? "");
@@ -49,15 +38,6 @@ export default async function Home() {
         : daysSinceShip === 1
           ? "1 day ago"
           : `${daysSinceShip} days ago`;
-  const lastShipColor =
-    daysSinceShip == null
-      ? ""
-      : daysSinceShip <= 3
-        ? "text-emerald-600 dark:text-emerald-400"
-        : daysSinceShip <= 10
-          ? "text-amber-600 dark:text-amber-400"
-          : "text-red-600 dark:text-red-400";
-
   // Cadence stats, all derived from the ledger dates.
   const shipDates = shipped
     .map((s) => new Date(s.date))
@@ -165,7 +145,6 @@ export default async function Home() {
               {/* Footer: distribution channels + status + PH credential, quiet. */}
               <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1.5 pt-1 sm:mt-3">
                 <ProjectChannels project={p} />
-                <ProjectDistribution projectName={p.name} />
                 {p.phPostId && <ProductHuntChip project={p} />}
               </div>
             </a>
@@ -210,7 +189,7 @@ export default async function Home() {
               </span>
             </h2>
             {lastShipLabel && (
-              <span className={`text-sm tabular-nums ${lastShipColor}`}>
+              <span className="text-sm tabular-nums text-black/40 dark:text-white/40">
                 {lastShipLabel}
               </span>
             )}
@@ -300,19 +279,6 @@ export default async function Home() {
         </ol>
       </section>
 
-      {/* Stats — only shown when there are real numbers to show */}
-      {cards.length > 0 && (
-        <section className="flex flex-col gap-6">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-black/40 dark:text-white/40">
-            The numbers
-          </h2>
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-            {cards.map((c) => (
-              <StatCard key={c.label} label={c.label} value={c.value} />
-            ))}
-          </div>
-        </section>
-      )}
         </div>
       </div>
 
@@ -386,39 +352,6 @@ function computeWeekStreak(dates: Date[]): number {
 function daysAgo(dateStr: string): number | null {
   const t = new Date(dateStr).getTime();
   return Number.isNaN(t) ? null : Math.max(0, Math.floor((Date.now() - t) / 86_400_000));
-}
-
-function agoLabel(days: number): string {
-  return days === 0 ? "today" : days === 1 ? "1 day ago" : `${days} days ago`;
-}
-
-function freshnessColor(days: number): string {
-  return days <= 7
-    ? "text-emerald-600 dark:text-emerald-400"
-    : days <= 21
-      ? "text-amber-600 dark:text-amber-400"
-      : "text-red-600 dark:text-red-400";
-}
-
-// Distribution effort for a project, rolled up from the ledger's "post"
-// entries. "not promoted yet" is the nudge for built-but-unshared projects.
-function ProjectDistribution({ projectName }: { projectName: string }) {
-  const posts = shipped.filter((s) => s.project === projectName && s.tag === "post");
-  if (posts.length === 0) {
-    return <span className="text-[11px] text-black/30 dark:text-white/30">not promoted yet</span>;
-  }
-  const days = daysAgo(posts[0].date);
-  return (
-    <span className="text-[11px] text-black/40 dark:text-white/40">
-      <span className="tabular-nums">{posts.length}</span> {posts.length === 1 ? "post" : "posts"}
-      {days != null && (
-        <>
-          {" · "}
-          <span className={freshnessColor(days)}>promoted {agoLabel(days)}</span>
-        </>
-      )}
-    </span>
-  );
 }
 
 // Turn an irregularly-logged series of cumulative totals into an honest view.
@@ -647,11 +580,3 @@ function Tag({ label }: { label: string }) {
   );
 }
 
-function StatCard({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="flex flex-col gap-1 rounded-2xl border border-black/10 bg-white p-4 dark:border-white/10 dark:bg-white/5">
-      <span className="text-2xl font-bold tabular-nums">{value}</span>
-      <span className="text-xs text-black/50 dark:text-white/50">{label}</span>
-    </div>
-  );
-}

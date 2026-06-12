@@ -229,15 +229,6 @@ export const growth: {
   { key: "mostly_error", label: "X followers", href: "https://x.com/mostly_error", series: [{ date: "Jun 2, 2026", value: 130 }] },
 ];
 
-// ── Manual stats you control by hand ──
-// Vercel Web Analytics tracks traffic automatically, but the live
-// number isn't available without an API token — so set it here and
-// bump it when you check your dashboard. Set to null to hide a card.
-export const manualStats: { label: string; value: string | null }[] = [
-  { label: "Monthly visitors", value: null },
-  { label: "Total revenue", value: null },
-];
-
 // ── Shipped log — the ledger that actually matters ──
 // This is the anti-procrastination wall: every time you ship something
 // to the real world (a feature, a launch, a fix, a post), add ONE line

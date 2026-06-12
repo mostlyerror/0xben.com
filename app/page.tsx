@@ -216,12 +216,15 @@ export default async function Home() {
         </p>
 
         <ol className="max-h-[26rem] overflow-y-auto pr-2 sm:columns-2 sm:gap-x-8">
-          {shipped.map((s, i) => (
+          {shipped.map((s, i) => {
+            const visible = s.gloss ?? s.what;
+            const detailItems = s.gloss ? [s.what, ...(s.details ?? [])] : (s.details ?? []);
+            return (
             <li
               key={i}
               className="break-inside-avoid border-t border-black/[0.06] first:border-t-0 dark:border-white/[0.08]"
             >
-              {s.details && s.details.length > 0 ? (
+              {detailItems.length > 0 ? (
                 <details className="group">
                   <summary className="flex cursor-pointer list-none items-baseline gap-4 py-3 [&::-webkit-details-marker]:hidden">
                     <span className="w-24 shrink-0 text-sm tabular-nums text-black/40 dark:text-white/40">
@@ -229,7 +232,7 @@ export default async function Home() {
                     </span>
                     <span className="flex-1 text-sm text-black/80 dark:text-white/80">
                       {s.tag && <Tag label={s.tag} />}
-                      {s.what}
+                      {visible}
                       <span className="ml-1.5 inline-block text-black/30 transition-transform group-open:rotate-90 dark:text-white/30">
                         ›
                       </span>
@@ -249,7 +252,7 @@ export default async function Home() {
                         </a>
                       )}
                       <ul className="mt-2 flex flex-col gap-1.5 text-sm text-black/60 dark:text-white/60">
-                        {s.details.map((d, j) => (
+                        {detailItems.map((d, j) => (
                           <li key={j} className="flex gap-2">
                             <span className="text-black/30 dark:text-white/30">–</span>
                             <span>{d}</span>
@@ -273,16 +276,17 @@ export default async function Home() {
                         rel="noopener noreferrer"
                         className="underline-offset-2 hover:underline"
                       >
-                        {s.what} ↗
+                        {visible} ↗
                       </a>
                     ) : (
-                      s.what
+                      visible
                     )}
                   </span>
                 </div>
               )}
             </li>
-          ))}
+            );
+          })}
         </ol>
       </section>
 

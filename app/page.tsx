@@ -101,6 +101,43 @@ export default async function Home() {
 
         {/* RIGHT — shipping activity */}
         <div className="flex flex-col gap-14">
+      {/* Highlights — the first thing a stranger sees: the best recent ships. */}
+      {shipped.some((s) => s.featured) && (
+        <section className="flex flex-col gap-3">
+          <h2 className="text-sm font-semibold uppercase tracking-wider text-black/40 dark:text-white/40">
+            Highlights
+          </h2>
+          <ul className="flex flex-col">
+            {shipped
+              .filter((s) => s.featured)
+              .slice(0, 5)
+              .map((s) => (
+                <li
+                  key={`${s.date}-${s.what.slice(0, 24)}`}
+                  className="flex items-baseline gap-4 border-t border-black/[0.06] py-2.5 first:border-t-0 dark:border-white/[0.08]"
+                >
+                  <span className="w-24 shrink-0 text-sm tabular-nums text-black/40 dark:text-white/40">
+                    {s.date}
+                  </span>
+                  <span className="flex-1 text-sm text-black/80 dark:text-white/80">
+                    {s.href ? (
+                      <a
+                        href={s.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="underline-offset-2 hover:underline"
+                      >
+                        {s.gloss ?? s.what} ↗
+                      </a>
+                    ) : (
+                      (s.gloss ?? s.what)
+                    )}
+                  </span>
+                </li>
+              ))}
+          </ul>
+        </section>
+      )}
       {/* Projects */}
       <section className="flex flex-col gap-6">
         <h2 className="text-sm font-semibold uppercase tracking-wider text-black/40 dark:text-white/40">

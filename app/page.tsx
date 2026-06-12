@@ -286,6 +286,13 @@ export default async function Home() {
           © {new Date().getFullYear()} {site.name} · {site.domain}
         </span>
         <BuildStamp />
+        <a
+          href="/feed.xml"
+          className="underline-offset-2 hover:underline"
+          title="RSS feed of the shipping log"
+        >
+          · RSS
+        </a>
         {daysSinceShip != null && (
           <span title="Newest entry on the shipping wall">
             ·{" "}

@@ -169,19 +169,6 @@ export default async function Home() {
           </p>
           <p className="text-xs text-black/40 dark:text-white/40">
             {tinyship.seedLine}
-            {tinyship.followHref && (
-              <>
-                {" · "}
-                <a
-                  href={tinyship.followHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="toy-press inline-block font-medium text-emerald-700 underline-offset-2 hover:underline dark:text-emerald-400"
-                >
-                  follow the build ↗
-                </a>
-              </>
-            )}
           </p>
         </div>
       </section>
@@ -215,6 +202,18 @@ export default async function Home() {
         </div>
 
         <ShipHeatmap entries={shipped} nowMs={now.getTime()} />
+
+        <p className="text-xs text-black/45 dark:text-white/45">
+          Built in public.{" "}
+          <a
+            href={tinyship.followHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-medium text-emerald-700 underline-offset-2 hover:underline dark:text-emerald-400"
+          >
+            Follow the build on X ↗
+          </a>
+        </p>
 
         <ol className="max-h-[26rem] overflow-y-auto pr-2 sm:columns-2 sm:gap-x-8">
           {shipped.map((s, i) => (

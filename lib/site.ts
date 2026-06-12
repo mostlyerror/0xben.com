@@ -29,6 +29,13 @@ export const inlineLinks: Record<string, string> = {
   "Good Robot Co": "https://goodrobotco.com",
 };
 
+// ── Door 1: work with me. One quiet line, no services page. ──
+export const workWithMe = {
+  lead: "I also help vibe coders turn prototypes into shipped products.",
+  cta: "Email me",
+  href: "mailto:benjamintpoon@gmail.com",
+};
+
 // One quiet "Right now" line, what Ben is heads-down on THIS week. Gives the
 // static wall a current pulse. Keep it true and present-tense. Set to "" to hide.
 // ("client work" intentionally masks a confidential client project name; never expand it.)

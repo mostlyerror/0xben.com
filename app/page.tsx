@@ -1,5 +1,5 @@
 import type { CSSProperties } from "react";
-import { site, socials, projects, inlineLinks, shipped, status, now as nowLine, tinyship, growth } from "@/lib/site";
+import { site, socials, projects, inlineLinks, shipped, status, now as nowLine, tinyship, growth, workWithMe } from "@/lib/site";
 import { ShipHeatmap } from "@/components/ShipHeatmap";
 import { Sparkline } from "@/components/Sparkline";
 import { StatusLine } from "@/components/StatusLine";
@@ -87,6 +87,15 @@ export default async function Home() {
             <Linkified text={p} />
           </p>
         ))}
+        <p className="text-sm leading-relaxed text-black/60 dark:text-white/60">
+          {workWithMe.lead}{" "}
+          <a
+            href={workWithMe.href}
+            className="font-medium text-indigo-600 underline underline-offset-2 hover:text-indigo-500 dark:text-indigo-400"
+          >
+            {workWithMe.cta}
+          </a>
+        </p>
       </section>
         </div>
 

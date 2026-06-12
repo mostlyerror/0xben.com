@@ -24,8 +24,7 @@ const emojiClass: Record<string, string> = {
 // Server component: GitHub stats are fetched here (cached 1h) so the
 // page arrives fully rendered with no client-side loading flash.
 export default async function Home() {
-  // Freshness nudge: how long since the newest ship. The longer the
-  // silence, the redder it gets — make not-shipping uncomfortable.
+  // Freshness label: how long since the newest ship.
   const lastShipDate = new Date(shipped[0]?.date ?? "");
   const daysSinceShip = Number.isNaN(lastShipDate.getTime())
     ? null

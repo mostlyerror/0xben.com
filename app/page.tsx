@@ -220,71 +220,71 @@ export default async function Home() {
             const visible = s.gloss ?? s.what;
             const detailItems = s.gloss ? [s.what, ...(s.details ?? [])] : (s.details ?? []);
             return (
-            <li
-              key={i}
-              className="break-inside-avoid border-t border-black/[0.06] first:border-t-0 dark:border-white/[0.08]"
-            >
-              {detailItems.length > 0 ? (
-                <details className="group">
-                  <summary className="flex cursor-pointer list-none items-baseline gap-4 py-3 [&::-webkit-details-marker]:hidden">
+              <li
+                key={i}
+                className="break-inside-avoid border-t border-black/[0.06] first:border-t-0 dark:border-white/[0.08]"
+              >
+                {detailItems.length > 0 ? (
+                  <details className="group">
+                    <summary className="flex cursor-pointer list-none items-baseline gap-4 py-3 [&::-webkit-details-marker]:hidden">
+                      <span className="w-24 shrink-0 text-sm tabular-nums text-black/40 dark:text-white/40">
+                        {s.date}
+                      </span>
+                      <span className="flex-1 text-sm text-black/80 dark:text-white/80">
+                        {s.tag && <Tag label={s.tag} />}
+                        {visible}
+                        <span className="ml-1.5 inline-block text-black/30 transition-transform group-open:rotate-90 dark:text-white/30">
+                          ›
+                        </span>
+                      </span>
+                    </summary>
+                    <div className="flex gap-4 pb-3">
+                      <span className="w-24 shrink-0" />
+                      <div className="flex-1">
+                        {s.href && (
+                          <a
+                            href={s.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-sm text-black/60 underline-offset-2 hover:underline dark:text-white/60"
+                          >
+                            {s.href.replace(/^https?:\/\//, "")} ↗
+                          </a>
+                        )}
+                        <ul className="mt-2 flex flex-col gap-1.5 text-sm text-black/60 dark:text-white/60">
+                          {detailItems.map((d, j) => (
+                            <li key={j} className="flex gap-2">
+                              <span className="text-black/30 dark:text-white/30">–</span>
+                              <span>{d}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  </details>
+                ) : (
+                  <div className="flex gap-4 py-3">
                     <span className="w-24 shrink-0 text-sm tabular-nums text-black/40 dark:text-white/40">
                       {s.date}
                     </span>
                     <span className="flex-1 text-sm text-black/80 dark:text-white/80">
                       {s.tag && <Tag label={s.tag} />}
-                      {visible}
-                      <span className="ml-1.5 inline-block text-black/30 transition-transform group-open:rotate-90 dark:text-white/30">
-                        ›
-                      </span>
-                    </span>
-                  </summary>
-                  <div className="flex gap-4 pb-3">
-                    <span className="w-24 shrink-0" />
-                    <div className="flex-1">
-                      {s.href && (
+                      {s.href ? (
                         <a
                           href={s.href}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-sm text-black/60 underline-offset-2 hover:underline dark:text-white/60"
+                          className="underline-offset-2 hover:underline"
                         >
-                          {s.href.replace(/^https?:\/\//, "")} ↗
+                          {visible} ↗
                         </a>
+                      ) : (
+                        visible
                       )}
-                      <ul className="mt-2 flex flex-col gap-1.5 text-sm text-black/60 dark:text-white/60">
-                        {detailItems.map((d, j) => (
-                          <li key={j} className="flex gap-2">
-                            <span className="text-black/30 dark:text-white/30">–</span>
-                            <span>{d}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+                    </span>
                   </div>
-                </details>
-              ) : (
-                <div className="flex gap-4 py-3">
-                  <span className="w-24 shrink-0 text-sm tabular-nums text-black/40 dark:text-white/40">
-                    {s.date}
-                  </span>
-                  <span className="flex-1 text-sm text-black/80 dark:text-white/80">
-                    {s.tag && <Tag label={s.tag} />}
-                    {s.href ? (
-                      <a
-                        href={s.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="underline-offset-2 hover:underline"
-                      >
-                        {visible} ↗
-                      </a>
-                    ) : (
-                      visible
-                    )}
-                  </span>
-                </div>
-              )}
-            </li>
+                )}
+              </li>
             );
           })}
         </ol>

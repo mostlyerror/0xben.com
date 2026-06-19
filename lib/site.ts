@@ -255,13 +255,11 @@ export const shipped: {
   // Optional plain-language line for strangers. When set, it is what the
   // ledger shows; the raw log line moves into the expandable details.
   gloss?: string;
-  // Pin to the Highlights strip at the top of the page (keep it to 3-5).
-  featured?: boolean;
 }[] = [
   // ship:insert — `npm run ship` inserts new entries directly below this line
   { date: "Jun 19, 2026", what: "Built elimination-diet-tracker (R&D prototype) — Today screen + protocol/symptom tracking" },
   { date: "Jun 19, 2026", what: "Built small-account-x-coach — an X growth-coach prototype for small accounts" },
-  { date: "Jun 10, 2026", what: "Built and launched Growthdeck: a distribution C2 dashboard — projects × channels freshness matrix (silence-is-the-alarm dead-poster detection), event ledger with ingest API, wired into tinyship + 4 auto-posters https://growthdeck.0xben.com", tag: "launch", project: "Growthdeck", gloss: "Launched Growthdeck, a dashboard that watches distribution across all my projects and flags any channel going quiet", featured: true },
+  { date: "Jun 10, 2026", what: "Built and launched Growthdeck: a distribution C2 dashboard — projects × channels freshness matrix (silence-is-the-alarm dead-poster detection), event ledger with ingest API, wired into tinyship + 4 auto-posters https://growthdeck.0xben.com", tag: "launch", project: "Growthdeck", gloss: "Launched Growthdeck, a dashboard that watches distribution across all my projects and flags any channel going quiet" },
   { date: "Jun 9, 2026", what: "Launched yt-trade-distill", href: "https://github.com/mostlyerror/yt-trade-distill", tag: "launch", project: "yt-trade-distill" },
   { date: "Jun 9, 2026", what: "Launched Cabinet", href: "https://github.com/mostlyerror/cabinet", tag: "launch", project: "Cabinet" },
   { date: "Jun 8, 2026", what: "Posted a build-in-public tweet: running 7 projects at once like a node.js event loop (dispatch agents, don't await, thread-switch)", tag: "post" },
@@ -275,7 +273,7 @@ export const shipped: {
   { date: "Jun 4, 2026", what: "Tweeting ClusterDesk manually plus built automated tweeting infra", tag: "post", project: "ClusterDesk" },
   { date: "Jun 4, 2026", what: "Posting noyu card carousels to Instagram and tagging friends", tag: "post", project: "noyu" },
   { date: "Jun 2, 2026", what: "Promoted ClusterDesk on X", tag: "post", project: "ClusterDesk" },
-  { date: "Jun 2, 2026", what: "PickleRadar's first signs of life: a stranger submitted a tournament, first email subscriber, and tournament views climbing since launch (best day 38)", project: "PickleRadar", featured: true },
+  { date: "Jun 2, 2026", what: "PickleRadar's first signs of life: a stranger submitted a tournament, first email subscriber, and tournament views climbing since launch (best day 38)", project: "PickleRadar" },
   { date: "Jun 1, 2026", what: "Wrote the ClusterDesk DB migration spec (Supabase to Railway Postgres)", tag: "build", project: "ClusterDesk" },
   { date: "Jun 1, 2026", what: "Shipped a global recovery-hash safety net for password reset on PickleRadar", tag: "build", project: "PickleRadar", gloss: "Shipped a safety net for password reset on PickleRadar" },
   { date: "Jun 1, 2026", what: "Built a growth-tracking system for the wall: audience sparklines that chart growth-rate, not vanity totals, plus a Product Hunt badge https://0xben.com", gloss: "Built audience sparklines for this wall that chart growth rate instead of vanity totals" },
@@ -288,10 +286,10 @@ export const shipped: {
   { date: "May 30, 2026", what: "ClusterDesk product + analytics pass: wired PostHog conversion-funnel analytics, added price sparklines + interactive insider-buy chart markers across the site/email/cards, and shipped 3 research blog posts with a design pass, per-post OG share cards, and share buttons", project: "ClusterDesk" },
   { date: "May 30, 2026", what: "Fixed ClusterDesk's automated X posting engine (it was silently never firing, cron sat outside the posting window), retimed it for the retail audience, and built the content + reply-graph engine around it: weekly leaderboard, thread mode, evergreen floor, and a leverage-ranked reply scout with intra-day fast scans", project: "ClusterDesk", gloss: "Fixed and rebuilt ClusterDesk's automated X posting engine and the content system around it" },
   { date: "May 30, 2026", what: "Launched the Carte landing page: live editorial site with real Houston menu demos embedded as scannable iframes", href: "https://site-bens-projects-1984.vercel.app", tag: "launch", project: "Carte" },
-  { date: "May 30, 2026", what: "Launched Raincheck on Product Hunt", href: "https://www.producthunt.com/products/raincheck-4", tag: "post", project: "Raincheck", featured: true },
+  { date: "May 30, 2026", what: "Launched Raincheck on Product Hunt", href: "https://www.producthunt.com/products/raincheck-4", tag: "post", project: "Raincheck" },
   { date: "May 30, 2026", what: "Promoted ClusterDesk on X (@clusterdesk)", href: "https://x.com/clusterdesk", tag: "post", project: "ClusterDesk" },
-  { date: "May 30, 2026", what: "Built Hot Take, an automated Kalshi weather-markets engine on Cloudflare Workers + D1: twice-daily X posts (NYC daily high, GFS ensemble vs market odds), in-Worker chart + OG generation, and a live quant terminal (edge/EV/Kelly, calibration, simulated P&L)", tag: "build", project: "Hot Take", gloss: "Built Hot Take, a bot that analyzes NYC weather markets on Kalshi and posts its picks twice a day", featured: true },
-  { date: "May 30, 2026", what: "Built Carte pilot end-to-end: live brand/palette extraction, vision-based menu transcription, 9:16 brand-matched renderer, scannable QR + live hosted menus, and a batch scorecard. Validated on 8 real Houston restaurants.", href: "https://site-bens-projects-1984.vercel.app", tag: "build", project: "Carte", gloss: "Built Carte end to end: turn any restaurant's brand into a designed digital menu with a QR code. Validated on 8 real Houston restaurants.", featured: true },
+  { date: "May 30, 2026", what: "Built Hot Take, an automated Kalshi weather-markets engine on Cloudflare Workers + D1: twice-daily X posts (NYC daily high, GFS ensemble vs market odds), in-Worker chart + OG generation, and a live quant terminal (edge/EV/Kelly, calibration, simulated P&L)", tag: "build", project: "Hot Take", gloss: "Built Hot Take, a bot that analyzes NYC weather markets on Kalshi and posts its picks twice a day" },
+  { date: "May 30, 2026", what: "Built Carte pilot end-to-end: live brand/palette extraction, vision-based menu transcription, 9:16 brand-matched renderer, scannable QR + live hosted menus, and a batch scorecard. Validated on 8 real Houston restaurants.", href: "https://site-bens-projects-1984.vercel.app", tag: "build", project: "Carte", gloss: "Built Carte end to end: turn any restaurant's brand into a designed digital menu with a QR code. Validated on 8 real Houston restaurants." },
   { date: "May 30, 2026", what: "Launched Carte", href: "https://site-bens-projects-1984.vercel.app", tag: "launch", project: "Carte" },
   { date: "May 30, 2026", what: "Posted PickleRadar to Houston pickleball FB groups", tag: "post", project: "PickleRadar" },
   { date: "May 30, 2026", what: "Posted about PickleRadar's new ratings histogram", href: "https://x.com/mostly_error/status/2060719470939615536", tag: "post", project: "PickleRadar" },

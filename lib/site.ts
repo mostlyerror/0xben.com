@@ -257,6 +257,7 @@ export const shipped: {
   gloss?: string;
 }[] = [
   // ship:insert — `npm run ship` inserts new entries directly below this line
+  { date: "Jun 21, 2026", what: "Posted heavily on @mostly_error (builder account); +7 followers today", href: "https://twitter.com/mostly_error", tag: "post" },
   { date: "Jun 19, 2026", what: "Built elimination-diet-tracker (R&D prototype) — Today screen + protocol/symptom tracking" },
   { date: "Jun 19, 2026", what: "Built small-account-x-coach — an X growth-coach prototype for small accounts" },
   { date: "Jun 10, 2026", what: "Built and launched Growthdeck: a distribution C2 dashboard — projects × channels freshness matrix (silence-is-the-alarm dead-poster detection), event ledger with ingest API, wired into tinyship + 4 auto-posters https://growthdeck.0xben.com", tag: "launch", project: "Growthdeck", gloss: "Launched Growthdeck, a dashboard that watches distribution across all my projects and flags any channel going quiet" },

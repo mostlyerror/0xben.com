@@ -22,7 +22,7 @@ function PhotoSlot({ interest: it }: { interest: Interest }) {
       </div>
     );
   }
-  if (process.env.NODE_ENV === "production" || !it.photoHint) return null;
+  if (process.env.NODE_ENV !== "development" || !it.photoHint) return null;
   return (
     <div className="mb-3 flex aspect-[4/3] flex-col items-center justify-center gap-1 rounded-lg border border-dashed border-black/20 bg-black/[0.02] text-center dark:border-white/20 dark:bg-white/[0.03]">
       <span className="font-mono text-xs text-black/60 dark:text-white/60">photo-{it.id}</span>

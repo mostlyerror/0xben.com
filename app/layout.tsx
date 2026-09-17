@@ -15,6 +15,13 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+// Every page shows clock-dependent labels ("last shipped N days ago", the
+// 14-day freshness rule). Without this the routes are prerendered once and
+// the clock freezes at build time, so a stale label could outlive the rule.
+// Hourly regeneration is plenty for day-granularity text. Set on the root
+// layout so it covers /, /now and /ships. Must be a literal, not an expression.
+export const revalidate = 3600;
+
 const defaultTitle = `${site.name} · ${site.tagline}`;
 
 export const metadata: Metadata = {

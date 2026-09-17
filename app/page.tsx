@@ -7,8 +7,8 @@ import { ClickableAvatar } from "@/components/ClickableAvatar";
 import { InterestCards } from "@/components/InterestCards";
 import { SiteFooter } from "@/components/SiteFooter";
 
-// Server component, statically prerendered: the clock below is frozen at
-// build time, and every ship commits and redeploys, so it stays honest.
+// Server component. The clock below is read at render time; the root layout's
+// `revalidate` regenerates the page hourly so day-based labels stay true.
 export default function Home() {
   const cadence = shipCadence(shipped.map((s) => s.date), Date.now());
 

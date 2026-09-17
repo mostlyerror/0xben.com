@@ -43,7 +43,7 @@ export function InterestCards() {
           <div
             key={it.id}
             style={{ "--i": i } as CSSProperties}
-            className="toy-card rise flex flex-col rounded-xl border border-black/[0.08] p-3 sm:p-4 dark:border-white/[0.08]"
+            className="toy-card toy-still rise flex flex-col rounded-xl border border-black/[0.08] p-3 sm:p-4 dark:border-white/[0.08]"
           >
             <PhotoSlot interest={it} />
             <div className="flex items-center gap-2.5">

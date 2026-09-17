@@ -103,6 +103,9 @@ body {
     transform: translateY(-4px) rotate(-0.4deg);
     box-shadow: 0 18px 34px -18px rgba(20, 40, 30, 0.28);
   }
+  /* Cards that are not links keep the emoji play but do not lift: a lift
+     with a shadow reads as clickable, and these go nowhere. */
+  .toy-card.toy-still:hover { transform: none; box-shadow: none; }
   .toy-emoji { display: inline-block; transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
   .toy-card:hover .toy-emoji { transform: scale(1.22) rotate(9deg); }
 

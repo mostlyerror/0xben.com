@@ -15,12 +15,14 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const defaultTitle = `${site.name} · ${site.tagline}`;
+
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
-  title: `${site.name} — ${site.tagline}`,
+  title: { default: defaultTitle, template: `%s · ${site.name}` },
   description: site.bio[0],
   openGraph: {
-    title: `${site.name} — ${site.tagline}`,
+    title: defaultTitle,
     description: site.bio[0],
     url: site.url,
     siteName: site.domain,
@@ -28,7 +30,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `${site.name} — ${site.tagline}`,
+    title: defaultTitle,
     description: site.bio[0],
   },
 };

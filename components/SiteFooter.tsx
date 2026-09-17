@@ -8,9 +8,6 @@ export function SiteFooter({ freshLabel }: { freshLabel: string | null }) {
         © {new Date().getFullYear()} {site.name} · {site.domain}
       </span>
       <BuildStamp />
-      <a href="/feed.xml" className="underline-offset-2 hover:underline" title="RSS feed of the shipping log">
-        · RSS
-      </a>
       {freshLabel && (
         <span title="Newest entry on the shipping wall">
           · {freshLabel === "shipped today" ? "last shipped today" : `last shipped ${freshLabel}`}

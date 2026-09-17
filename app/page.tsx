@@ -1,18 +1,16 @@
-import { site, inlineLinks, shipped, status, now as nowLine, workWithMe } from "@/lib/site";
+import Link from "next/link";
+import { site, inlineLinks, shipped, status, now as nowLine, workWithMe, nowPage, beliefs } from "@/lib/site";
 import { shipCadence } from "@/lib/cadence";
 import { StatusLine } from "@/components/StatusLine";
 import { SocialIcons } from "@/components/SocialIcons";
 import { ClickableAvatar } from "@/components/ClickableAvatar";
-import { ProjectCards } from "@/components/ships/ProjectCards";
-import { TinyshipManifesto } from "@/components/ships/TinyshipManifesto";
-import { ShipLedger } from "@/components/ships/ShipLedger";
+import { InterestCards } from "@/components/InterestCards";
 import { SiteFooter } from "@/components/SiteFooter";
 
 // Server component, statically prerendered: the clock below is frozen at
 // build time, and every ship commits and redeploys, so it stays honest.
 export default function Home() {
-  const nowMs = Date.now();
-  const cadence = shipCadence(shipped.map((s) => s.date), nowMs);
+  const cadence = shipCadence(shipped.map((s) => s.date), Date.now());
 
   return (
     <main className="mx-auto flex w-full max-w-7xl flex-1 flex-col gap-14 px-6 py-16 sm:py-24">
@@ -66,14 +64,68 @@ export default function Home() {
       </section>
         </div>
 
-        {/* RIGHT — shipping activity */}
+        {/* RIGHT: the person, then one door to the wall */}
         <div className="flex flex-col gap-14">
-          <div className="flex flex-col gap-6">
-            <ProjectCards />
-            <TinyshipManifesto />
-          </div>
-          <ShipLedger cadence={cadence} nowMs={nowMs} />
+          <InterestCards />
 
+          {/* Now teaser: the first three items of the now page. */}
+          {nowPage.items.length > 0 && (
+            <section className="flex flex-col gap-4">
+              <h2 className="text-sm font-semibold uppercase tracking-wider text-black/40 dark:text-white/40">
+                Now
+              </h2>
+              <ul className="flex flex-col">
+                {nowPage.items.slice(0, 3).map((item, i) => (
+                  <li
+                    key={i}
+                    className="flex items-baseline gap-3 border-t border-black/[0.06] py-3 text-sm first:border-t-0 dark:border-white/[0.08]"
+                  >
+                    <span className="leading-none">{item.emoji}</span>
+                    <span className="text-black/80 dark:text-white/80">{item.text}</span>
+                  </li>
+                ))}
+              </ul>
+              <Link
+                href="/now"
+                className="text-sm font-medium text-indigo-600 underline underline-offset-2 hover:text-indigo-500 dark:text-indigo-400"
+              >
+                More on the now page
+              </Link>
+            </section>
+          )}
+
+          {/* Beliefs: renders nothing until the list has content. */}
+          {beliefs.length > 0 && (
+            <section className="flex flex-col gap-4">
+              <h2 className="text-sm font-semibold uppercase tracking-wider text-black/40 dark:text-white/40">
+                Things I believe
+              </h2>
+              <ul className="flex flex-col gap-3">
+                {beliefs.map((b, i) => (
+                  <li key={i} className="leading-relaxed text-black/80 dark:text-white/80">
+                    {b}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {/* The one door to the wall. Recency shows only when it is fresh. */}
+          <p className="text-sm leading-relaxed text-black/60 dark:text-white/60">
+            I also build a lot of small products. {cadence.total} ships
+            {cadence.freshLabel
+              ? cadence.freshLabel === "shipped today"
+                ? ", the last one today"
+                : `, the last one ${cadence.freshLabel}`
+              : ""}
+            .{" "}
+            <Link
+              href="/ships"
+              className="font-medium text-indigo-600 underline underline-offset-2 hover:text-indigo-500 dark:text-indigo-400"
+            >
+              See the wall
+            </Link>
+          </p>
         </div>
       </div>
 

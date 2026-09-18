@@ -12,11 +12,12 @@ export const site = {
   avatar: "/ben.jpg",
   // The big sentence at the top. Keep it short and human.
   headline: "sup nerds 👋",
-  tagline: "Software solopreneur. I run Good Robot Co and ship small products on the side.",
+  tagline: "Software engineer, oil painter, pickleball singles player. I run Good Robot Co.",
   // A short paragraph or two. Plain strings = separate paragraphs.
   bio: [
-    "I'm Ben. I run Good Robot Co, a one-person shop that builds automation for local service businesses. Think faster replies to new leads, follow-ups that happen on their own, and a steadier stream of reviews.",
-    "On the side I build small products and share the work as I go. This page is where I keep them and the numbers behind them. No team, no funding, just me and code.",
+    "I'm Ben. I've been writing software for about 14 years, most recently as a senior engineer at Landing, and at a handful of startups before that.",
+    "Then I burned out. I took real time off. I traveled, started oil painting, danced a lot of salsa and bachata, did the self-awareness work, and put time into friends and community.",
+    "I came back wanting to build things that matter. Today I run Good Robot Co, a one-person shop. The project I'm most excited about is custom EHR software for orthotics and prosthetics clinics.",
   ],
   // Your GitHub handle. Stats are fetched live from the public API.
   // Set to null to hide the live GitHub card entirely.
@@ -39,17 +40,60 @@ export const workWithMe = {
 // One quiet "Right now" line, what Ben is heads-down on THIS week. Gives the
 // static wall a current pulse. Keep it true and present-tense. Set to "" to hide.
 // ("client work" intentionally masks a confidential client project name; never expand it.)
-export const now = "Right now: heads-down on client work, growing ClusterDesk and noyu by showing up daily.";
+export const now = "Right now: building clinic software, painting, and getting ready for mahjong night.";
 
 // Rotating "currently —" line in the hero. Pure personality — edit freely,
 // keep them short. Set to [] to hide the line.
 export const status: string[] = [
-  "shipping noyu",
+  "painting badly on purpose",
+  "drilling singles serves",
+  "hosting mahjong night",
   "fueled by cold brew",
-  "deep in a PickleRadar refactor",
-  "building in public",
   "probably renaming a variable",
 ];
+
+// ── Outside of work. The human half of the homepage. ──
+// `photo` is a path under /public (e.g. "/photos/painting.jpg"). Leave it
+// unset until the real photo exists: development shows a labeled placeholder
+// box, production renders no slot at all, so the live site never shows an
+// empty frame. `photoHint` says what belongs in the slot.
+// IDs are stable handles. Do not rename them once photos are attached.
+export const interests: {
+  id: string;
+  emoji: string;
+  name: string;
+  line?: string;
+  photo?: string;
+  photoHint?: string;
+}[] = [
+  { id: "painting", emoji: "🎨", name: "Oil painting", line: "Sold paintings in a show. Taking a class at a museum.", photoHint: "one of your paintings" },
+  { id: "pickleball", emoji: "🏓", name: "Pickleball", line: "Four times a week. Tournaments, mostly singles.", photoHint: "you on court" },
+  { id: "mahjong", emoji: "🀄", name: "Mahjong", line: "American and Hong Kong styles. I host socials with friends.", photoHint: "a table mid-game" },
+  { id: "dance", emoji: "💃", name: "Salsa and bachata", line: "Social dancing.", photoHint: "a dance floor shot" },
+  { id: "soccer", emoji: "⚽", name: "Soccer trips", line: "Traveling to watch my teams play." },
+  { id: "moving", emoji: "🏋️", name: "Moving", line: "Lifting, yoga, pilates, running." },
+  { id: "meditation", emoji: "🧘", name: "Meditation" },
+  { id: "cooking", emoji: "🍳", name: "Cooking" },
+  { id: "reading", emoji: "📚", name: "Reading" },
+];
+
+// ── The /now page. Hand-edited. Bump `updated` whenever you touch it. ──
+// The first three items also show as the "Now" teaser on the homepage, so
+// keep the most current things at the top.
+export const nowPage: { updated: string; items: { emoji: string; text: string }[] } = {
+  updated: "Sep 17, 2026",
+  items: [
+    { emoji: "🀄", text: "Hosting our third mahjong social soon." },
+    { emoji: "⚽", text: "Barcelona and London this month to watch my favorite teams." },
+    { emoji: "🦿", text: "Building custom EHR software for orthotics and prosthetics clinics." },
+    { emoji: "🎨", text: "Taking an oil painting class." },
+    { emoji: "🏔️", text: "Booking an artist retreat in Switzerland for the spring." },
+    { emoji: "🏓", text: "Playing singles tournaments." },
+  ],
+};
+
+// ── Things I believe. Empty hides the section entirely. ──
+export const beliefs: string[] = [];
 
 // TinyShip — the shipping-momentum system on this page, as the seed of a
 // product. Pure copy; edit freely. (Future: its own home at tinyship.dev.)

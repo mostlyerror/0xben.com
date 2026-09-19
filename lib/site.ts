@@ -52,29 +52,20 @@ export const status: string[] = [
   "probably renaming a variable",
 ];
 
-// ── Outside of work. The human half of the homepage. ──
-// `photo` is a path under /public (e.g. "/photos/painting.jpg"). Leave it
-// unset until the real photo exists: development shows a labeled placeholder
-// box, production renders no slot at all, so the live site never shows an
-// empty frame. `photoHint` says what belongs in the slot.
-// IDs are stable handles. Do not rename them once photos are attached.
-export const interests: {
-  id: string;
-  emoji: string;
-  name: string;
-  line?: string;
-  photo?: string;
-  photoHint?: string;
-}[] = [
-  { id: "painting", emoji: "🎨", name: "Oil painting", line: "Sold paintings in a show. Taking a class at a museum.", photoHint: "one of your paintings" },
-  { id: "pickleball", emoji: "🏓", name: "Pickleball", line: "Four times a week. Tournaments, mostly singles.", photoHint: "you on court" },
-  { id: "mahjong", emoji: "🀄", name: "Mahjong", line: "American and Hong Kong styles. I host socials with friends.", photoHint: "a table mid-game" },
-  { id: "dance", emoji: "💃", name: "Salsa and bachata", line: "Social dancing.", photoHint: "a dance floor shot" },
-  { id: "soccer", emoji: "⚽", name: "Soccer trips", line: "Traveling to watch my teams play." },
-  { id: "moving", emoji: "🏋️", name: "Moving", line: "Lifting, yoga, pilates, running." },
-  { id: "meditation", emoji: "🧘", name: "Meditation" },
+// ── Outside of work. Just the list, no highlight reel. ──
+export const interests: { id: string; emoji: string; name: string }[] = [
+  { id: "painting", emoji: "🎨", name: "Oil painting" },
+  { id: "pickleball", emoji: "🏓", name: "Pickleball" },
+  { id: "mahjong", emoji: "🀄", name: "Mahjong" },
+  { id: "dance", emoji: "💃", name: "Salsa and bachata" },
+  { id: "soccer", emoji: "⚽", name: "Soccer" },
+  { id: "lifting", emoji: "🏋️", name: "Lifting" },
+  { id: "yoga", emoji: "🧘", name: "Yoga and pilates" },
+  { id: "running", emoji: "🏃", name: "Running" },
+  { id: "meditation", emoji: "🌙", name: "Meditation" },
   { id: "cooking", emoji: "🍳", name: "Cooking" },
   { id: "reading", emoji: "📚", name: "Reading" },
+  { id: "travel", emoji: "✈️", name: "Travel" },
 ];
 
 // ── The /now page. Hand-edited. Bump `updated` whenever you touch it. ──

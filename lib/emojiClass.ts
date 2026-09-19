@@ -20,4 +20,7 @@ export const emojiClass: Record<string, string> = {
   "🧘": "emoji-temp",
   "🍳": "emoji-plate",
   "📚": "emoji-letter",
+  "🏃": "emoji-pickle",
+  "🌙": "emoji-temp",
+  "✈️": "emoji-globe",
 };

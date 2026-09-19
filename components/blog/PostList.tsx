@@ -19,12 +19,14 @@ export function PostList({ posts }: { posts: Post[] }) {
             {p.summary && (
               <span className="text-sm leading-relaxed text-black/55 dark:text-white/55">{p.summary}</span>
             )}
-            <time
-              dateTime={p.date}
-              className="font-mono text-xs tabular-nums text-black/40 dark:text-white/40"
-            >
-              {formatDate(p.date)}
-            </time>
+            <span className="flex flex-wrap items-center gap-x-3 font-mono text-xs text-black/40 dark:text-white/40">
+              <time dateTime={p.date} className="tabular-nums">
+                {formatDate(p.date)}
+              </time>
+              {p.tags.map((t) => (
+                <span key={t}>{t}</span>
+              ))}
+            </span>
           </Link>
         </li>
       ))}

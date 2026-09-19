@@ -5,6 +5,7 @@
 //   title: "Why I took time off"
 //   date: "2026-09-19"        (quote it; bare YAML dates parse as Date objects)
 //   summary: "One line for the list and for link previews."   (optional)
+//   tags: [art, love]                                            (optional)
 //   ---
 //   Body in markdown.
 //
@@ -20,6 +21,7 @@ export type Post = {
   title: string;
   date: string; // YYYY-MM-DD
   summary?: string;
+  tags: string[];
   html: string;
 };
 
@@ -54,6 +56,7 @@ function readPost(slug: string): Post {
     title: String(data.title ?? slug),
     date: normalizeDate(data.date),
     summary: data.summary ? String(data.summary) : undefined,
+    tags: Array.isArray(data.tags) ? data.tags.map(String) : [],
     html,
   };
 }

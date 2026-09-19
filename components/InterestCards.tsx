@@ -7,7 +7,7 @@ export function InterestCards() {
   return (
     <section className="flex flex-col gap-5">
       <h2 className="text-sm font-semibold uppercase tracking-wider text-black/40 dark:text-white/40">
-        Outside of work
+        What I'm into
       </h2>
       <ul className="flex flex-wrap gap-2">
         {interests.map((it) => (

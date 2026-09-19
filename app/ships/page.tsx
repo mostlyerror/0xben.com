@@ -38,7 +38,7 @@ export default function ShipsPage() {
 
       <ShipLedger cadence={cadence} nowMs={nowMs} />
 
-      <SiteFooter freshLabel={cadence.freshLabel} />
+      <SiteFooter />
     </main>
   );
 }

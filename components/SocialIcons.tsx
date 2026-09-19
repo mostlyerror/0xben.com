@@ -47,10 +47,10 @@ const icons: Record<string, React.ReactNode> = {
   ),
 };
 
-export function SocialIcons() {
+export function SocialIcons({ only }: { only?: string[] } = {}) {
   return (
     <div className="mt-2 flex items-center gap-4">
-      {socials.map((s) => {
+      {socials.filter((s) => !only || only.includes(s.label)).map((s) => {
         const isHttp = s.href.startsWith("http");
         return (
           <a

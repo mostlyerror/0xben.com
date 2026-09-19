@@ -12,12 +12,12 @@ export const site = {
   avatar: "/ben.jpg",
   // The big sentence at the top. Keep it short and human.
   headline: "sup nerds 👋",
-  tagline: "Software engineer, oil painter, pickleball singles player. I run Good Robot Co.",
+  tagline: "I paint, dance, host mahjong nights, and build software. This is where I write about being a person.",
   // A short paragraph or two. Plain strings = separate paragraphs.
   bio: [
-    "I'm Ben. I've been writing software for about 14 years, most recently as a senior engineer at Landing, and at a handful of startups before that.",
-    "Then I burned out. I took real time off. I traveled, started oil painting, danced a lot of salsa and bachata, did the self-awareness work, and put time into friends and community.",
-    "I came back wanting to build things that matter. Today I run Good Robot Co, a one-person shop. The project I'm most excited about is custom EHR software for orthotics and prosthetics clinics.",
+    "I'm Ben. I paint in oils, dance salsa and bachata, play pickleball most days, host mahjong nights for friends, and cook, run, read, and meditate in between.",
+    "I've also written software for about 14 years. I burned out on it, took real time off, and came back wanting the work to mean something. These days I run a one-person shop, Good Robot Co, and the project closest to my heart is software for orthotics and prosthetics clinics.",
+    "This site is for all of it: art, friendship, love, philosophy, work, and whatever else being a human turns up. What I'm up to this month is on the now page. The small products I've shipped over the years are on the ships page.",
   ],
   // Your GitHub handle. Stats are fetched live from the public API.
   // Set to null to hide the live GitHub card entirely.
@@ -28,6 +28,8 @@ export const site = {
 // automatically. Add more as { "phrase": "https://..." }.
 export const inlineLinks: Record<string, string> = {
   "Good Robot Co": "https://goodrobotco.com",
+  "now page": "/now",
+  "ships page": "/ships",
 };
 
 // ── Door 1: work with me. One quiet line, no services page. ──
@@ -40,16 +42,16 @@ export const workWithMe = {
 // One quiet "Right now" line, what Ben is heads-down on THIS week. Gives the
 // static wall a current pulse. Keep it true and present-tense. Set to "" to hide.
 // ("client work" intentionally masks a confidential client project name; never expand it.)
-export const now = "Right now: building clinic software, painting, and getting ready for mahjong night.";
+export const now = "Right now: painting, mahjong night with friends, and a clinic software project I care about.";
 
 // Rotating "currently —" line in the hero. Pure personality — edit freely,
 // keep them short. Set to [] to hide the line.
 export const status: string[] = [
   "painting badly on purpose",
-  "drilling singles serves",
   "hosting mahjong night",
+  "practicing bachata turns",
   "fueled by cold brew",
-  "probably renaming a variable",
+  "out on the pickleball court",
 ];
 
 // ── Outside of work. Just the list, no highlight reel. ──

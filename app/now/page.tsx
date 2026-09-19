@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { nowPage, shipped } from "@/lib/site";
-import { shipCadence } from "@/lib/cadence";
+import { nowPage } from "@/lib/site";
 import { SiteFooter } from "@/components/SiteFooter";
 
 export const metadata: Metadata = {
@@ -10,7 +9,6 @@ export const metadata: Metadata = {
 };
 
 export default function NowPage() {
-  const cadence = shipCadence(shipped.map((s) => s.date), Date.now());
 
   return (
     <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col gap-10 px-6 py-16 sm:py-24">
@@ -54,7 +52,7 @@ export default function NowPage() {
         . It changes when my life does.
       </p>
 
-      <SiteFooter freshLabel={cadence.freshLabel} />
+      <SiteFooter />
     </main>
   );
 }

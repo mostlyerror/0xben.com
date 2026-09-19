@@ -6,11 +6,11 @@ import { useEffect, useState } from "react";
 // approach as StatusLine, with an honest, low-key default set.
 // Pass `items` to override. No emdashes in copy.
 const DEFAULT_LINES = [
-  "still shipping",
-  "made at 2am",
-  "no funding, just me",
-  "counting launches, not commits",
-  "built in Houston",
+  "written by a person",
+  "paint under my nails",
+  "between mahjong hands",
+  "made with cold brew",
+  "still figuring it out",
 ];
 
 export function FooterRotator({ items = DEFAULT_LINES }: { items?: string[] }) {

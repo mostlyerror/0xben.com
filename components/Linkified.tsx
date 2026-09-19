@@ -16,8 +16,8 @@ export function Linkified({ text }: { text: string }) {
           <a
             key={i}
             href={inlineLinks[part]}
-            target="_blank"
-            rel="noopener noreferrer"
+            target={inlineLinks[part].startsWith("/") ? undefined : "_blank"}
+            rel={inlineLinks[part].startsWith("/") ? undefined : "noopener noreferrer"}
             className="font-medium text-indigo-600 underline underline-offset-2 hover:text-indigo-500 dark:text-indigo-400"
           >
             {part}

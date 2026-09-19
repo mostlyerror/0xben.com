@@ -8,7 +8,6 @@ import { SocialIcons } from "@/components/SocialIcons";
 const nav = [
   { label: "About", href: "/about" },
   { label: "Now", href: "/now" },
-  { label: "Ships", href: "/ships" },
 ];
 
 // Blog masthead: who this is, in a glance, then the nav.
@@ -37,7 +36,7 @@ export function SiteHeader() {
           </Link>
         ))}
       </nav>
-      <SocialIcons />
+      <SocialIcons only={["X / Twitter", "Email"]} />
       {nowLine && (
         <p className="flex items-baseline gap-2 text-[13px] leading-relaxed text-black/55 dark:text-white/55">
           <span className="metric-fresh mt-1.5 size-1.5 shrink-0 rounded-full bg-emerald-500" />

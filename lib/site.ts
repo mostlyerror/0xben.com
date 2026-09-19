@@ -49,6 +49,7 @@ export const now = "Right now: painting, mahjong night with friends, and a clini
 export const status: string[] = [
   "painting badly on purpose",
   "hosting mahjong night",
+  "writing software for people who build legs",
   "practicing bachata turns",
   "fueled by cold brew",
   "out on the pickleball court",
